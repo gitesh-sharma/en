@@ -1,4 +1,3 @@
-
 TITLE: en Template - 100% Fully Responsive Template
 
 AUTHOR:
@@ -8,6 +7,7 @@ Website: http://giteshgeeky.blogspot.com
 Twitter: http://twitter.com/giteshsharma_
 Facebook: http://facebook.com/giteshsharma.gs
 Instagram: http://instagram.com/giteshsharma_
+YouTube: http://youtube.com/c/giteshgeeky
 
 
 CREDITS:
