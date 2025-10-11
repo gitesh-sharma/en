@@ -1,7 +1,7 @@
 TITLE: en Template - 100% Fully Responsive Template
 
 AUTHOR:
-DESIGNED & DEVELOPED by Gitesh Sharma as Gitesh Geeky
+DESIGNED & DEVELOPED by Gitesh Sharma.
 
 Website: http://giteshgeeky.blogspot.com
 Twitter: http://twitter.com/giteshsharma_
