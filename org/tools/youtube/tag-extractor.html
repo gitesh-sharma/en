@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+
+<html dir='ltr' lang='en-US' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+
+<head>
+
+<meta content='width=device-width, initial-scale=1' name='viewport'/>
+
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+
+<!-- Chrome, Firefox OS and Opera -->
+
+<meta content='' name='theme-color'/>
+
+<!-- Windows Phone -->
+
+<meta content='' name='msapplication-navbutton-color'/>
+
+<meta content='blogger' name='generator'/>
+
+<link href='https://typewala.blogspot.com/favicon.ico' rel='icon' type='image/x-icon'/>
+
+<link href='https://typewala.blogspot.com/' rel='canonical'/>
+
+<link rel="alternate" type="application/atom+xml" title="learntyping - Atom" href="https://typewala.blogspot.com/feeds/posts/default" />
+
+<link rel="alternate" type="application/rss+xml" title="learntyping - RSS" href="https://typewala.blogspot.com/feeds/posts/default?alt=rss" />
+
+<link rel="service.post" type="application/atom+xml" title="learntyping - Atom" href="https://www.blogger.com/feeds/5451448882494799946/posts/default" />
+
+<link rel="me" href="https://www.blogger.com/profile/02565701292357430455" />
+
+<!--Can't find substitution for tag [blog.ieCssRetrofitLinks]-->
+
+<meta content='https://typewala.blogspot.com/' property='og:url'/>
+
+<meta content='learntyping' property='og:title'/>
+
+<meta content='' property='og:description'/>
+
+<!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+
+<title>learntyping</title>
+
+<style id='page-skin-1' type='text/css'><!--
+
+body{background:#fff}
+
+--></style>
+
+<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
+
+<meta name='google-adsense-platform-domain' content='blogspot.com'/>
+
+</head>
+
+<body>
+
+<div class='main section' id='main'><div class='widget HTML' data-version='1' id='HTML1'>
+
+<div class='widget-content'>
+
+<!doctype html>
+
+  
+
+    
+
+    
+
+    
+
+     Online Tool
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+	    
+
+	
+
+    
+
+    
+
+    
+
+    
+
+    <!-- Favicons-->
+
+	<link rel="shortcut icon" href="https://images-eu.ssl-images-amazon.com/images/I/419Fb8QqfFL.png" />
+
+    <!--<link rel="stylesheet" href="https://dl.dropbox.com/s/pq06sh79bhe1c9t/general.css" />-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+
+<style>
+
+body {
+
+	padding-top: 65px;
+
+/*	background-color: #fff30d!important; */
+
+	background-color: #dff0d8!important;
+
+}
+
+.navbar-inverse .navbar-brand {
+
+    color: #fff;
+
+}
+
+.body {
+
+	display: flex;
+
+	flex-direction: row;
+
+	flex-wrap: wrap;
+
+	justify-content: space-around;
+
+}
+
+.navbar-inverse {
+
+    background-color: #004eff;
+
+    border-color: #e61c1c;
+
+}
+
+.adspacebytechnicalarp {
+
+padding:2em;
+
+box-shadow:0 5px 15px rgba(0,0,0,.16);
+
+border-radius:5px;
+
+margin-top:1em;
+
+background:#fff;
+
+text-align:left
+
+}
+
+.canvas-area {
+
+	flex: 2;
+
+	display: flex;
+
+	align-items: center;
+
+	justify-content: center;
+
+	margin: 10px;
+
+}
+
+.img-canvas {
+
+	border: 1px solid #000;
+
+}
+
+.input-area {
+
+	flex: 1;
+
+	display: flex;
+
+	flex-direction: column;
+
+	align-items: center;
+
+	justify-content: center;
+
+	margin: 10px;
+
+}
+
+.form-group {
+
+	width: 90%;
+
+}
+
+.download-button {
+
+	margin-top: 10px;
+
+}
+
+</style>
+
+<!doctype html>
+
+<script>
+
+function myFunction() {
+
+  var copyText = document.getElementById("tags");
+
+  copyText.select();
+
+  copyText.setSelectionRange(0, 99999)
+
+  document.execCommand("copy");
+
+  alert("Copied the text: " + copyText.value);
+
+}
+
+</script>
+
+  
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+
+      <div class="container">
+
+        <div class="navbar-header">
+
+          <a class="navbar-brand" href="index-2.html">Youtube Tag Extractor Tool</a>
+
+        </div>
+
+        <div id="navbar" class="collapse navbar-collapse"></div>
+
+        <!--/.nav-collapse -->
+
+      </div>
+
+    </nav>
+
+	<div class=" container adspacebytechnicalarp ">
+
+      Place your Ad Code 1     
+
+	 </div>
+
+	<br />
+
+ <div class="body">
+
+<center>
+
+    <div class="form-group">
+
+          <label for="topText">Youtube URL:</label>
+
+          <br />
+
+          <input type="text" id="url" class="form-control"/>
+
+<button onclick="my()" class="btn btn-primary btn-lg btn-block"> Get </button>
+
+<button onclick="window.location.reload();">Refresh</button>
+
+    </div>
+
+   
+
+        <div class="form-group">
+
+          <label for="topText">Title:</label><br />
+
+        <textarea id="title" rows="4" cols="42">
+
+    </textarea>       </div>
+
+        <div class="form-group">
+
+          <label for="bottomText">Discription:</label><br />
+
+     <textarea id="discription" rows="4" cols="42">
+
+    </textarea>      </div>
+
+         <div class="form-group">
+
+          <label for="bottomText">Tags:</label><br />
+
+         <textarea id="tags" rows="4" cols="42">    </textarea>   </div>
+
+        
+
+<button onclick="myFunction()">Copy all Tags</button>
+
+      
+
+      </center></div>
+
+    
+
+      
+
+      <div class="input-area">
+
+       
+
+        </div>
+
+       
+
+      <div class="canvas-area" id="technicalarpcanva">
+
+       
+
+       
+
+     
+
+    
+
+<div id="result">
+
+</div>
+
+        
+
+      </div>
+
+     
+
+<script>
+
+function love(){
+
+    var url=document.getElementById('url').value;
+
+    var kmg= url.split("v=")[1];
+
+    var API="AIzaSyDwDaSGxdRT_oixDUitm_L5C4h3hnMllqY";
+
+    var link=`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${kmg}&type=video&key=${API}`;
+
+            fetch(link)                                     
+
+            .then((response) => {
+
+            return response.json();
+
+        
+
+        } )
+
+        .then((data) => {
+
+            console.log(data);
+
+            var lov= data.items[0].snippet.title;
+
+            var dis=data.items[0].snippet.description;
+
+            var tags=data.items[0].snippet.tags;
+
+           var publishedAt=data.items[0].snippet.publishedAt;
+
+           var thumbnails=data.items[0].snippet.thumbnails.medium.url;
+
+           var thumb="<img src='"+thumbnails+"'/>";
+
+           console.log(thumbnails);
+
+           console.log(publishedAt);
+
+           //console.log(thumb);
+
+           // console.log(dis);
+
+//  console.log(tags);
+
+document.getElementById('result').innerHTML=thumb;
+
+document.getElementById('title').innerHTML=lov;
+
+document.getElementById('discription').innerHTML=dis;
+
+for (var i = 0; i < tags.length; i++){
+
+    console.log((i + 1) + '. ' + tags[i])
+
+    document.getElementById('tags').innerHTML=tags;
+
+}
+
+                });
+
+    
+
+   
+
+   } 
+
+   function my(){
+
+    love();
+
+    hate();
+
+}
+
+  
+
+</script>
+
+<script>
+
+function hate(){
+
+    var url=document.getElementById('url').value;
+
+   
+
+var kmg=url.substring(17,28);
+
+    var API="AIzaSyDwDaSGxdRT_oixDUitm_L5C4h3hnMllqY";
+
+    var link=`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${kmg}&type=video&key=${API}`;
+
+            fetch(link)                                     
+
+            .then((response) => {
+
+            return response.json();
+
+        
+
+        } )
+
+        .then((data) => {
+
+            console.log(data);
+
+            var lov= data.items[0].snippet.title;
+
+            var dis=data.items[0].snippet.description;
+
+            var tags=data.items[0].snippet.tags;
+
+           var publishedAt=data.items[0].snippet.publishedAt;
+
+           var thumbnails=data.items[0].snippet.thumbnails.medium.url;
+
+           var thumb="<img src='"+thumbnails+"'/>";
+
+           console.log(thumbnails);
+
+           console.log(publishedAt);
+
+           //console.log(thumb);
+
+           // console.log(dis);
+
+//  console.log(tags);
+
+document.getElementById('result').innerHTML=thumb;
+
+document.getElementById('title').innerHTML=lov;
+
+document.getElementById('discription').innerHTML=dis;
+
+for (var i = 0; i < tags.length; i++){
+
+    console.log((i + 1) + '. ' + tags[i])
+
+    document.getElementById('tags').innerHTML=tags;
+
+}
+
+                });
+
+    
+
+   
+
+   } 
+
+  
+
+</script>
+
+	<div class=" container adspacebytechnicalarp">
+
+      Place your Ad Code 2     
+
+	 </div>
+
+	 
+
+<!-- CONTACT US -->
+
+    <div id="contactus" class="modal fade technicalarpModal" tabindex="-1" role="dialog">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header alert-success">
+
+                    <h4 class="modal-title">Contact Us</h4>
+
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <p>Write Contact Us Information</p>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+
+                </div>
+
+            </div>
+
+            <!-- /.modal-content -->
+
+        </div>
+
+        <!-- /.modal-dialog -->
+
+    </div>
+
+    <!-- / CONTACT US -->
+
+    <!-- PRIVACY -->
+
+    <div id="privacy" class="modal fade technicalarpModal" tabindex="-1" role="dialog">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header bg-warning">
+
+                    <h4 class="modal-title">PRIVACY POLICY</h4>
+
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <p>PRIVACY POLICY Text Write Down</p>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button data-dismiss="modal" class="btn btn-default" type="button">close</button>
+
+                </div>
+
+            </div>
+
+            <!-- /.modal-content -->
+
+        </div>
+
+        <!-- /.modal-dialog -->
+
+    </div>
+
+    <!-- / PRIVACY -->
+
+    <!-- ABOUT US -->
+
+    <div id="aboutus" class="modal fade technicalarpModal" tabindex="-1" role="dialog">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header bg-primary">
+
+                    <h4 class="modal-title">ABOUT US</h4>
+
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <p> About Script Write</p>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button data-dismiss="modal" class="btn btn-default" type="button">close</button>
+
+                </div>
+
+            </div>
+
+            <!-- /.modal-content -->
+
+        </div>
+
+        <!-- /.modal-dialog -->
+
+    </div>
+
+    <!-- / ABOUT US -->
+
+    
+
+    <!-- TERMOFUSE -->
+
+    <div id="termsofuse" class="modal fade technicalarpModal" tabindex="-1" role="dialog">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header alert-warning">
+
+                    <h4 class="modal-title">TERM OF USE</h4>
+
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <p>TERM OF USE INFORMATION IF YOU WANT TO REMOVE IT JUST REMOVE CODE</p>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button data-dismiss="modal" class="btn btn-default" type="button">close</button>
+
+                </div>
+
+            </div>
+
+            <!-- /.modal-content -->
+
+        </div>
+
+        <!-- /.modal-dialog -->
+
+    </div>
+
+    <!-- / TERMOFUSE -->
+
+<br />
+
+<br />
+
+<br />
+
+        <footer id='footer'>
+
+		
+
+		<div style='text-align: center;'>
+
+				<div class="Container text-center mb-10">
+
+				  <a href="#privacy" data-toggle="modal" data-target="#privacy" >Privacy Policy </a> | 
+
+				  <a href="#termsofuse" data-toggle="modal" data-target="#termsofuse" >Terms of Use</a> | 
+
+					<a href="#aboutus" data-toggle="modal" data-target="#aboutus" >About Us </a> | 
+
+					  <a href="#contactus" data-toggle="modal" data-target="#contactus" >Contact Us</a>
+
+				</div>
+
+		
+
+                <p class="text-center" >Copyright &#169; <script type='text/javascript'>var creditsyear = new Date();document.write(creditsyear.getFullYear());</script> 
+
+				<a href="yourwebsiteurl" >YOUR WEBSITE</a></p>
+
+				<div id="credits" class="text-center" style="margin-bottom:1.5rem;" >
+
+					Distributed With ðŸ’—by Gajab</div>
+
+						
+
+				</div>			
+
+        </footer>
+
+  
+
+</!doctype>
+
+  
+
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</!doctype>
+
+</div>
+
+<div class='clear'></div>
+
+</div></div>
+
+<script type="text/javascript" src="https://www.blogger.com/static/v1/widgets/2918676466-widgets.js"></script>
+
+<script type='text/javascript'>
+
+window['__wavt'] = 'AOuZoY5OPFelX-ERyTyvezDMnNuOWIsAMQ:1635056027036';_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3d5451448882494799946','//typewala.blogspot.com/','5451448882494799946');
+
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'blogId': '5451448882494799946', 'title': 'learntyping', 'url': 'https://typewala.blogspot.com/', 'canonicalUrl': 'https://typewala.blogspot.com/', 'homepageUrl': 'https://typewala.blogspot.com/', 'searchUrl': 'https://typewala.blogspot.com/search', 'canonicalHomepageUrl': 'https://typewala.blogspot.com/', 'blogspotFaviconUrl': 'https://typewala.blogspot.com/favicon.ico', 'bloggerUrl': 'https://www.blogger.com', 'hasCustomDomain': false, 'httpsEnabled': true, 'enabledCommentProfileImages': true, 'gPlusViewType': 'FILTERED_POSTMOD', 'adultContent': false, 'analyticsAccountNumber': '', 'encoding': 'UTF-8', 'locale': 'en-GB', 'localeUnderscoreDelimited': 'en_gb', 'languageDirection': 'ltr', 'isPrivate': false, 'isMobile': false, 'isMobileRequest': false, 'mobileClass': '', 'isPrivateBlog': false, 'isDynamicViewsAvailable': true, 'feedLinks': '\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22learntyping - Atom\x22 href\x3d\x22https://typewala.blogspot.com/feeds/posts/default\x22 /\x3e\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/rss+xml\x22 title\x3d\x22learntyping - RSS\x22 href\x3d\x22https://typewala.blogspot.com/feeds/posts/default?alt\x3drss\x22 /\x3e\n\x3clink rel\x3d\x22service.post\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22learntyping - Atom\x22 href\x3d\x22https://www.blogger.com/feeds/5451448882494799946/posts/default\x22 /\x3e\n', 'meTag': '\x3clink rel\x3d\x22me\x22 href\x3d\x22https://www.blogger.com/profile/02565701292357430455\x22 /\x3e\n', 'adsenseHostId': 'ca-host-pub-1556223355139109', 'adsenseHasAds': false, 'adsenseAutoAds': false, 'view': '', 'dynamicViewsCommentsSrc': '//www.blogblog.com/dynamicviews/4224c15c4e7c9321/js/comments.js', 'dynamicViewsScriptSrc': '//www.blogblog.com/dynamicviews/ce49c797cbb390ee', 'plusOneApiSrc': 'https://apis.google.com/js/plusone.js', 'disableGComments': true, 'sharing': {'platforms': [{'name': 'Get link', 'key': 'link', 'shareMessage': 'Get link', 'target': ''}, {'name': 'Facebook', 'key': 'facebook', 'shareMessage': 'Share to Facebook', 'target': 'facebook'}, {'name': 'BlogThis!', 'key': 'blogThis', 'shareMessage': 'BlogThis!', 'target': 'blog'}, {'name': 'Twitter', 'key': 'twitter', 'shareMessage': 'Share to Twitter', 'target': 'twitter'}, {'name': 'Pinterest', 'key': 'pinterest', 'shareMessage': 'Share to Pinterest', 'target': 'pinterest'}, {'name': 'Email', 'key': 'email', 'shareMessage': 'Email', 'target': 'email'}], 'disableGooglePlus': true, 'googlePlusShareButtonWidth': 0, 'googlePlusBootstrap': '\x3cscript type\x3d\x22text/javascript\x22\x3ewindow.___gcfg \x3d {\x27lang\x27: \x27en_GB\x27};\x3c/script\x3e'}, 'hasCustomJumpLinkMessage': false, 'jumpLinkMessage': 'Read more', 'pageType': 'index', 'pageName': '', 'pageTitle': 'learntyping'}}, {'name': 'features', 'data': {'sharing_get_link_dialog': 'true', 'sharing_native': 'false'}}, {'name': 'messages', 'data': {'edit': 'Edit', 'linkCopiedToClipboard': 'Link copied to clipboard', 'ok': 'Ok', 'postLink': 'Post link'}}, {'name': 'template', 'data': {'name': 'custom', 'localizedName': 'Custom', 'isResponsive': true, 'isAlternateRendering': false, 'isCustom': true}}, {'name': 'view', 'data': {'classic': {'name': 'classic', 'url': '?view\x3dclassic'}, 'flipcard': {'name': 'flipcard', 'url': '?view\x3dflipcard'}, 'magazine': {'name': 'magazine', 'url': '?view\x3dmagazine'}, 'mosaic': {'name': 'mosaic', 'url': '?view\x3dmosaic'}, 'sidebar': {'name': 'sidebar', 'url': '?view\x3dsidebar'}, 'snapshot': {'name': 'snapshot', 'url': '?view\x3dsnapshot'}, 'timeslide': {'name': 'timeslide', 'url': '?view\x3dtimeslide'}, 'isMobile': false, 'title': 'learntyping', 'description': '', 'url': 'https://typewala.blogspot.com/', 'type': 'feed', 'isSingleItem': false, 'isMultipleItems': true, 'isError': false, 'isPage': false, 'isPost': false, 'isHomepage': true, 'isArchive': false, 'isLabelSearch': false}}]);
+
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML1', 'main', document.getElementById('HTML1'), {}, 'displayModeFull'));
+
+</script>
+
+</body>
+
+</html>
