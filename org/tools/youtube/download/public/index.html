@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic YouTube Downloader</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+    </style>
+</head>
+<body>
+
+<h2>YouTube Video Downloader (Dynamic)</h2>
+
+<input type="text" id="videoUrl" placeholder="Enter YouTube URL" size="50">
+<button onclick="fetchLinks()">Get Download Links</button>
+
+<div id="results"></div>
+
+<script>
+async function fetchLinks() {
+  const url = document.getElementById("videoUrl").value;
+  const res = await fetch("/api/getLinks", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ url })
+  });
+  const data = await res.json();
+
+  if (data.error) {
+    document.getElementById("results").innerText = data.error;
+    return;
+  }
+
+  let html = `<h3>${data.title}</h3>`;
+  html += `<img src="${data.thumbnail}" width="200"><br><br>`;
+  html += `<ul>`;
+
+  data.formats.forEach(f => {
+    html += `<li><a href="${f.url}" download target="_blank">Download ${f.quality}</a></li>`;
+  });
+
+  html += `</ul>`;
+  document.getElementById("results").innerHTML = html;
+}
+</script>
+
+</body>
+</html>
