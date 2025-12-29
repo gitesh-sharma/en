@@ -17,7 +17,10 @@ body{background:#f4f7fb;color:#333}
 
 /* HEADER BASE */
 .header{
-  background:#1aa84b;
+  background:var(--green);
+  position:sticky;
+  top:0;
+  z-index:9999;
 }
 
 .header-inner{
@@ -37,11 +40,16 @@ body{background:#f4f7fb;color:#333}
 .logo span{color:#e6fffa}
 
 /* HAMBURGER */
-.menu-toggle{
+/*.menu-toggle{
   display:none;
   flex-direction:column;
   gap:5px;
   cursor:pointer;
+}*/
+.menu-toggle{
+  position:relative;
+  z-index:10000;   /* 🔥 MOST IMPORTANT */
+  pointer-events:auto;
 }
 .menu-toggle span{
   width:26px;
@@ -78,6 +86,7 @@ body{background:#f4f7fb;color:#333}
     gap:16px;
     padding:20px 0;
     display:none;
+    z-index:9998;
   }
 
   .nav-menu.active{
