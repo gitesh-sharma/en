@@ -272,9 +272,11 @@ body{
 @media(max-width:768px){
   .footer-bottom{
     font-size:12px;
-    text-align:center
+    grid-template-columns:1fr;
+    text-align:center;
+    margin:auto
   }
-
+}
 </style>
 
 <script>
@@ -383,8 +385,9 @@ function toggleMenu(){
 
   </div>
 
-  <div class="footer-bottom">© 2025 Sharmaji Technology Media • Design by <a href="#">Gitesh Sharma</a></div>
+  <div class="footer-bottom">© 2025 Sharmaji Technology Media</div>
 </footer>
+  <p>Design by <a href="#">Gitesh Sharma</p>
 
 <script>
 document.querySelectorAll('.footer-links h4').forEach(h=>{
