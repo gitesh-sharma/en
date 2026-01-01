@@ -259,6 +259,8 @@ body{
   text-align:center;
   padding:12px;
   font-size:13px
+  margin-top:30px;
+  white-space:nowrap;
 }
 .footer-bottom a{
   text-decoration:none;
@@ -271,10 +273,10 @@ body{
 /* MOBILE FOOTER BOTTOM FIX */
 @media(max-width:768px){
   .footer-bottom{
+    white-space:normal;  /* Allow 2 lines */
+    line-height:1.6;
+    text-align:center;   /* 🔥 Mobile center */
     font-size:12px;
-    grid-template-columns:1fr;
-    text-align:center;
-    margin:auto
   }
 }
 </style>
