@@ -257,11 +257,11 @@ body{
 .footer-bottom{
   border-top:1px solid #1e293b;
   background:#020617;
-  text-align:center;
+  justify-content:center;
   padding:12px;
+  gap:4px;
   font-size:13px
-  margin-top:30px;
-  white-space:nowrap;
+  display:flex;
 }
 .footer-bottom a{
   text-decoration:none;
@@ -274,12 +274,16 @@ body{
 /* MOBILE FOOTER BOTTOM FIX */
 @media(max-width:768px){
   .footer-bottom{
-    white-space:normal;  /* Allow 2 lines */
-    line-height:1.6;
-    text-align:center;   /* 🔥 Mobile center */
+    flex-direction:column;
+    text-align:center;
     font-size:12px;
   }
+  .dot{
+    display:none;
+  }
 }
+
+  
 </style>
 
 <script>
@@ -388,8 +392,14 @@ function toggleMenu(){
 
   </div>
 
-  <div class="footer-bottom">© 2025 Sharmaji Technology Media • Design by <a href="#">Gitesh Sharma</a></div>
-  </footer>
+  <!--<div class="footer-bottom">© 2025 Sharmaji Technology Media • Design by <a href="#">Gitesh Sharma</a></div>
+  </footer>-->
+
+<div class="footer-bottom">
+  <span class="fb-left">© 2025 Sharmaji Technology Media</span>
+  <span class="dot">•</span>
+  <span class="fb-right">Design by Gitesh Sharma</span>
+</div>
 
 
 <script>
