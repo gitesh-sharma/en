@@ -49,6 +49,36 @@ body{
   box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
+/* SHARE ICON */
+.share-wrapper{
+  position:absolute;
+  top:14px;
+  right:14px;
+}
+.share-btn{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:transparent;
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:.2s ease;
+}
+.share-btn svg{
+  width:16px;
+  height:16px;
+  fill:var(--muted);
+}
+.share-btn:hover{
+  background:#020617;
+}
+.share-btn:hover svg{
+  fill:#fff;
+}
+  
 /* PROFILE */
 .avatar{
   width:110px;
@@ -146,7 +176,15 @@ body{
 
 <div class="wrapper">
   <div class="card">
-
+    <!-- SHARE -->
+    <div class="share-wrapper">
+      <button class="share-btn" onclick="openShare()" aria-label="Share">
+        <svg viewBox="0 0 24 24">
+          <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11A3 3 0 1 0 14 5c0 .24.04.47.09.7L7.04 9.81A3 3 0 1 0 6 15c.38 0 .74-.07 1.04-.19l7.05 4.11c-.05.21-.09.43-.09.66a3 3 0 1 0 3-3z"/>
+        </svg>
+      </button>
+    </div>
+    
     <!-- PROFILE -->
     <img src="https://avatars.githubusercontent.com/u/1?v=4" alt="Profile" class="avatar">
     <div class="name">Gitesh <span>Sharma</span></div>
@@ -172,5 +210,18 @@ body{
   </div>
 </div>
 
+<script>
+const pageUrl = window.location.href;
+const pageTitle = "Gitesh Sharma | Sharmaji Tools";
+
+function openShare(){
+  if(navigator.share){
+    navigator.share({ title: pageTitle, url: pageUrl });
+  }else{
+    alert("Sharing supported on mobile browsers.");
+  }
+}
+</script>
+  
 </body>
 </html>
