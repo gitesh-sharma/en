@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About - Gitesh Sharma - Sharmaji Tools</title>
+<title>Gitesh Sharma | Sharmaji Tools</title>
 
 <style>
 :root{
@@ -32,15 +32,14 @@ body{
   color:var(--text);
 }
 
-/* MAIN WRAPPER */
 .wrapper{
   width:100%;
   max-width:420px;
   padding:18px;
 }
 
-/* CARD */
 .card{
+  position:relative;
   background:var(--card);
   border:1px solid var(--border);
   border-radius:18px;
@@ -55,6 +54,7 @@ body{
   top:14px;
   right:14px;
 }
+
 .share-btn{
   width:30px;
   height:30px;
@@ -67,18 +67,20 @@ body{
   cursor:pointer;
   transition:.2s ease;
 }
+
 .share-btn svg{
   width:16px;
   height:16px;
   fill:var(--muted);
 }
+
 .share-btn:hover{
   background:#020617;
 }
 .share-btn:hover svg{
   fill:#fff;
 }
-  
+
 /* PROFILE */
 .avatar{
   width:110px;
@@ -92,17 +94,22 @@ body{
 .name{
   font-size:22px;
   font-weight:600;
-  margin-bottom:4px;
 }
 
 .name span{
   color:var(--primary);
 }
 
+.username{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
 .tagline{
   font-size:14px;
   color:var(--muted);
-  margin-bottom:22px;
+  margin:18px 0 22px;
 }
 
 /* LINKS */
@@ -147,27 +154,11 @@ body{
   color:#fff;
 }
 
-/* MOBILE SAFETY */
-@media(max-height:620px){
-  body{
-    align-items:flex-start;
-    padding-top:20px;
-  }
-}
-
-/* MOBILE OPTIMIZATION */
-@media (max-width:380px){
-  .avatar{
-    width:90px;
-    height:90px;
-  }
-  .name{
-    font-size:20px;
-  }
-  .links a{
-    font-size:14px;
-    padding:13px;
-  }
+/* MOBILE */
+@media(max-width:380px){
+  .avatar{width:90px;height:90px;}
+  .name{font-size:20px;}
+  .links a{font-size:14px;}
 }
 </style>
 </head>
@@ -176,6 +167,7 @@ body{
 
 <div class="wrapper">
   <div class="card">
+
     <!-- SHARE -->
     <div class="share-wrapper">
       <button class="share-btn" onclick="openShare()" aria-label="Share">
@@ -184,27 +176,27 @@ body{
         </svg>
       </button>
     </div>
-    
+
     <!-- PROFILE -->
-    <img src="https://avatars.githubusercontent.com/u/1?v=4" alt="Profile" class="avatar">
+    <img src="https://avatars.githubusercontent.com/u/1?v=4" class="avatar" alt="Gitesh Sharma">
     <div class="name">Gitesh <span>Sharma</span></div>
+    <div class="username">@giteshsharma_</div>
     <div class="tagline">Blogger • Founder of Sharmaji Tools</div>
 
     <!-- LINKS -->
     <div class="links">
       <a href="https://gitesh-sharma.github.io/en/org/" target="_blank">🌐 Official Website</a>
       <a href="https://gitesh-sharma.github.io/en/org/tools" target="_blank">🛠 Tools Dashboard</a>
-      <a href="#" target="_blank">📈 SEO & Keyword Tools</a>
-      <a href="#" target="_blank">📸 Instagram</a>
-      <a href="#" target="_blank">▶ YouTube</a>
-      <a href="#" target="_blank">💻 GitHub</a>
+      <a href="#">📈 SEO & Keyword Tools</a>
+      <a href="#">📸 Instagram</a>
+      <a href="#">▶ YouTube</a>
+      <a href="#">💻 GitHub</a>
     </div>
 
     <!-- FOOTER -->
     <div class="footer">
       © 2026 Sharmaji Technology Media<br>
-      <a href="/privacy.html">Privacy</a> • 
-      <a href="/sitemap.xml">Sitemap</a>
+      <a href="/privacy.html">Privacy</a> • <a href="/sitemap.xml">Sitemap</a>
     </div>
 
   </div>
@@ -222,6 +214,6 @@ function openShare(){
   }
 }
 </script>
-  
+
 </body>
 </html>
