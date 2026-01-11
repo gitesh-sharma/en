@@ -1,26 +1,218 @@
----
-permalink: /404.html
-layout: default
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png" />
+  <title>404 - Shreya Enterprises</title>
 
-<style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
 
-<div class="container">
-  <h1>404</h1>
+    body {
+      background: #f3f4f6;
+      color: #1e293b;
+      padding: 30px 12px;
+      text-align: center;
+    }
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-  <p><a href="/en">Home</a> ● <a href="/posts">Blog Post</a></p>
-</div>
+    .box {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 35px 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo {
+      width: 100px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: 60px;
+      font-weight: 700;
+      color: #007c32;
+    }
+
+    p {
+      font-size: 17px;
+      margin: 10px 0 20px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #CC5500;
+      border-radius: 10px;
+      outline: none;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .suggestions {
+      display: none;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      text-align: left;
+      margin-top: -5px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .suggestions div {
+      padding: 10px 12px;
+      cursor: pointer;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .suggestions div:hover {
+      background: #f8fafc;
+    }
+
+    a.home-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 30px;
+      background: #007c32;
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    a.home-btn:hover {
+      background: #CC5500;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #475569;
+    }
+    
+    footer a {
+      color: #475569;
+      text-decoration: none;
+    }
+    
+    footer a:hover{
+      color: #CC5500;
+    }
+
+    .footer-p {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #475569;
+    }
+    .footer-p a {
+      color: #475569;
+      text-decoration: none;
+    }
+
+    .footer-p a:hover{
+      color: #CC5500;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+
+    <!-- Logo -->
+    <img src="https://shreyaenterprises.github.io/images/favicon.png" class="logo" alt="Shreya Enterprises Logo">
+
+    <h1>404</h1>
+    <p>The page you are looking for is not available.</p>
+
+    <!-- Search -->
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search pages..." onkeyup="showSuggestions()">
+      <div class="suggestions" id="suggestions"></div>
+    </div>
+
+    <!-- Home Button -->
+    <a href="/" class="home-btn">← Go to Home Page</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Shreya Enterprises • 
+     <a href="/legal/privacy.html">Privacy</a> • <a href="/sitemap.html">Sitemap</a>
+  </footer>
+  <div class="footer-p">Design by <a href="https://giteshgeeky.github.io" target="_blank">Gitesh Sharma</a></div>
+
+  <script>
+    const pages = [
+      { name: "Home", url: "/" },
+      { name: "About Company", url: "/about/company.html" },
+      { name: "About Team", url: "/about/team.html" },
+      { name: "About Managing Director", url: "/about/managing-director.html" },
+      { name: "About Workshop", url: "/about/workshop.html" },
+      { name: "Contact", url: "/contact.html" },
+      { name: "Sitemap", url: "/sitemap.html" },
+      { name: "Clients", url: "/clients.html" },
+      { name: "Careers", url: "/career.html" },
+      { name: "Trailers - Machineries - Shreya Construction", url: "/construction/machineries/Trailer.html" },
+      { name: "Boom Lifts - Machineries - Shreya Construction", url: "/construction/machineries/Boom-Lift.html" },
+      { name: "Farana - Machineries - Shreya Construction", url: "/construction/machineries/Farana.html" },
+      { name: "Crane - Machineries - Shreya Construction", url: "/construction/machineries/Cranes.html" },
+      { name: "Machineries - Shreya Construction", url: "/construction/machineries/" },
+      { name: "Shreya Construction", url: "/construction/" },
+      { name: "Documents", url: "/docs.html" },
+      { name: "Corporate Social Responsibility", url: "/csr.html" },
+      { name: "Services", url: "/services.html" },
+      { name: "Projects", url: "/projects.html" },
+      { name: "EHS Policy", url: "/legal/ehs-policy.html" },
+      { name: "Terms", url: "/legal/terms.html" },
+      { name: "Privacy", url: "/legal/privacy.html" },
+      { name: "Disclaimer", url: "/legal/disclaimer.html" }
+    ];
+
+    function showSuggestions() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const suggestionBox = document.getElementById("suggestions");
+
+      if (input.length === 0) {
+        suggestionBox.style.display = "none";
+        return;
+      }
+
+      let matches = pages.filter(p => p.name.toLowerCase().includes(input));
+
+      if (matches.length === 0) {
+        suggestionBox.style.display = "none";
+        return;
+      }
+
+      suggestionBox.innerHTML = "";
+      matches.forEach(m => {
+        let item = document.createElement("div");
+        item.textContent = m.name;
+        item.onclick = () => window.location.href = m.url;
+        suggestionBox.appendChild(item);
+      });
+
+      suggestionBox.style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
