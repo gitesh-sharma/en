@@ -1,1 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Contact Us – Sharmaji Tools</title>
+
+<meta name="description" content="Contact Sharmaji Tools for support, feedback and queries.">
+
+<style>
+:root{
+  --dark:#020617;
+  --blue:#2563eb;
+  --light:#f4f7fb;
+  --success:#d1fae5;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Poppins,system-ui;
+}
+
+body{
+  background:var(--light);
+  color:#222;
+}
+
+/* ===== HEADER ===== */
+header{
+  background:var(--dark);
+  color:#fff;
+  padding:16px 8%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.logo{
+  font-size:1.6rem;
+  font-weight:700;
+}
+.logo span{color:#22c55e}
+
+nav{
+  display:flex;
+  gap:22px;
+}
+nav a{
+  color:#fff;
+  text-decoration:none;
+  font-size:15px;
+}
+
+.menu-icon{
+  display:none;
+  font-size:1.8rem;
+  cursor:pointer;
+}
+
+/* ===== HERO ===== */
+.hero{
+  background:linear-gradient(135deg,#020617,#0f172a);
+  color:#fff;
+  padding:60px 8%;
+  text-align:center;
+}
+.hero h1{font-size:2.4rem}
+.hero p{opacity:.9;margin-top:8px}
+
+/* ===== FORM ===== */
+.contact-container{
+  max-width:720px;
+  margin:40px auto;
+  background:#fff;
+  padding:30px;
+  border-radius:16px;
+  box-shadow:0 15px 35px rgba(0,0,0,.12);
+}
+
+.contact-container h2{
+  text-align:center;
+  margin-bottom:6px;
+}
+
+.contact-container p{
+  text-align:center;
+  color:#666;
+  margin-bottom:18px;
+}
+
+input, textarea{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:1px solid #ccc;
+  border-radius:6px;
+  font-size:15px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  background:var(--blue);
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  font-size:16px;
+  cursor:pointer;
+}
+button:hover{opacity:.9}
+
+.success-box{
+  display:none;
+  margin-top:16px;
+  padding:12px;
+  background:var(--success);
+  color:#065f46;
+  border-radius:6px;
+  text-align:center;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  background:#0f172a;
+  color:#cbd5f5;
+  text-align:center;
+  padding:20px;
+  margin-top:50px;
+  font-size:13px;
+}
+
+footer a{
+  color:#cbd5f5;
+  text-decoration:none;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:850px){
+  nav{
+    position:absolute;
+    top:64px;
+    right:10px;
+    background:#020617;
+    flex-direction:column;
+    padding:18px;
+    display:none;
+    border-radius:10px;
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+  }
+  nav.active{display:flex}
+  .menu-icon{display:block}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="logo">Sharmaji <span>Tools</span></div>
+
+  <nav id="nav-menu">
+    <a href="/">Home</a>
+    <a href="/tools">Tools</a>
+    <a href="/blog">Blog</a>
+    <a href="#">Contact</a>
+  </nav>
+
+  <div class="menu-icon" onclick="toggleMenu()">☰</div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <h1>Contact Sharmaji Tools</h1>
+  <p>Support • Feedback • Suggestions</p>
+</section>
+
+<!-- ===== CONTACT FORM ===== -->
+<div class="contact-container">
+
+  <h2>Get in Touch</h2>
+  <p>Fill the form and we’ll get back to you soon.</p>
+
+  <form id="contactForm"
+    action="https://docs.google.com/forms/d/e/1FAIpQLSeL9X2ROdj97qDQkkVqcBFeVqa5xNnyb-4G1WVch00IjDE61A/formResponse"
+    method="POST"
+    target="hidden_iframe">
+
+    <!-- ONLY REAL GOOGLE FORM FIELDS -->
+    <input type="text" name="entry.2005620554" placeholder="Your Name" required>
+    <input type="email" name="entry.1045781291" placeholder="Your Email" required>
+    <input type="tel" name="entry.1166974658" placeholder="Phone Number">
+    <textarea name="entry.839337160" rows="5" placeholder="Your Message" required></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
+
+  <div class="success-box" id="successBox">
+    ✅ Message sent successfully!
+  </div>
+
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  © 2026 <strong>Sharmaji Tools</strong> · Built by
+  <a href="https://gitesh-sharma.github.io/en/">Gitesh Sharma</a>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('nav-menu').classList.toggle('active');
+}
+
+document.getElementById("contactForm").addEventListener("submit", function(){
+  document.getElementById("successBox").style.display="block";
+  setTimeout(()=>{
+    document.getElementById("contactForm").reset();
+  },1500);
+});
+</script>
+
+</body>
+</html>
