@@ -452,7 +452,19 @@ document.querySelectorAll('.footer-links h4').forEach(h=>{
 })
 </script>
 </footer>
+  
 <script>
+function toggleMenu(){
+  document.querySelector('.nav-menu').classList.toggle('active');
+}
+
+document.getElementById("contactForm").addEventListener("submit", function(){
+  document.getElementById("successBox").style.display="block";
+  setTimeout(()=>this.reset(),1500);
+});
+</script>
+  
+<!--<script>
 function toggleMenu(){
   document.getElementById('nav-menu').classList.toggle('active');
 }
@@ -463,7 +475,7 @@ document.getElementById("contactForm").addEventListener("submit", function(){
     document.getElementById("contactForm").reset();
   },1500);
 });
-</script>
+</script>-->
 
 </body>
 </html>
