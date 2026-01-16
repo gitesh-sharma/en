@@ -136,14 +136,48 @@ body{
 .hero h1{font-size:38px;margin-bottom:10px}
 .hero p{max-width:720px;margin:auto;font-size:16px}
 
-/* ================= COMMON ================= */
-.section{padding:55px 40px;max-width:1200px;margin:auto}
+/* ================= SECTION ================= */
+/*.section{padding:55px 40px;max-width:1200px;margin:auto}
 .section h2{
   text-align:center;
   font-size:30px;
   margin-bottom:35px;
   color:var(--blue)
+}*/
+
+  
+/* MAIN CONTENT */
+.container {
+  max-width:1000px;
+  margin:auto;
+  padding:30px 8%;
 }
+h1 {
+  font-size:2.4rem;
+  margin-bottom:12px;
+  text-align:center;
+}
+.section {
+  background:var(--section-bg);
+  padding:24px;
+  border-radius:10px;
+  margin-top:24px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+.section h2 {
+  font-size:1.8rem;
+  margin-bottom:10px;
+  color:var(--dark);
+}
+.section p {
+  font-size:15px;
+  color:var(--subtle);
+  line-height:1.6;
+  margin-top:8px;
+}
+
+
+
 
 /* ================= FOOTER ================= */
 .footer{
@@ -307,9 +341,6 @@ function toggleMenu(){
 
 <!-- MAIN -->
 <div class="container">
-
-  <h1>Legal Information</h1>
-
   <div class="section">
     <h2>Privacy Policy</h2>
     <p>
