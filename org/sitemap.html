@@ -1,1 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sitemap - Quick access to all important pages of Sharmaji Tools.">
+<meta name="keywords" content="Sitemap – Sharmaji Tools, Sitemap – Sharmaji Technology Media, Sitemap – Gitesh Sharma">
+<meta property="og:title" content="Sitemap – Sharmaji Tools | Sharmaji Technology Media">
+<meta property="og:description" content="Sitemap - Quick access to all important pages of Sharmaji Tools.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gitesh-sharma.github.io/en/org/tools.html">
+<meta property="og:image" content="https://gitesh-sharma.github.io/en/images/logo.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/en/images/favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/en/images/favicon.png" />
+<title>Sitemap – Sharmaji Tools | Sharmaji Technology Media</title>
+<!-- Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Sharmaji Tools",
+  "url": "https://gitesh-sharma.github.io/en/org/tools.html",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://gitesh-sharma.github.io/en/org/images/logo.png",
+    "width": 512,
+    "height": 512
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Gitesh Sharma",
+    "url": "https://gitesh-sharma.github.io/en/"
+  },
+  "sameAs": [
+    "https://instagram.com/giteshsharma_",
+    "https://facebook.com/gitesh.g.sharma",
+    "https://www.linkedin.com/in/gitesh-sharma"
+  ]
+}
+</script>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Home - Sharmaji Tools",
+  "description": "Free online PDF tools by Sharmaji Tools to merge, split, compress and manage PDF files.",
+  "url": "https://gitesh-sharma.github.io/en/org/tools.html",
+  "hasPart": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "PDF Merge Tool",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Web",
+      "url": "https://gitesh-sharma.github.io/en/org/tools/pdf-merge.html",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "PDF Split Tool",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Web",
+      "url": "https://gitesh-sharma.github.io/en/org/tools/pdf-split.html",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "PDF Compress Tool",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Web",
+      "url": "https://gitesh-sharma.github.io/en/org/tools/pdf-compress.html",
+      "isAccessibleForFree": true
+    }
+  ]
+}
+</script>
+<!-- Schema -->
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins', sans-serif;}
+body{
+  background:#f4f7fb;
+  color:#333
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  scroll-behavior: smooth;
+}
+
+:root{
+  --rich-black:#020617;
+  --kesari:#f28c28;
+  --blue:#2563eb;
+  --primary:#1aa84b;
+  --primary-dark:#1e40af;
+  --border:#1e293b;
+}
+
+/* HEADER BASE */
+.header{
+  background:var(--rich-black);
+  position:sticky;
+  top:0;
+  z-index:9999;
+}
+
+.header-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:700;
+  color:#fff;
+}
+.logo span{color:#1aa84b;}
+
+/* HAMBURGER */
+.menu-toggle{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+}
+.menu-toggle{
+  position:relative;
+  z-index:10000;   /* 🔥 MOST IMPORTANT */
+  pointer-events:auto;
+}
+.menu-toggle span{
+  width:26px;
+  height:3px;
+  background:#fff;
+  border-radius:2px;
+}
+
+/* NAV */
+.nav-menu{
+  display:flex;
+  gap:20px;
+}
+.nav-menu a{
+  color:#fff;
+  text-decoration:none;
+  font-size:15px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .menu-toggle{
+    display:flex;
+  }
+
+  .nav-menu{
+    position:absolute;
+    top:50px;
+    right:0;
+    width:50%;
+    background:#020617;
+    flex-direction:column;
+    align-items:center;
+    gap:15px;
+    padding:20px;
+    display:none;
+    z-index:9998;
+    border-radius: 8px;                 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+  }
+
+  .nav-menu.active{
+    display:flex;
+  }
+
+  .nav-menu li {
+    padding: 2px 0;
+  }
+  .nav-menu a {
+    padding: 10px 48px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  .nav-menu a:hover {
+    background: rgba(255,255,255,0.1);
+  }
+}
+  
+/* ================= HERO ================= */
+.hero{
+  padding:70px 20px;
+  text-align:center;
+  background:linear-gradient(135deg,var(--rich-black),var(--kesari));
+  color:#fff;
+  border-radius: 0 0 12px 12px;
+}
+.hero h1{font-size:38px;margin-bottom:10px}
+.hero p{max-width:720px;margin:auto;font-size:16px}
+
+/* ================= COMMON ================= */
+.section{padding:40px 20px 70px;max-width:1200px;margin:auto}
+.section h2{
+  text-align:center;
+  font-size:30px;
+  margin-bottom:35px;
+  color:var(--blue)
+}
+/* ======== Sitemap ========*/
+
+/* ================= SITEMAP ================= */
+.sitemap-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+/* CARD – Soft Outline */
+.sitemap-card{
+  background:var(--card-bg);
+  backdrop-filter:blur(14px);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:22px;
+}
+
+.sitemap-card h3{
+  font-size:18px;
+  margin-bottom:14px;
+}
+
+/* LINKS */
+.links{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  text-align:center;
+}
+
+.links a{
+  text-decoration:none;
+  padding:14px 16px;
+  border-radius:10px;
+  background:#020617;
+  /*border:1px solid var(--border);*/
+  color:#fff;
+  font-size:13px;
+  font-weight:500;
+  transition:.25s ease;
+}
+
+.links a:hover{
+  background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(37,99,235,.35);
+}
+
+
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  .sitemap-grid{
+    grid-template-columns:1fr;
+  }
+  .hero h1{
+    font-size:30px;
+  }
+}
+
+/* ======== Sitemap ========*/
+
+/* ================= FOOTER ================= */
+.footer{
+  background:#0f172a;
+  color:#cbd5f5
+}
+.footer-container{
+  max-width:1200px;
+  margin:auto;
+  padding:40px 30px;
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:20px
+}
+.footer-logo{
+  font-size:26px;
+  font-weight:700;
+  color:#fff
+}
+.footer-logo span{color:#1aa84b}
+.footer p{font-size:14px;line-height:1.6;margin-top:8px}
+
+/* SOCIAL */
+.social-links{
+  display:flex;
+  gap:12px;
+  margin-top:14px
+}
+.social-links a{
+  width:36px;
+  height:36px;
+  background:#1e293b;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center
+}
+.social-links svg{width:18px;height:18px;fill:#fff}
+
+/* FOOTER LINKS */
+.footer-links h4{color:#fff;margin-bottom:8px}
+.footer-links ul{list-style:none}
+.footer-links li{margin-bottom:4px}
+.footer-links a{
+  color:#cbd5f5;
+  text-decoration:none;
+  font-size:14px
+}
+
+/* MOBILE FOOTER FIX */
+@media(max-width:768px){
+  .footer-container{
+    grid-template-columns:1fr;
+    text-align:center;
+    padding: 30px;
+  }
+  .footer-logo{
+    margin:auto
+  }
+  .social-links{
+    justify-content:center
+  }
+  /*.footer-links ul{display:none}
+  .footer-links.active ul{display:block}
+  .footer-links h4{
+    cursor:pointer;
+    padding:10px 0;
+    border-bottom:1px solid #1e293b;
+  }*/
+}
+
+/* FOOTER BOTTOM */
+/*.footer-bottom{
+  padding:12px;
+  gap:4px;
+  display:flex;
+}
+
+/* MOBILE FOOTER BOTTOM FIX */
+/*@media(max-width:768px){
+  .footer-bottom{
+    flex-direction:column;
+    text-align:center;
+    font-size:12px;
+  }
+  .dot{
+    display:none;
+  }
+}
+*/
+
+.footer-bottom{
+  border-top:1px solid #1e293b;
+  background:#020617;
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  font-size:12px;
+  padding:12px;
+}
+.footer-bottom a{
+  text-decoration:none;
+  color: #cbd5f5;
+}
+.footer-bottom a:hover {
+    color: #fff;
+}
+/* Mobile */
+@media(max-width:768px){
+  .footer-bottom{
+    flex-direction:column;
+    align-items:center;
+    font-size:12px;
+    padding:12px;
+  }
+  .dot{
+    display:none;
+  }
+}
+  
+  
+</style>
+
+<script>
+function toggleMenu(){
+  document.querySelector('.nav-menu').classList.toggle('active');
+}
+</script>
+  
+</head>
+
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">Sharmaji <span>Tools</span></div>
+
+    <!-- Hamburger -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Menu -->
+    <nav class="nav-menu">
+      <a href="/en/org/tools.html">Home</a>
+      <a href="/en/org/tools/index.html">Tools Dashboard</a>
+      <a href="/en/org/music/">Music Distribution</a>
+      <a href="#">Blog</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Sitemap</h1>
+  <p>Collection of all important pages of Sharmaji Tools.</p>
+</section>
+<!-- Sitemap -->
+<!-- SITEMAP -->
+<section class="section">
+  <div class="sitemap-grid">
+
+    <div class="sitemap-card">
+      <h3>Main Pages</h3>
+      <div class="links">
+        <a href="/en/org/tools.html">Home</a>
+        <a href="/en/org/about-us.html">About Us</a>
+        <a href="/en/org/contact-us.html">Contact Us</a>
+        <a href="/en/org/sitemap.html">Sitemap</a>
+      </div>
+    </div>
+
+    <div class="sitemap-card">
+      <h3>Tools</h3>
+      <div class="links">
+        <a href="/en/org/tools/seo-analyzer.html">SEO Analyzer</a>
+        <a href="/en/org/tools/keyword-research.html">Keyword Research</a>
+        <a href="/en/org/tools/index.html">All Tools</a>
+      </div>
+    </div>
+
+    <div class="sitemap-card">
+      <h3>Legal</h3>
+      <div class="links">
+        <a href="/en/org/legal/privacy.html">Privacy Policy</a>
+        <a href="/en/org/legal/terms.html">Terms & Conditions</a>
+        <a href="/en/org/legal/disclaimer.html">Disclaimer</a>
+        <a href="/en/org/legal/cookies.html">Cookies</a>
+      </div>
+    </div>
+
+    <div class="sitemap-card">
+      <h3>Other</h3>
+      <div class="links">
+        <a href="/en/org/music/">Music Distribution</a>
+        <a href="#">Blog</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!--- Sitemap --->
+<footer class="footer">
+  <div class="footer-container">
+
+    <div>
+      <div class="footer-logo">Sharmaji <span>Tools</span></div>
+      <p>Sharmaji Tools is an all-in-one digital platform offering SEO tools, legal generators, and productivity utilities for creators, developers, and businesses.</p>
+
+      <div class="social-links">
+        <a href="#"><svg svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9v-2.9h2.5V9.5c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.3.2 2.3.2v2.5h-1.3c-1.3 0-1.7.8-1.7 1.6v1.9h2.9l-.5 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#"><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.9a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2z"/></svg></a>
+        <a href="#"><svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.3 8.3L23 22h-6.5l-5.1-6.6L5.6 22H2l7.8-8.9L1 2h6.6l4.6 6z"/></svg></a>
+        <a href="#"><svg viewBox="0 0 24 24"><path d="M23.5 6.2s-.2-1.6-.9-2.3c-.9-.9-1.9-.9-2.3-1C16.9 2.5 12 2.5 12 2.5h0s-4.9 0-8.3.4c-.4.1-1.4.1-2.3 1C.7 4.6.5 6.2.5 6.2S0 8.1 0 10v2c0 1.9.5 3.8.5 3.8s.2 1.6.9 2.3c.9.9 2.1.9 2.6 1 1.9.2 8 .4 8 .4s4.9 0 8.3-.4c.4-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.5-1.9.5-3.8v-2c0-1.9-.5-3.8-.5-3.8zM9.8 14.6V7.4l6.4 3.6-6.4 3.6z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="/en/org/tools.html">Home</a></li>
+        <li><a href="/en/org/about-us.html">About</a></li>
+        <li><a href="/en/org/contact-us.html">Contact</a></li>
+        <li><a href="/en/org/sitemap.html">Sitemap</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="#">SEO Analyze</a></li>
+        <li><a href="#">Code Editor</a></li>
+        <li><a href="#">Pages Generator</a></li>
+        <li><a href="#">YouTube Tools</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/en/org/legal/privacy.html">Privacy</a></li>
+        <li><a href="/en/org/legal/terms.html">Terms</a></li>
+        <li><a href="/en/org/legal/disclaimer.html">Disclaimer</a></li>
+        <li><a href="/en/org/legal/cookies.html">Cookies</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!--<div class="footer-bottom">© 2025 Sharmaji Technology Media • Design by <a href="#">Gitesh Sharma</a></div>
+  </footer>-->
+
+<div class="footer-bottom">
+  <span class="fb-left">© 2025 <a href="https://gitesh-sharma.github.io/en/org/">Sharmaji Technology Media</a></span>
+  <span class="dot">•</span>
+  <span class="fb-right">Design by <a href="https://gitesh-sharma.github.io/en/">Gitesh Sharma</a></span>
+</div>
+
+
+<script>
+document.querySelectorAll('.footer-links h4').forEach(h=>{
+  h.onclick=()=>{ if(innerWidth<=768) h.parentElement.classList.toggle('active') }
+})
+</script>
+
+</body>
+</html>
