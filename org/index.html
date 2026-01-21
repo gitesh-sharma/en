@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sharmaji Technology Media</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sharmaji Technology Media – Simple, fast and reliable digital tools and technology solutions.">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{background:#0f172a;color:#e5e7eb}
+
+/* ================= HEADER ================= */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 18px;
+  background:#020617;
+  position:sticky;
+  top:0;
+  z-index:999
+}
+.logo{
+  font-size:20px;
+  font-weight:bold;
+  color:#38bdf8
+}
+nav a{
+  color:#cbd5f5;
+  margin:0 10px;
+  text-decoration:none;
+  font-size:14px
+}
+nav a:hover{color:#38bdf8}
+
+/* SEARCH */
+.search-box{
+  position:relative;
+  max-width:260px;
+  width:100%
+}
+.search-box input{
+  width:100%;
+  padding:7px 30px 7px 10px;
+  border-radius:6px;
+  border:none;
+  outline:none
+}
+.search-box i{
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#64748b
+}
+
+/* ================= HERO ================= */
+.hero{
+  padding:60px 20px;
+  text-align:center
+}
+.hero h1{font-size:34px;margin-bottom:10px}
+.hero p{max-width:720px;margin:auto;color:#94a3b8}
+
+/* ================= SECTIONS ================= */
+section{padding:50px 20px}
+.section-title{
+  text-align:center;
+  font-size:26px;
+  margin-bottom:30px
+}
+
+/* ================= SERVICES ================= */
+.services{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  max-width:1100px;
+  margin:auto
+}
+.service-card{
+  background:#020617;
+  padding:22px;
+  border-radius:16px;
+  text-align:center
+}
+.service-card i{
+  font-size:30px;
+  color:#38bdf8;
+  margin-bottom:12px
+}
+
+/* ================= TEAM ================= */
+.team{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  max-width:1000px;
+  margin:auto
+}
+.member{
+  background:#020617;
+  padding:22px;
+  border-radius:16px;
+  text-align:center
+}
+.member img{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:10px
+}
+.member p{font-size:14px;color:#94a3b8}
+
+/* ================= CONTACT ================= */
+.contact{
+  max-width:900px;
+  margin:auto
+}
+.contact iframe{
+  width:100%;
+  height:500px;
+  border:none;
+  border-radius:16px
+}
+
+/* ================= FOOTER ================= */
+footer{
+  background:#020617;
+  padding:45px 20px 20px
+}
+
+/* Desktop: 4 columns */
+.footer-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:30px;
+  max-width:1100px;
+  margin:auto
+}
+
+.footer-grid h4{
+  margin-bottom:12px;
+  font-size:16px
+}
+.footer-grid p{
+  font-size:14px;
+  line-height:1.6;
+  color:#94a3b8
+}
+.footer-grid a{
+  display:block;
+  color:#94a3b8;
+  text-decoration:none;
+  margin-bottom:6px;
+  font-size:14px
+}
+.footer-grid a:hover{color:#38bdf8}
+
+/* ===== FOOTER BRAND ===== */
+.footer-brand{
+  max-width:260px
+}
+.footer-logo{
+  width:120px;
+  margin-bottom:12px
+}
+
+/* 🔥 SOCIAL ICONS FIX */
+.footer-brand .social-icons{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start; /* desktop left */
+  margin-top:12px
+}
+.footer-brand .social-icons a{
+  display:inline-flex !important;
+  font-size:18px;
+  margin-right:14px;
+  color:#94a3b8;
+  transition:.3s
+}
+.footer-brand .social-icons a:hover{
+  color:#38bdf8
+}
+
+.footer-bottom{
+  text-align:center;
+  margin-top:30px;
+  font-size:13px;
+  color:#64748b
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  nav{display:none}
+  footer{text-align:center}
+
+  .footer-grid{
+    grid-template-columns:1fr;
+    gap:25px
+  }
+
+  .footer-brand{
+    margin:auto
+  }
+
+  .footer-brand .social-icons{
+    justify-content:center
+  }
+
+  .footer-brand .social-icons a{
+    margin:0 10px
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">Sharmaji Technology Media</div>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#services">Services</a>
+    <a href="#team">Team</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="search-box">
+    <input type="text" placeholder="Search tools...">
+    <i class="fa fa-search"></i>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Simple • Fast • Reliable Digital Solutions</h1>
+  <p>
+    Sharmaji Technology Media builds useful online tools and provides
+    practical technology solutions for everyone.
+  </p>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <h2 class="section-title">Our Services</h2>
+  <div class="services">
+    <div class="service-card">
+      <i class="fa fa-tools"></i>
+      <h4>Online Tools</h4>
+      <p>Fast & free web tools for daily needs.</p>
+    </div>
+    <div class="service-card">
+      <i class="fa fa-code"></i>
+      <h4>Web Development</h4>
+      <p>Clean, responsive & optimized websites.</p>
+    </div>
+    <div class="service-card">
+      <i class="fa fa-chart-line"></i>
+      <h4>SEO & Growth</h4>
+      <p>Smart strategies for organic growth.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <h2 class="section-title">Our Team</h2>
+  <div class="team">
+    <div class="member">
+      <img src="https://via.placeholder.com/150">
+      <h4>Gitesh Sharma</h4>
+      <p>Founder & Developer</p>
+    </div>
+    <div class="member">
+      <img src="https://via.placeholder.com/150">
+      <h4>Team Member</h4>
+      <p>SEO Specialist</p>
+    </div>
+    <div class="member">
+      <img src="https://via.placeholder.com/150">
+      <h4>Team Member</h4>
+      <p>Content & Support</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2 class="section-title">Contact Us</h2>
+  <div class="contact">
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdXXXXXXXXXXXXXXXX/viewform?embedded=true"></iframe>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+
+    <div class="footer-brand">
+      <img src="assets/images/logo.png" alt="Sharmaji Technology Media Logo" class="footer-logo">
+      <p>
+        Building reliable digital tools and sharing
+        practical tech knowledge for everyone.
+      </p>
+
+      <div class="social-icons">
+        <a href="https://www.instagram.com/giteshsharma_/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://x.com/giteshsharma_" target="_blank"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://www.facebook.com/giteshsharma_" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.youtube.com/@giteshsharma_" target="_blank"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+
+    <div>
+      <h4>Quick Links</h4>
+      <a href="#">Home</a>
+      <a href="#services">Services</a>
+      <a href="#team">Team</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <div>
+      <h4>Tools</h4>
+      <a href="/org/tools/">Tools Dashboard</a>
+      <a href="/org/tools/index.html">All Tools</a>
+    </div>
+
+    <div>
+      <h4>Legals</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms & Conditions</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 Sharmaji Technology Media • Built with ❤️ in India
+  </div>
+</footer>
+
+</body>
+</html>
