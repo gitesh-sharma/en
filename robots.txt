@@ -1,5 +1,3 @@
-# Group 1
 User-agent: *
-Allow: 
-Disallow: 
+Allow: /en/
 Sitemap: https://gitesh-sharma.github.io/en/sitemap.xml
