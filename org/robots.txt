@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /en/
+Sitemap: https://gitesh-sharma.github.io/en/sitemap.xml
