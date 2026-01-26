@@ -1,4 +1,26 @@
-title: "Blog - Sharmaji Tools - Sharmaji Technology Media"
+# Site info
+title: "Sharmaji Technology Media Blog"
+tagline: "Latest tech posts & tutorials"
+description: "A blog by Sharmaji Technology Media"
 baseurl: "/en/blog"
 url: "https://gitesh-sharma.github.io"
-theme: minima
+
+# Theme setup
+remote_theme: "mmistakes/minimal-mistakes"
+plugins:
+  - jekyll-include-cache
+  - jekyll-remote-theme
+
+# Build settings
+markdown: kramdown
+paginate: 5
+permalink: /:year/:month/:day/:title/
+
+# Optional social info
+author:
+  name: "Gitesh Sharma"
+  avatar: "/assets/images/avatar.png"
+  email: "your@email.com"
+  social:
+    - title: "GitHub"
+      url: "https://github.com/gitesh-sharma"
