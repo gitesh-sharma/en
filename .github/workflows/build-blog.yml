@@ -1,1 +1,40 @@
 
+name: Build Blog
+
+on:
+  push:
+    paths:
+      - 'blog-src/**'
+      - '.github/workflows/build-blog.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.x'
+
+      - name: Install Jekyll
+        run: |
+          gem install bundler
+          cd blog-src
+          bundle install
+
+      - name: Build Jekyll blog
+        run: |
+          cd blog-src
+          bundle exec jekyll build --destination ../en/blog
+
+      - name: Commit generated blog
+        run: |
+          git config user.name 'github-actions'
+          git config user.email 'github-actions@users.noreply.github.com'
+          git add en/org/blog
+          git commit -m "Build blog [skip ci]" || echo "No changes to commit"
+          git push
