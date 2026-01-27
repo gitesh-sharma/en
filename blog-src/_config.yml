@@ -1,7 +1,4 @@
-
-title: "Sharmaji Technology Media Blog"
-tagline: "Latest tech posts & tutorials"
-description: "A blog by Sharmaji Technology Media"
+title: "Sharmaji Blog"
 baseurl: "/en/blog"
 url: "https://gitesh-sharma.github.io"
 
@@ -12,3 +9,4 @@ plugins:
   - jekyll-include-cache
 
 paginate: 5
+permalink: /:year/:month/:day/:title/
