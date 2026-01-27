@@ -9,8 +9,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -26,7 +28,7 @@ jobs:
       - name: Build Jekyll
         run: |
           cd blog-src
-          bundle exec jekyll build --destination "../en/blog"
+          bundle exec jekyll build --destination ../en/blog
 
       - name: Commit blog
         run: |
