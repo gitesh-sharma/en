@@ -1,0 +1,19 @@
+title: Sharmaji Blog
+description: Official blog of Sharmaji Tools – SEO, Tech & Tools
+url: "https://gitesh-sharma.github.io"
+baseurl: "/blog"
+
+author:
+  name: Gitesh Sharma
+  username: "@giteshsharma_"
+
+markdown: kramdown
+theme: minima
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+permalink: /:title/
+
+timezone: Asia/Kolkata

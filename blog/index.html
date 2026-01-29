@@ -1,0 +1,64 @@
+---
+layout: default
+title: Blog | Gitesh Sharma - Sharmaji Technology Media
+---
+<div class="wrapper">
+  <div class="card">
+
+    <!-- SHARE -->
+    <div class="share-wrapper">
+      <button class="share-btn" onclick="openShare()" aria-label="Share">
+        <svg viewBox="0 0 24 24">
+          <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11A3 3 0 1 0 14 5c0 .24.04.47.09.7L7.04 9.81A3 3 0 1 0 6 15c.38 0 .74-.07 1.04-.19l7.05 4.11c-.05.21-.09.43-.09.66a3 3 0 1 0 3-3z"/>
+        </svg>
+      </button>
+    </div>
+    {% include header.html %}
+  <hr class="recent-divider">
+  <div class="recent-posts">
+  <h3>Recent Posts</h3>
+
+  <ul>
+    {% for post in site.posts limit:10 %}
+    <li class="recent-card">
+  <a href="{{ site.baseurl }}{{ post.url }}" class="recent-link">
+
+    {% if post.image %}
+    <img src="{{ post.image }}" alt="{{ post.title }}" class="recent-thumb">
+    {% endif %}
+
+    <span class="recent-title">
+      {{ post.title }}
+    </span>
+
+    <div class="recent-meta">
+      By {{ post.author | default: "Gitesh Sharma" }} ·
+      {{ post.date | date: "%d %b %Y" }}
+    </div>
+
+    <p class="recent-desc">
+      {{ post.excerpt | strip_html | truncate: 110 }}
+    </p>
+
+  </a>
+</li>
+    {% endfor %}
+  </ul>
+</div>
+    
+     {% include footer.html %}
+  </div>
+</div>
+
+<script>
+const pageUrl = window.location.href;
+const pageTitle = "Blog - Gitesh Sharma | Sharmaji Tools";
+
+function openShare(){
+  if(navigator.share){
+    navigator.share({ title: pageTitle, url: pageUrl });
+  }else{
+    alert("Sharing supported on mobile browsers.");
+  }
+}
+</script>
