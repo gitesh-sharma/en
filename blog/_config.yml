@@ -1,7 +1,7 @@
 title: Sharmaji Blog
 description: Official blog of Sharmaji Tools – SEO, Tech & Tools
-url: "https://gitesh-sharma.github.io"
-baseurl: "/en/blog"
+url: "https://gitesh-sharma.github.io/en"
+baseurl: "/blog"
 
 author:
   name: Gitesh Sharma
