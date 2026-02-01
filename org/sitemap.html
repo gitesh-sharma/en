@@ -117,7 +117,7 @@ body{
   background:#f4f7fb;
   color:#333;
   line-height: 1.5;
-  display: flex;
+  display: block;   /* instead of flex */
   flex-direction: column;
   justify-content: flex-end;
   scroll-behavior: smooth;
@@ -249,12 +249,13 @@ body{
 
   /* Section side padding thoda kam */
   .section{
-    padding:20px 10px;
+    padding:16px 8px;
   }
 
   /* Card padding compact */
   .sitemap-card{
     padding:16px;
+    margin:0;
   }
 
   /* LINKS – side gap kam */
@@ -263,12 +264,16 @@ body{
   }
   
   .links a{
-    padding:12px 10px;   /* pehle 14px 16px tha */
+    padding:12px 8px;   /* pehle 14px 16px tha */
     font-size:14px;
   }
 
+  .sitemap-grid{
+    width:100%;
+  }
 }
 
+  
 /* ======== Sitemap ========*/
 
 /* ================= SITEMAP ================= */
