@@ -245,69 +245,6 @@ body{
   color:var(--blue)
 }
   
-/* ======== Sitemap ========*/
-
-/* ================= SITEMAP ================= */
-.sitemap-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px;
-}
-
-/* CARD – Soft Outline */
-.sitemap-card{
-  background:var(--card-bg);
-  backdrop-filter:blur(14px);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:22px;
-}
-
-.sitemap-card h3{
-  font-size:18px;
-  margin-bottom:14px;
-}
-
-/* LINKS */
-.links{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  text-align:center;
-}
-
-.links a{
-  text-decoration:none;
-  padding:14px 16px;
-  border-radius:10px;
-  background:#020617;
-  /*border:1px solid var(--border);*/
-  color:#fff;
-  font-size:13px;
-  font-weight:500;
-  transition:.25s ease;
-}
-
-.links a:hover{
-  background:linear-gradient(135deg,var(--primary),var(--primary-dark));
-  transform:translateY(-2px);
-  box-shadow:0 8px 20px rgba(37,99,235,.35);
-}
-
-
-
-/* ================= MOBILE ================= */
-@media(max-width:768px){
-  .sitemap-grid{
-    grid-template-columns:1fr;
-  }
-  .hero h1{
-    font-size:30px;
-  }
-}
-
-/* ======== Sitemap ========*/
-
 /* ================= FOOTER ================= */
 .footer{
   background:#0f172a;
@@ -426,7 +363,102 @@ body{
     display:none;
   }
 }
-  
+
+/*=============================
+           Sitemap
+==============================*/
+.container {
+        max-width: 1100px;
+        margin: 1px;
+        background: #fff;
+        /*border: 1px solid #1e293b;*/
+        padding: 25px;
+        text-color: #e5e7eb;
+        border-radius: 10px;
+    }
+
+.container h1 {
+        text-align: center;
+        color: #e5e7eb;
+        margin-bottom: 10px;
+    }
+
+.container p {
+        text-align: center;
+        color: #e5e7eb;
+        margin-bottom: 30px;
+    }
+
+    .sitemap-grid {
+        display: grid;
+        gap: 20px;
+    }
+
+    /* Desktop grid layout */
+    @media (min-width: 750px) {
+        .sitemap-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    /* Section card styling */
+    .sitemap {
+        background: #0f172a;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    /* Section hover animation */
+    .sitemap:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    .sitemap h2 {
+        margin-bottom: 10px;
+        font-size: 18px;
+        color: #e5e7eb;
+        border-left: 4px solid #006400;
+        padding-left: 8px;
+    }
+
+   
+    /* Simple mobile-friendly list styling */
+ .sitemap ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+.sitemap ul li {
+        background: #020617;
+        margin: 6px 0;
+        padding: 10px 12px;
+        border-radius: 6px;
+        border: 1px solid #1e293b;
+        transition: all 0.3s ease;
+    }
+
+    /* Link hover animation */
+.sitemap ul li:hover {
+        background: linear-gradient(135deg,var(--primary),var(--primary-dark));;
+        transform: translateX(-2px);
+        box-shadow:0 8px 20px rgba(37,99,235,.35);
+    }
+
+.sitemap ul li a {
+        text-decoration: none;
+        color: #006400;
+        font-weight: bold;
+        display: block;
+        transition: color 0.3s ease;
+    }
+
+    ul li:hover a {
+        color: #fff;
+    }
   
 </style>
 
@@ -465,52 +497,59 @@ function toggleMenu(){
   <h1>Sitemap</h1>
   <p>Explore all tools, pages, and resources available on Sharmaji Tools from one clean and organized index.</p>
 </section>
+
+<!-- ================= SITEMAP ================= -->
+<div class="container">
+   <!-- <h1>HTML Sitemap</h1>
+    <p>Quick access to all pages of Shreya Enterprises</p>-->
+
+    <div class="sitemap-grid">
+
+        <!-- SECTION 1 -->
+        <div class="sitemap">
+            <h2>Main Pages</h2>
+            <ul>
+                <li><a href="/en/org/tools.html">Home</a></li>
+                <li><a href="/en/org/about-us.html">About Us</a></li>
+                <li><a href="/en/org/contact-us.html">Contact Us</a></li>
+                <li><a href="/en/org/sitemap.html">Sitemap</a></li>
+            </ul>
+        </div>
+       
+        <!-- SECTION 2 -->
+        <div class="sitemap">
+            <h2>Tools</h2>
+            <ul>
+                <li><a href="/en/org/tools/seo-analyzer.html">SEO Analyzer</a></li>
+                <li><a href="/en/org/tools/keyword-research.html">Keyword Research</a></li>
+                <li><a href="/career.html">PDF Editor</a></li>
+                <li><a href="/en/org/tools/index.html">All Tools</a></li>
+            </ul>
+        </div>  
+        <!-- SECTION 3 -->
+        <div class="sitemap">
+            <h2>Quick Links</h2>
+            <ul>
+                <li><a href="/en/org/music/">Music Distribution</a></li>
+                <li><a href="/en/org/">Organization</a></li>
+                <li><a href="#">Blog</a></li>
+            </ul>
+        </div>
+
+        <!-- SECTION 4 -->
+        <div class="sitemap">
+            <h2>Legal</h2>
+            <ul>
+                <li><a href="/en/org/legal/privacy.html">Privacy Policy</a></li>
+                <li><a href="/en/org/legal/terms.html">Terms & Conditions</a></li>
+                <li><a href="/en/org/legal/disclaimer.html">Disclaimer</a></li>
+                <li><a href="/en/org/legal/cookies.html">Cookies</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 <!-- Sitemap -->
-<!-- SITEMAP -->
-<section class="section">
-  <div class="sitemap-grid">
-
-    <div class="sitemap-card">
-      <h3>Main Pages</h3>
-      <div class="links">
-        <a href="/en/org/tools.html">Home</a>
-        <a href="/en/org/about-us.html">About Us</a>
-        <a href="/en/org/contact-us.html">Contact Us</a>
-        <a href="/en/org/sitemap.html">Sitemap</a>
-      </div>
-    </div>
-
-    <div class="sitemap-card">
-      <h3>Tools</h3>
-      <div class="links">
-        <a href="/en/org/tools/seo-analyzer.html">SEO Analyzer</a>
-        <a href="/en/org/tools/keyword-research.html">Keyword Research</a>
-        <a href="/en/org/tools/index.html">All Tools</a>
-      </div>
-    </div>
-
-    <div class="sitemap-card">
-      <h3>Legal</h3>
-      <div class="links">
-        <a href="/en/org/legal/privacy.html">Privacy Policy</a>
-        <a href="/en/org/legal/terms.html">Terms & Conditions</a>
-        <a href="/en/org/legal/disclaimer.html">Disclaimer</a>
-        <a href="/en/org/legal/cookies.html">Cookies</a>
-      </div>
-    </div>
-
-    <div class="sitemap-card">
-      <h3>Other</h3>
-      <div class="links">
-        <a href="/en/org/music/">Music Distribution</a>
-        <a href="#">Blog</a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!--- Sitemap --->
 <footer class="footer">
   <div class="footer-container">
 
