@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Age Calculator | Sharmaji Tools</title>
+<meta name="description" content="Free online Age Calculator by Sharmaji Tools. Calculate your exact age in years, months, days, hours, minutes and seconds with live counter.">
+
+<link rel="canonical" href="https://gitesh-sharma.github.io/en/org/tools/age-calculator.html">
+
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"WebApplication",
+ "name":"Age Calculator",
+ "applicationCategory":"UtilityApplication",
+ "operatingSystem":"All",
+ "creator":{
+   "@type":"Organization",
+   "name":"Sharmaji Technology Media"
+ }
+}
+</script>
+
+<style>
+:root{
+  --dark:#0f172a;
+  --card:#1e293b;
+  --primary:#2563eb;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:var(--dark);color:#fff}
+
+/* HEADER */
+header{
+  background:#111827;
+  padding:15px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+nav a{
+  color:#fff;
+  text-decoration:none;
+  margin-left:15px;
+  font-size:14px;
+  opacity:.8;
+}
+nav a:hover{opacity:1}
+
+/* TOOL */
+.section{padding:60px 20px}
+.container{
+  max-width:750px;
+  margin:auto;
+  background:var(--card);
+  padding:30px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.container h1{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.1);
+  background:var(--dark);
+  color:#fff;
+  font-size:15px;
+}
+
+button{
+  width:100%;
+  margin-top:15px;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:var(--primary);
+  color:#fff;
+  font-size:15px;
+  cursor:pointer;
+}
+button:hover{opacity:.85}
+
+.result{
+  margin-top:25px;
+  background:#0f172a;
+  padding:20px;
+  border-radius:10px;
+  font-size:15px;
+  line-height:1.8;
+}
+
+.live-box{
+  margin-top:20px;
+  padding:15px;
+  background:#111827;
+  border-radius:10px;
+  text-align:center;
+  font-size:18px;
+}
+
+.highlight{
+  color:#2563eb;
+  font-weight:bold;
+}
+
+footer{
+  margin-top:50px;
+  background:#111827;
+  text-align:center;
+  padding:20px;
+  font-size:14px;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+
+@media(max-width:768px){
+  .container{padding:20px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>Sharmaji Tools</h2>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">All Tools</a>
+    <a href="#">Blog</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+
+<section class="section">
+  <div class="container">
+    <h1>Age Calculator</h1>
+
+    <input type="datetime-local" id="dob">
+    <button onclick="calculateAge()">Calculate Age</button>
+
+    <div id="result" class="result">
+      Enter your date of birth to calculate age.
+    </div>
+
+    <div id="liveCounter" class="live-box" style="display:none;"></div>
+
+  </div>
+</section>
+
+<footer>
+  © 2026 Sharmaji Technology Media.
+</footer>
+
+<script>
+let interval;
+
+function calculateAge(){
+  const dobValue=document.getElementById("dob").value;
+  const result=document.getElementById("result");
+  const live=document.getElementById("liveCounter");
+
+  if(!dobValue){
+    result.innerHTML="Please select your date of birth.";
+    return;
+  }
+
+  const dob=new Date(dobValue);
+  const now=new Date();
+
+  if(dob>now){
+    result.innerHTML="Future date not allowed.";
+    return;
+  }
+
+  let years=now.getFullYear()-dob.getFullYear();
+  let months=now.getMonth()-dob.getMonth();
+  let days=now.getDate()-dob.getDate();
+
+  if(days<0){
+    months--;
+    const prevMonth=new Date(now.getFullYear(),now.getMonth(),0);
+    days+=prevMonth.getDate();
+  }
+
+  if(months<0){
+    years--;
+    months+=12;
+  }
+
+  const totalDays=Math.floor((now-dob)/(1000*60*60*24));
+
+  let nextBirthday=new Date(now.getFullYear(),dob.getMonth(),dob.getDate());
+  if(nextBirthday<now){
+    nextBirthday.setFullYear(now.getFullYear()+1);
+  }
+
+  const daysToBirthday=Math.ceil((nextBirthday-now)/(1000*60*60*24));
+
+  result.innerHTML=`
+    🎂 You are <span class="highlight">${years}</span> years 
+    <span class="highlight">${months}</span> months 
+    <span class="highlight">${days}</span> days old.<br><br>
+
+    📅 Total Days Lived: <span class="highlight">${totalDays}</span><br><br>
+
+    🎉 Next Birthday in: <span class="highlight">${daysToBirthday}</span> days
+  `;
+
+  startLiveCounter(dob);
+  live.style.display="block";
+}
+
+function startLiveCounter(dob){
+  clearInterval(interval);
+
+  interval=setInterval(()=>{
+    const now=new Date();
+    const diff=now-dob;
+
+    const totalSeconds=Math.floor(diff/1000);
+    const hours=Math.floor(totalSeconds/3600);
+    const minutes=Math.floor((totalSeconds%3600)/60);
+    const seconds=totalSeconds%60;
+
+    document.getElementById("liveCounter").innerHTML=
+      `⏳ Live Age: 
+       <span class="highlight">${hours}</span> hours 
+       <span class="highlight">${minutes}</span> minutes 
+       <span class="highlight">${seconds}</span> seconds`;
+  },1000);
+}
+</script>
+
+</body>
+</html>
