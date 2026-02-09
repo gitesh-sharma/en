@@ -30,9 +30,7 @@ header{
   align-items:center;
   border-bottom:1px solid rgba(255,255,255,0.1);
 }
-header h2{
-  font-size:20px;
-}
+header h2{font-size:20px;}
 nav a{
   color:#fff;
   text-decoration:none;
@@ -42,9 +40,7 @@ nav a{
 }
 nav a:hover{opacity:1}
 
-.tool-section{
-  padding:60px 20px;
-}
+.tool-section{padding:60px 20px;}
 .tool-container{
   max-width:800px;
   margin:auto;
@@ -53,15 +49,9 @@ nav a:hover{opacity:1}
   border-radius:14px;
   border:1px solid rgba(255,255,255,0.08);
 }
-.tool-container h1{
-  text-align:center;
-  margin-bottom:20px;
-}
+.tool-container h1{text-align:center;margin-bottom:20px;}
 
-.tabs{
-  display:flex;
-  margin-bottom:20px;
-}
+.tabs{display:flex;margin-bottom:20px;gap:10px;}
 .tabs button{
   flex:1;
   background:#0f172a;
@@ -69,12 +59,9 @@ nav a:hover{opacity:1}
   color:#fff;
   padding:10px;
   cursor:pointer;
-  border-radius:2px;
-}
-.tabs button.active{
-  background:var(--primary);
   border-radius:8px;
 }
+.tabs button.active{background:var(--primary);}
 
 input, textarea, select{
   width:100%;
@@ -97,6 +84,18 @@ button.generate{
   cursor:pointer;
 }
 
+.qr-preview{
+  margin-top:25px;
+  text-align:center;
+}
+
+canvas{
+  background:#fff;
+  padding:15px;
+  border-radius:12px;
+  max-width:100%;
+}
+
 button.download{
   width:100%;
   padding:12px;
@@ -106,18 +105,8 @@ button.download{
   color:#fff;
   font-size:15px;
   cursor:pointer;
-  margin-top:10px;
+  margin-top:15px;
   display:none;
-}
-
-.qr-preview{
-  margin-top:20px;
-  text-align:center;
-}
-canvas{
-  background:#fff;
-  padding:15px;
-  border-radius:12px;
 }
 
 footer{
@@ -127,6 +116,10 @@ footer{
   padding:20px;
   font-size:14px;
   border-top:1px solid rgba(255,255,255,0.1);
+}
+
+@media(max-width:768px){
+  .tool-container{padding:20px;}
 }
 </style>
 </head>
@@ -144,40 +137,42 @@ footer{
 </header>
 
 <section class="tool-section">
-  <div class="tool-container">
-    <h1>QR Code Generator</h1>
+<div class="tool-container">
+<h1>QR Code Generator</h1>
 
-    <div class="tabs">
-      <button class="active" onclick="switchTab('text')">Link / Text</button>
-      <button onclick="switchTab('wifi')">WiFi QR</button>
-    </div>
+<div class="tabs">
+  <button class="active" onclick="switchTab('text',this)">Link / Text</button>
+  <button onclick="switchTab('wifi',this)">WiFi QR</button>
+</div>
 
-    <div id="textTab">
-      <textarea id="qrText" placeholder="Enter link or text"></textarea>
-    </div>
+<div id="textTab">
+  <textarea id="qrText" placeholder="Enter link or text"></textarea>
+</div>
 
-    <div id="wifiTab" style="display:none;">
-      <input type="text" id="wifiSSID" placeholder="WiFi Name (SSID)">
-      <input type="text" id="wifiPassword" placeholder="WiFi Password">
-      <select id="wifiEncryption">
-        <option value="WPA">WPA/WPA2</option>
-        <option value="WEP">WEP</option>
-        <option value="nopass">No Password</option>
-      </select>
-    </div>
+<div id="wifiTab" style="display:none;">
+  <input type="text" id="wifiSSID" placeholder="WiFi Name (SSID)">
+  <input type="text" id="wifiPassword" placeholder="WiFi Password">
+  <select id="wifiEncryption">
+    <option value="WPA">WPA/WPA2</option>
+    <option value="WEP">WEP</option>
+    <option value="nopass">No Password</option>
+  </select>
+</div>
 
-    <button class="generate" onclick="generateQR()">Generate QR</button>
-    <button class="download" id="downloadBtn" onclick="downloadQR()">Download QR</button>
+<input type="file" id="logoUpload" accept="image/*">
 
-    <div class="qr-preview">
-      <div id="qrCode"></div>
-    </div>
+<button class="generate" onclick="generateQR()">Generate QR</button>
 
-  </div>
+<div class="qr-preview">
+  <div id="qrCode"></div>
+  <button class="download" id="downloadBtn" onclick="downloadQR()">Download QR</button>
+</div>
+
+</div>
 </section>
 
 <footer>
-  © 2026 Sharmaji Technology Media.
+© 2026 Sharmaji Technology Media.
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -185,13 +180,29 @@ footer{
 <script>
 let currentTab="text";
 let qrCanvas=null;
+let uploadedLogo=null;
 
-function switchTab(tab){
+const defaultLogo=new Image();
+defaultLogo.crossOrigin="anonymous";
+defaultLogo.src="https://gitesh-sharma.github.io/en/images/logo.png";
+
+document.getElementById("logoUpload").addEventListener("change",function(e){
+  const file=e.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(event){
+    uploadedLogo=new Image();
+    uploadedLogo.src=event.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+function switchTab(tab,btn){
   currentTab=tab;
   document.getElementById("textTab").style.display = tab==="text"?"block":"none";
   document.getElementById("wifiTab").style.display = tab==="wifi"?"block":"none";
-  document.querySelectorAll(".tabs button").forEach(btn=>btn.classList.remove("active"));
-  event.target.classList.add("active");
+  document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
 }
 
 function generateQR(){
@@ -199,22 +210,20 @@ function generateQR(){
 
   if(currentTab==="text"){
     const text=document.getElementById("qrText").value.trim();
-    if(!text){ alert("Enter text or link"); return; }
+    if(!text){alert("Enter text or link");return;}
     qrData=text;
-  } else {
+  }else{
     const ssid=document.getElementById("wifiSSID").value.trim();
     const password=document.getElementById("wifiPassword").value.trim();
     const encryption=document.getElementById("wifiEncryption").value;
-
-    if(!ssid){ alert("Enter WiFi name"); return; }
-
+    if(!ssid){alert("Enter WiFi name");return;}
     qrData=`WIFI:T:${encryption};S:${ssid};P:${password};;`;
   }
 
   document.getElementById("qrCode").innerHTML="";
   document.getElementById("downloadBtn").style.display="none";
 
-  const qr=new QRCode(document.getElementById("qrCode"),{
+  new QRCode(document.getElementById("qrCode"),{
     text:qrData,
     width:300,
     height:300,
@@ -240,12 +249,15 @@ function addCenterLogo(){
   ctx.arc(centerX,centerY,size/2+10,0,Math.PI*2);
   ctx.fill();
 
-  const logo=new Image();
-  logo.crossOrigin="anonymous";
-  logo.onload=function(){
+  const logo=uploadedLogo?uploadedLogo:defaultLogo;
+
+  if(logo.complete){
     ctx.drawImage(logo,centerX-size/2,centerY-size/2,size,size);
-  };
-  logo.src="https://gitesh-sharma.github.io/en/images/logo.png";
+  }else{
+    logo.onload=function(){
+      ctx.drawImage(logo,centerX-size/2,centerY-size/2,size,size);
+    }
+  }
 
   qrCanvas=canvas;
 }
