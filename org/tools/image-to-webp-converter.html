@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image to WebP Converter | Sharmaji Tools</title>
+
+<style>
+:root{
+  --dark:#0f172a;
+  --card:#1e293b;
+  --primary:#22c55e;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{background:var(--dark);color:#fff;}
+
+header{
+  background:#111827;
+  padding:15px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+nav a{color:#fff;text-decoration:none;margin-left:15px;font-size:14px;}
+
+.tool-section{padding:50px 15px;}
+.tool-container{
+  max-width:900px;
+  margin:auto;
+  background:var(--card);
+  padding:25px;
+  border-radius:14px;
+}
+
+.upload-box{
+  border:2px dashed rgba(255,255,255,0.2);
+  padding:30px;
+  text-align:center;
+  border-radius:12px;
+  cursor:pointer;
+}
+input[type="file"]{display:none;}
+
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:var(--primary);
+  color:#fff;
+  margin-top:20px;
+  cursor:pointer;
+}
+
+.image-list{
+  margin-top:30px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.image-card{
+  background:#0f172a;
+  padding:15px;
+  border-radius:12px;
+  text-align:center;
+}
+
+.image-card img{
+  max-width:100%;
+  border-radius:8px;
+  margin-bottom:10px;
+}
+
+.stats{font-size:13px;margin-bottom:10px;}
+
+footer{
+  margin-top:50px;
+  text-align:center;
+  padding:20px;
+  background:#111827;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>Sharmaji Tools</h2>
+<nav>
+<a href="#">Home</a>
+<a href="#">All Tools</a>
+</nav>
+</header>
+
+<section class="tool-section">
+<div class="tool-container">
+
+<h1 style="text-align:center;margin-bottom:20px;">Image to WebP Converter</h1>
+
+<label class="upload-box">
+Click to Upload Images
+<input type="file" id="imageInput" multiple accept="image/*">
+</label>
+
+<div class="image-list" id="imageList"></div>
+
+</div>
+</section>
+
+<footer>
+© 2026 Sharmaji Technology Media.
+</footer>
+
+<script>
+const input = document.getElementById("imageInput");
+const imageList = document.getElementById("imageList");
+
+input.addEventListener("change", function(){
+  imageList.innerHTML = "";
+
+  const files = Array.from(this.files);
+
+  files.forEach(file => {
+
+    if(!file.type.startsWith("image/")) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+
+      const img = new Image();
+      img.src = e.target.result;
+
+      img.onload = function(){
+
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img,0,0);
+
+        // Use toDataURL (more stable)
+        const webpData = canvas.toDataURL("image/webp", 0.8);
+
+        const beforeKB = (file.size/1024).toFixed(2);
+
+        // Approximate size calculation
+        const afterKB = (webpData.length * 0.75 / 1024).toFixed(2);
+
+        const saved = ((beforeKB - afterKB) / beforeKB * 100).toFixed(1);
+
+        const card = document.createElement("div");
+        card.className = "image-card";
+
+        const preview = document.createElement("img");
+        preview.src = webpData;
+
+        const stats = document.createElement("div");
+        stats.className = "stats";
+        stats.innerHTML = `
+        Before: ${beforeKB} KB<br>
+        After: ${afterKB} KB<br>
+        Saved: ${saved}%
+        `;
+
+        const btn = document.createElement("button");
+        btn.textContent = "Download WebP";
+        btn.onclick = function(){
+          const link = document.createElement("a");
+          link.href = webpData;
+          link.download = file.name.replace(/\.\w+$/,"") + ".webp";
+          link.click();
+        };
+
+        card.appendChild(preview);
+        card.appendChild(stats);
+        card.appendChild(btn);
+
+        imageList.appendChild(card);
+      };
+    };
+
+    reader.readAsDataURL(file);
+  });
+});
+</script>
+
+</body>
+</html>
