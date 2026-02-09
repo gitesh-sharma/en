@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Code Generator | Sharmaji Tools</title>
+<meta name="description" content="Free QR Code Generator with Logo & WiFi QR support by Sharmaji Tools.">
+
+<style>
+:root{
+  --dark:#0f172a;
+  --card:#1e293b;
+  --primary:#22c55e;
+}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+body{
+  background:var(--dark);
+  color:#fff;
+}
+header{
+  background:#111827;
+  padding:15px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+header h2{
+  font-size:20px;
+}
+nav a{
+  color:#fff;
+  text-decoration:none;
+  margin-left:15px;
+  font-size:14px;
+  opacity:.8;
+}
+nav a:hover{opacity:1}
+
+.tool-section{
+  padding:60px 20px;
+}
+.tool-container{
+  max-width:800px;
+  margin:auto;
+  background:var(--card);
+  padding:30px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+.tool-container h1{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.tabs{
+  display:flex;
+  margin-bottom:20px;
+}
+.tabs button{
+  flex:1;
+  background:#0f172a;
+  border:none;
+  color:#fff;
+  padding:10px;
+  cursor:pointer;
+  border-radius:2px;
+}
+.tabs button.active{
+  background:var(--primary);
+  border-radius:8px;
+}
+
+input, textarea, select{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.1);
+  background:#0f172a;
+  color:#fff;
+  margin-bottom:15px;
+}
+
+button.generate{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:var(--primary);
+  color:#fff;
+  font-size:15px;
+  cursor:pointer;
+}
+
+button.download{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:#2563eb;
+  color:#fff;
+  font-size:15px;
+  cursor:pointer;
+  margin-top:10px;
+  display:none;
+}
+
+.qr-preview{
+  margin-top:20px;
+  text-align:center;
+}
+canvas{
+  background:#fff;
+  padding:15px;
+  border-radius:12px;
+}
+
+footer{
+  margin-top:50px;
+  background:#111827;
+  text-align:center;
+  padding:20px;
+  font-size:14px;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>Sharmaji Tools</h2>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">All Tools</a>
+    <a href="#">Blog</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+
+<section class="tool-section">
+  <div class="tool-container">
+    <h1>QR Code Generator</h1>
+
+    <div class="tabs">
+      <button class="active" onclick="switchTab('text')">Link / Text</button>
+      <button onclick="switchTab('wifi')">WiFi QR</button>
+    </div>
+
+    <div id="textTab">
+      <textarea id="qrText" placeholder="Enter link or text"></textarea>
+    </div>
+
+    <div id="wifiTab" style="display:none;">
+      <input type="text" id="wifiSSID" placeholder="WiFi Name (SSID)">
+      <input type="text" id="wifiPassword" placeholder="WiFi Password">
+      <select id="wifiEncryption">
+        <option value="WPA">WPA/WPA2</option>
+        <option value="WEP">WEP</option>
+        <option value="nopass">No Password</option>
+      </select>
+    </div>
+
+    <button class="generate" onclick="generateQR()">Generate QR</button>
+    <button class="download" id="downloadBtn" onclick="downloadQR()">Download QR</button>
+
+    <div class="qr-preview">
+      <div id="qrCode"></div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2026 Sharmaji Technology Media.
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+let currentTab="text";
+let qrCanvas=null;
+
+function switchTab(tab){
+  currentTab=tab;
+  document.getElementById("textTab").style.display = tab==="text"?"block":"none";
+  document.getElementById("wifiTab").style.display = tab==="wifi"?"block":"none";
+  document.querySelectorAll(".tabs button").forEach(btn=>btn.classList.remove("active"));
+  event.target.classList.add("active");
+}
+
+function generateQR(){
+  let qrData="";
+
+  if(currentTab==="text"){
+    const text=document.getElementById("qrText").value.trim();
+    if(!text){ alert("Enter text or link"); return; }
+    qrData=text;
+  } else {
+    const ssid=document.getElementById("wifiSSID").value.trim();
+    const password=document.getElementById("wifiPassword").value.trim();
+    const encryption=document.getElementById("wifiEncryption").value;
+
+    if(!ssid){ alert("Enter WiFi name"); return; }
+
+    qrData=`WIFI:T:${encryption};S:${ssid};P:${password};;`;
+  }
+
+  document.getElementById("qrCode").innerHTML="";
+  document.getElementById("downloadBtn").style.display="none";
+
+  const qr=new QRCode(document.getElementById("qrCode"),{
+    text:qrData,
+    width:300,
+    height:300,
+    correctLevel:QRCode.CorrectLevel.H
+  });
+
+  setTimeout(()=>{
+    addCenterLogo();
+    document.getElementById("downloadBtn").style.display="block";
+  },150);
+}
+
+function addCenterLogo(){
+  const canvas=document.querySelector("#qrCode canvas");
+  const ctx=canvas.getContext("2d");
+
+  const size=70;
+  const centerX=canvas.width/2;
+  const centerY=canvas.height/2;
+
+  ctx.fillStyle="#ffffff";
+  ctx.beginPath();
+  ctx.arc(centerX,centerY,size/2+10,0,Math.PI*2);
+  ctx.fill();
+
+  const logo=new Image();
+  logo.crossOrigin="anonymous";
+  logo.onload=function(){
+    ctx.drawImage(logo,centerX-size/2,centerY-size/2,size,size);
+  };
+  logo.src="https://gitesh-sharma.github.io/en/images/logo.png";
+
+  qrCanvas=canvas;
+}
+
+function downloadQR(){
+  if(!qrCanvas) return;
+  const link=document.createElement("a");
+  link.download="sharmaji-qr.png";
+  link.href=qrCanvas.toDataURL();
+  link.click();
+}
+</script>
+
+</body>
+</html>
