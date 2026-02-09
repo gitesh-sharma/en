@@ -265,7 +265,7 @@ function addCenterLogo(){
 function downloadQR(){
   if(!qrCanvas) return;
   const link=document.createElement("a");
-  link.download="sharmaji-qr.png";
+  link.download="sharmaji-tools-qr.png";
   link.href=qrCanvas.toDataURL();
   link.click();
 }
