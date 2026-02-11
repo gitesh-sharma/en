@@ -175,6 +175,7 @@ button:hover{opacity:.85}
 
 <div class="buttons">
   <button class="clear" onclick="clearDisplay()">AC</button>
+  <button onclick="backspace()">⌫</button>
   <button onclick="percent()">%</button>
   <button onclick="insert('(')">(</button>
   <button onclick="insert(')')">)</button>
@@ -233,6 +234,11 @@ function toggleHistory(){
 function toggleMode(){
   angleMode=angleMode==="DEG"?"RAD":"DEG";
   document.getElementById("angleMode").innerText=angleMode;
+}
+
+function backspace(){
+  expression=expression.slice(0,-1);
+  document.getElementById("expression").innerText=expression;
 }
 
 function factorial(n){
