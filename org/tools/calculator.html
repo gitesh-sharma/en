@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scientific Calculator | Sharmaji Tools</title>
+
+<style>
+:root{
+  --dark:#0f172a;
+  --card:#1e293b;
+  --primary:#2563eb;
+  --green:#16a34a;
+  --red:#dc2626;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:var(--dark);color:#fff}
+
+/* HEADER */
+header{
+  background:#111827;
+  padding:15px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+nav a{
+  color:#fff;
+  text-decoration:none;
+  margin-left:15px;
+  font-size:14px;
+  opacity:.8;
+}
+nav a:hover{opacity:1}
+
+/* CONTAINER */
+.section{padding:60px 20px}
+.container{
+  max-width:420px;
+  margin:auto;
+  background:var(--card);
+  padding:25px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+/* DISPLAY */
+.display{
+  background:#0f172a;
+  padding:15px;
+  border-radius:10px;
+  min-height:70px;
+  margin-bottom:15px;
+  text-align:right;
+}
+.expression{
+  font-size:16px;
+  opacity:.7;
+  min-height:20px;
+}
+.result{
+  font-size:24px;
+  font-weight:bold;
+}
+
+/* GRID */
+.buttons, .scientific{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.scientific{display:none;margin-bottom:10px}
+
+button{
+  padding:14px;
+  border:none;
+  border-radius:8px;
+  font-size:15px;
+  cursor:pointer;
+  background:#0f172a;
+  color:#fff;
+}
+
+button.operator{background:var(--primary)}
+button.equal{background:var(--green)}
+button.clear{background:var(--red)}
+button:hover{opacity:.85}
+
+/* TOP BAR */
+.top-bar{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+  font-size:12px;
+}
+
+/* HISTORY */
+.history-panel{
+  position:fixed;
+  right:-300px;
+  top:0;
+  width:300px;
+  height:100%;
+  background:#111827;
+  padding:20px;
+  transition:.3s;
+  overflow:auto;
+}
+.history-panel.active{right:0}
+.history-item{
+  margin-bottom:10px;
+  font-size:14px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  padding-bottom:5px;
+}
+
+@media(max-width:500px){
+  .container{max-width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>Sharmaji Tools</h2>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">All Tools</a>
+  </nav>
+</header>
+
+<section class="section">
+<div class="container">
+
+<div class="top-bar">
+  <div>Mode: <span id="angleMode">DEG</span></div>
+  <div>
+    <button onclick="toggleScientific()">Sci</button>
+    <button onclick="toggleHistory()">History</button>
+  </div>
+</div>
+
+<div class="display">
+  <div id="expression" class="expression"></div>
+  <div id="result" class="result">0</div>
+</div>
+
+<div id="scientific" class="scientific">
+  <button onclick="insert('sin(')">sin</button>
+  <button onclick="insert('cos(')">cos</button>
+  <button onclick="insert('tan(')">tan</button>
+  <button onclick="insert('Math.sqrt(')">√</button>
+
+  <button onclick="insert('asin(')">sin⁻¹</button>
+  <button onclick="insert('acos(')">cos⁻¹</button>
+  <button onclick="insert('atan(')">tan⁻¹</button>
+  <button onclick="insert('!')">x!</button>
+
+  <button onclick="insert('C')">nCr</button>
+  <button onclick="insert('P')">nPr</button>
+  <button onclick="insert('Ans')">Ans</button>
+  <button onclick="toggleMode()">DEG/RAD</button>
+
+  <button onclick="insert('Math.PI')">π</button>
+  <button onclick="insert('Math.E')">e</button>
+  <button onclick="insert('**2')">x²</button>
+  <button onclick="insert('**')">xʸ</button>
+</div>
+
+<div class="buttons">
+  <button class="clear" onclick="clearDisplay()">AC</button>
+  <button onclick="percent()">%</button>
+  <button onclick="insert('(')">(</button>
+  <button onclick="insert(')')">)</button>
+
+  <button onclick="insert('7')">7</button>
+  <button onclick="insert('8')">8</button>
+  <button onclick="insert('9')">9</button>
+  <button class="operator" onclick="insert('/')">÷</button>
+
+  <button onclick="insert('4')">4</button>
+  <button onclick="insert('5')">5</button>
+  <button onclick="insert('6')">6</button>
+  <button class="operator" onclick="insert('*')">×</button>
+
+  <button onclick="insert('1')">1</button>
+  <button onclick="insert('2')">2</button>
+  <button onclick="insert('3')">3</button>
+  <button class="operator" onclick="insert('-')">−</button>
+
+  <button onclick="insert('0')">0</button>
+  <button onclick="insert('.')">.</button>
+  <button class="equal" onclick="calculate()">=</button>
+  <button class="operator" onclick="insert('+')">+</button>
+</div>
+
+</div>
+</section>
+
+<div id="historyPanel" class="history-panel"></div>
+
+<script>
+let expression="";
+let angleMode="DEG";
+let lastAnswer=0;
+
+function insert(val){
+  expression+=val;
+  document.getElementById("expression").innerText=expression;
+}
+
+function clearDisplay(){
+  expression="";
+  document.getElementById("expression").innerText="";
+  document.getElementById("result").innerText="0";
+}
+
+function toggleScientific(){
+  const sci=document.getElementById("scientific");
+  sci.style.display=sci.style.display==="grid"?"none":"grid";
+}
+
+function toggleHistory(){
+  document.getElementById("historyPanel").classList.toggle("active");
+}
+
+function toggleMode(){
+  angleMode=angleMode==="DEG"?"RAD":"DEG";
+  document.getElementById("angleMode").innerText=angleMode;
+}
+
+function factorial(n){
+  if(n<0) return NaN;
+  if(n<=1) return 1;
+  return n*factorial(n-1);
+}
+
+function nCr(n,r){
+  return factorial(n)/(factorial(r)*factorial(n-r));
+}
+
+function nPr(n,r){
+  return factorial(n)/factorial(n-r);
+}
+
+function percent(){
+  try{
+    let val=eval(expression);
+    expression=(val/100)+"";
+    document.getElementById("expression").innerText=expression;
+  }catch{}
+}
+
+function calculate(){
+  try{
+    let exp=expression;
+
+    exp=exp.replace(/Ans/g,lastAnswer);
+    exp=exp.replace(/(\d+)C(\d+)/g,(_,n,r)=>nCr(+n,+r));
+    exp=exp.replace(/(\d+)P(\d+)/g,(_,n,r)=>nPr(+n,+r));
+    exp=exp.replace(/(\d+)!/g,(_,n)=>factorial(+n));
+
+    if(angleMode==="DEG"){
+      exp=exp
+      .replace(/sin\(([^)]+)\)/g,(_,v)=>`Math.sin(${v}*Math.PI/180)`)
+      .replace(/cos\(([^)]+)\)/g,(_,v)=>`Math.cos(${v}*Math.PI/180)`)
+      .replace(/tan\(([^)]+)\)/g,(_,v)=>`Math.tan(${v}*Math.PI/180)`)
+      .replace(/asin\(([^)]+)\)/g,(_,v)=>`(Math.asin(${v})*180/Math.PI)`)
+      .replace(/acos\(([^)]+)\)/g,(_,v)=>`(Math.acos(${v})*180/Math.PI)`)
+      .replace(/atan\(([^)]+)\)/g,(_,v)=>`(Math.atan(${v})*180/Math.PI)`);
+    }else{
+      exp=exp
+      .replace(/sin/g,"Math.sin")
+      .replace(/cos/g,"Math.cos")
+      .replace(/tan/g,"Math.tan")
+      .replace(/asin/g,"Math.asin")
+      .replace(/acos/g,"Math.acos")
+      .replace(/atan/g,"Math.atan");
+    }
+
+    let result=eval(exp);
+    lastAnswer=result;
+
+    document.getElementById("result").innerText=result;
+    addHistory(expression+" = "+result);
+
+  }catch{
+    document.getElementById("result").innerText="Error";
+  }
+}
+
+function addHistory(text){
+  let div=document.createElement("div");
+  div.className="history-item";
+  div.innerText=text;
+  document.getElementById("historyPanel").prepend(div);
+}
+</script>
+
+</body>
+</html>
