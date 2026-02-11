@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Image to WebP Converter | Sharmaji Tools</title>
+<meta name="description" content="Free Image to WebP Converter with Batch Support by Sharmaji Tools">
 
 <style>
 :root{
@@ -11,8 +12,18 @@
   --card:#1e293b;
   --primary:#22c55e;
 }
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
-body{background:var(--dark);color:#fff;}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+body{
+  background:var(--dark);
+  color:#fff;
+}
 
 header{
   background:#111827;
@@ -20,65 +31,118 @@ header{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.1);
 }
-nav a{color:#fff;text-decoration:none;margin-left:15px;font-size:14px;}
 
-.tool-section{padding:50px 15px;}
+header h2{
+  font-size:20px;
+}
+
+.tool-section{
+  padding:50px 15px;
+}
+
 .tool-container{
   max-width:900px;
   margin:auto;
   background:var(--card);
-  padding:25px;
+  padding:30px;
   border-radius:14px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.tool-container h1{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+/* Upload */
+.upload-wrapper{
+  display:flex;
+  justify-content:center;
+  width:100%;
 }
 
 .upload-box{
-  border:2px dashed rgba(255,255,255,0.2);
-  padding:30px;
+  width:100%;
+  max-width:450px;
+  padding:45px 20px;
   text-align:center;
-  border-radius:12px;
+  border:2px dashed rgba(255,255,255,0.2);
+  border-radius:14px;
+  background:#0f172a;
   cursor:pointer;
+  transition:.3s;
 }
-input[type="file"]{display:none;}
+
+.upload-box:hover{
+  border-color:var(--primary);
+  background:rgba(34,197,94,0.05);
+}
+
+.upload-box.dragover{
+  border-color:var(--primary);
+  background:rgba(34,197,94,0.1);
+  box-shadow:0 0 20px rgba(34,197,94,0.4);
+}
+
+.upload-box p{
+  font-size:18px;
+}
+
+.upload-box span{
+  font-size:14px;
+  opacity:.7;
+}
+
+/* Stats */
+.file-list{
+  margin-top:25px;
+}
+
+.file-item{
+  background:#0f172a;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:12px;
+  font-size:14px;
+}
 
 button{
   width:100%;
   padding:12px;
   border:none;
   border-radius:8px;
-  background:var(--primary);
-  color:#fff;
-  margin-top:20px;
+  margin-top:15px;
+  font-size:15px;
   cursor:pointer;
 }
 
-.image-list{
-  margin-top:30px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
+.convert{
+  background:var(--primary);
+  color:#fff;
 }
 
-.image-card{
-  background:#0f172a;
-  padding:15px;
-  border-radius:12px;
-  text-align:center;
+.download{
+  background:#2563eb;
+  color:#fff;
+  display:none;
 }
-
-.image-card img{
-  max-width:100%;
-  border-radius:8px;
-  margin-bottom:10px;
-}
-
-.stats{font-size:13px;margin-bottom:10px;}
 
 footer{
   margin-top:50px;
+  background:#111827;
   text-align:center;
   padding:20px;
-  background:#111827;
+  font-size:14px;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+
+/* Mobile */
+@media(max-width:600px){
+  .upload-box{
+    padding:30px 15px;
+  }
 }
 </style>
 </head>
@@ -86,105 +150,113 @@ footer{
 <body>
 
 <header>
-<h2>Sharmaji Tools</h2>
-<nav>
-<a href="#">Home</a>
-<a href="#">All Tools</a>
-</nav>
+  <h2>Sharmaji Tools</h2>
 </header>
 
 <section class="tool-section">
-<div class="tool-container">
+  <div class="tool-container">
+    <h1>Image to WebP Converter</h1>
 
-<h1 style="text-align:center;margin-bottom:20px;">Image to WebP Converter</h1>
+    <div class="upload-wrapper">
+      <div class="upload-box" id="uploadBox">
+        <p>Drag & Drop Images Here</p>
+        <span>or Click to Upload</span>
+        <input type="file" id="imageInput" accept="image/*" multiple hidden>
+      </div>
+    </div>
 
-<label class="upload-box">
-Click to Upload Images
-<input type="file" id="imageInput" multiple accept="image/*">
-</label>
+    <div class="file-list" id="fileList"></div>
 
-<div class="image-list" id="imageList"></div>
+    <button class="convert" onclick="convertImages()">Convert to WebP</button>
+    <button class="download" id="downloadAllBtn" onclick="downloadAll()">Download All</button>
 
-</div>
+  </div>
 </section>
 
 <footer>
-© 2026 Sharmaji Technology Media. Design by Gitesh Sharma.
+  © 2026 Sharmaji Technology Media.
 </footer>
 
 <script>
-const input = document.getElementById("imageInput");
-const imageList = document.getElementById("imageList");
+const uploadBox = document.getElementById("uploadBox");
+const fileInput = document.getElementById("imageInput");
+const fileList = document.getElementById("fileList");
+const downloadBtn = document.getElementById("downloadAllBtn");
 
-input.addEventListener("change", function(){
-  imageList.innerHTML = "";
+let convertedImages = [];
 
-  const files = Array.from(this.files);
+uploadBox.addEventListener("click", () => fileInput.click());
 
-  files.forEach(file => {
+uploadBox.addEventListener("dragover", e=>{
+  e.preventDefault();
+  uploadBox.classList.add("dragover");
+});
 
-    if(!file.type.startsWith("image/")) return;
+uploadBox.addEventListener("dragleave", ()=>{
+  uploadBox.classList.remove("dragover");
+});
 
-    const reader = new FileReader();
+uploadBox.addEventListener("drop", e=>{
+  e.preventDefault();
+  uploadBox.classList.remove("dragover");
+  fileInput.files = e.dataTransfer.files;
+  displayFiles();
+});
 
-    reader.onload = function(e){
+fileInput.addEventListener("change", displayFiles);
 
-      const img = new Image();
-      img.src = e.target.result;
+function displayFiles(){
+  fileList.innerHTML="";
+  convertedImages=[];
+  Array.from(fileInput.files).forEach(file=>{
+    const item=document.createElement("div");
+    item.className="file-item";
+    item.innerHTML=`
+      <strong>${file.name}</strong><br>
+      Before: ${(file.size/1024).toFixed(2)} KB
+      <div id="after-${file.name}"></div>
+    `;
+    fileList.appendChild(item);
+  });
+}
 
-      img.onload = function(){
-
-        const canvas = document.createElement("canvas");
-        canvas.width = img.width;
-        canvas.height = img.height;
-
-        const ctx = canvas.getContext("2d");
+function convertImages(){
+  convertedImages=[];
+  Array.from(fileInput.files).forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=function(e){
+      const img=new Image();
+      img.onload=function(){
+        const canvas=document.createElement("canvas");
+        canvas.width=img.width;
+        canvas.height=img.height;
+        const ctx=canvas.getContext("2d");
         ctx.drawImage(img,0,0);
 
-        // Use toDataURL (more stable)
-        const webpData = canvas.toDataURL("image/webp", 0.8);
+        canvas.toBlob(blob=>{
+          convertedImages.push({name:file.name, blob:blob});
 
-        const beforeKB = (file.size/1024).toFixed(2);
+          document.getElementById("after-"+file.name).innerHTML=
+          "<br>After: "+(blob.size/1024).toFixed(2)+" KB";
+          
+          downloadBtn.style.display="block";
+        },"image/webp",0.8);
 
-        // Approximate size calculation
-        const afterKB = (webpData.length * 0.75 / 1024).toFixed(2);
-
-        const saved = ((beforeKB - afterKB) / beforeKB * 100).toFixed(1);
-
-        const card = document.createElement("div");
-        card.className = "image-card";
-
-        const preview = document.createElement("img");
-        preview.src = webpData;
-
-        const stats = document.createElement("div");
-        stats.className = "stats";
-        stats.innerHTML = `
-        Before: ${beforeKB} KB<br>
-        After: ${afterKB} KB<br>
-        Saved: ${saved}%
-        `;
-
-        const btn = document.createElement("button");
-        btn.textContent = "Download WebP";
-        btn.onclick = function(){
-          const link = document.createElement("a");
-          link.href = webpData;
-          link.download = file.name.replace(/\.\w+$/,"") + ".webp";
-          link.click();
-        };
-
-        card.appendChild(preview);
-        card.appendChild(stats);
-        card.appendChild(btn);
-
-        imageList.appendChild(card);
       };
+      img.src=e.target.result;
     };
-
     reader.readAsDataURL(file);
   });
-});
+}
+
+function downloadAll(){
+  convertedImages.forEach(img=>{
+    const link=document.createElement("a");
+    link.href=URL.createObjectURL(img.blob);
+    link.download=img.name.replace(/\.[^/.]+$/,"")+".webp";
+    link.click();
+  });
+}
 </script>
 
 </body>
