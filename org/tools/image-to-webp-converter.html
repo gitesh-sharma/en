@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Image to WebP Converter | Sharmaji Tools</title>
-<meta name="description" content="Free Image to WebP Converter with Batch Support by Sharmaji Tools">
+<meta name="description" content="Free Image to WebP Converter with Compression Slider & Batch Support by Sharmaji Tools">
 
 <style>
 :root{
@@ -28,22 +28,16 @@ body{
 header{
   background:#111827;
   padding:15px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  text-align:center;
   border-bottom:1px solid rgba(255,255,255,0.1);
 }
 
-header h2{
-  font-size:20px;
-}
-
 .tool-section{
-  padding:50px 15px;
+  padding:40px 15px;
 }
 
 .tool-container{
-  max-width:900px;
+  max-width:1000px;
   margin:auto;
   background:var(--card);
   padding:30px;
@@ -60,13 +54,12 @@ header h2{
 .upload-wrapper{
   display:flex;
   justify-content:center;
-  width:100%;
 }
 
 .upload-box{
   width:100%;
-  max-width:450px;
-  padding:45px 20px;
+  max-width:500px;
+  padding:40px 20px;
   text-align:center;
   border:2px dashed rgba(255,255,255,0.2);
   border-radius:14px;
@@ -86,26 +79,39 @@ header h2{
   box-shadow:0 0 20px rgba(34,197,94,0.4);
 }
 
-.upload-box p{
-  font-size:18px;
-}
-
-.upload-box span{
-  font-size:14px;
-  opacity:.7;
-}
-
-/* Stats */
-.file-list{
+/* Slider */
+.quality-box{
   margin-top:25px;
+  text-align:center;
 }
 
-.file-item{
+.quality-box input{
+  width:100%;
+  margin-top:10px;
+}
+
+/* Preview Grid */
+.preview-grid{
+  margin-top:25px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:15px;
+}
+
+.preview-card{
   background:#0f172a;
-  padding:15px;
+  padding:10px;
   border-radius:10px;
-  margin-bottom:12px;
-  font-size:14px;
+  font-size:13px;
+  text-align:center;
+}
+
+.preview-card img{
+  width:100%;
+  height:120px;
+  object-fit:cover;
+  border-radius:8px;
+  margin-bottom:8px;
 }
 
 button{
@@ -113,7 +119,7 @@ button{
   padding:12px;
   border:none;
   border-radius:8px;
-  margin-top:15px;
+  margin-top:20px;
   font-size:15px;
   cursor:pointer;
 }
@@ -137,13 +143,6 @@ footer{
   font-size:14px;
   border-top:1px solid rgba(255,255,255,0.1);
 }
-
-/* Mobile */
-@media(max-width:600px){
-  .upload-box{
-    padding:30px 15px;
-  }
-}
 </style>
 </head>
 
@@ -160,12 +159,17 @@ footer{
     <div class="upload-wrapper">
       <div class="upload-box" id="uploadBox">
         <p>Drag & Drop Images Here</p>
-        <span>or Click to Upload</span>
+        <small>or Click to Upload</small>
         <input type="file" id="imageInput" accept="image/*" multiple hidden>
       </div>
     </div>
 
-    <div class="file-list" id="fileList"></div>
+    <div class="quality-box">
+      <label>Compression Quality: <strong><span id="qualityValue">80</span>%</strong></label>
+      <input type="range" id="qualitySlider" min="10" max="100" value="80">
+    </div>
+
+    <div class="preview-grid" id="previewGrid"></div>
 
     <button class="convert" onclick="convertImages()">Convert to WebP</button>
     <button class="download" id="downloadAllBtn" onclick="downloadAll()">Download All</button>
@@ -180,53 +184,69 @@ footer{
 <script>
 const uploadBox = document.getElementById("uploadBox");
 const fileInput = document.getElementById("imageInput");
-const fileList = document.getElementById("fileList");
+const previewGrid = document.getElementById("previewGrid");
 const downloadBtn = document.getElementById("downloadAllBtn");
+const slider = document.getElementById("qualitySlider");
+const qualityValue = document.getElementById("qualityValue");
 
+let files = [];
 let convertedImages = [];
 
-uploadBox.addEventListener("click", () => fileInput.click());
+qualityValue.innerText = slider.value;
 
-uploadBox.addEventListener("dragover", e=>{
+slider.addEventListener("input",()=>{
+  qualityValue.innerText = slider.value;
+});
+
+uploadBox.addEventListener("click",()=>fileInput.click());
+
+uploadBox.addEventListener("dragover",e=>{
   e.preventDefault();
   uploadBox.classList.add("dragover");
 });
 
-uploadBox.addEventListener("dragleave", ()=>{
+uploadBox.addEventListener("dragleave",()=>{
   uploadBox.classList.remove("dragover");
 });
 
-uploadBox.addEventListener("drop", e=>{
+uploadBox.addEventListener("drop",e=>{
   e.preventDefault();
   uploadBox.classList.remove("dragover");
-  fileInput.files = e.dataTransfer.files;
-  displayFiles();
+  files = Array.from(e.dataTransfer.files);
+  displayPreviews();
 });
 
-fileInput.addEventListener("change", displayFiles);
+fileInput.addEventListener("change",()=>{
+  files = Array.from(fileInput.files);
+  displayPreviews();
+});
 
-function displayFiles(){
-  fileList.innerHTML="";
-  convertedImages=[];
-  Array.from(fileInput.files).forEach(file=>{
-    const item=document.createElement("div");
-    item.className="file-item";
-    item.innerHTML=`
-      <strong>${file.name}</strong><br>
-      Before: ${(file.size/1024).toFixed(2)} KB
-      <div id="after-${file.name}"></div>
-    `;
-    fileList.appendChild(item);
+function displayPreviews(){
+  previewGrid.innerHTML="";
+  files.forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const card=document.createElement("div");
+      card.className="preview-card";
+      card.innerHTML=`
+        <img src="${e.target.result}">
+        <strong>${file.name}</strong><br>
+        Before: ${(file.size/1024).toFixed(2)} KB
+        <div id="after-${file.name}"></div>
+      `;
+      previewGrid.appendChild(card);
+    };
+    reader.readAsDataURL(file);
   });
 }
 
 function convertImages(){
   convertedImages=[];
-  Array.from(fileInput.files).forEach(file=>{
+  files.forEach(file=>{
     const reader=new FileReader();
-    reader.onload=function(e){
+    reader.onload=e=>{
       const img=new Image();
-      img.onload=function(){
+      img.onload=()=>{
         const canvas=document.createElement("canvas");
         canvas.width=img.width;
         canvas.height=img.height;
@@ -235,13 +255,10 @@ function convertImages(){
 
         canvas.toBlob(blob=>{
           convertedImages.push({name:file.name, blob:blob});
-
           document.getElementById("after-"+file.name).innerHTML=
-          "<br>After: "+(blob.size/1024).toFixed(2)+" KB";
-          
+            "After: "+(blob.size/1024).toFixed(2)+" KB";
           downloadBtn.style.display="block";
-        },"image/webp",0.8);
-
+        },"image/webp", slider.value/100);
       };
       img.src=e.target.result;
     };
