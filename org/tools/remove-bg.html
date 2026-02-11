@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remove Image Background | Sharmaji Tools</title>
+<meta name="description" content="Free AI Background Remover Tool. Remove image background online and download in PNG, JPG, WebP format.">
+
+<style>
+:root{
+  --dark:#0f172a;
+  --card:#1e293b;
+  --primary:#22c55e;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+body{
+  background:var(--dark);
+  color:#fff;
+}
+
+header{
+  background:#111827;
+  padding:15px;
+  text-align:center;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.tool-section{
+  padding:40px 15px;
+}
+
+.tool-container{
+  max-width:900px;
+  margin:auto;
+  background:var(--card);
+  padding:30px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+h1{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+/* Upload */
+.upload-box{
+  border:2px dashed rgba(255,255,255,0.2);
+  padding:40px;
+  text-align:center;
+  border-radius:12px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.upload-box:hover{
+  border-color:var(--primary);
+  background:rgba(34,197,94,0.05);
+}
+
+.upload-box.dragover{
+  border-color:var(--primary);
+  box-shadow:0 0 15px rgba(34,197,94,0.5);
+}
+
+/* Preview */
+.preview-area{
+  margin-top:25px;
+  text-align:center;
+}
+
+canvas{
+  max-width:100%;
+  border-radius:10px;
+  background:#000;
+}
+
+/* Controls */
+.controls{
+  margin-top:20px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+select, button{
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  font-size:14px;
+}
+
+select{
+  background:#0f172a;
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+button{
+  background:var(--primary);
+  color:#fff;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.85;
+}
+
+.loader{
+  margin-top:20px;
+  text-align:center;
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>Sharmaji Tools</h2>
+</header>
+
+<section class="tool-section">
+  <div class="tool-container">
+    <h1>AI Background Remover</h1>
+
+    <div class="upload-box" id="uploadBox">
+      <p>Drag & Drop Image Here</p>
+      <small>or Click to Upload</small>
+      <input type="file" id="imageInput" accept="image/*" hidden>
+    </div>
+
+    <div class="loader" id="loader">Processing AI Model... Please wait ⏳</div>
+
+    <div class="preview-area">
+      <canvas id="outputCanvas"></canvas>
+    </div>
+
+    <div class="controls" id="controls" style="display:none;">
+      <select id="formatSelect">
+        <option value="image/png">PNG (Transparent)</option>
+        <option value="image/jpeg">JPG</option>
+        <option value="image/webp">WebP</option>
+      </select>
+      <button onclick="downloadImage()">Download</button>
+    </div>
+
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.2.0"></script>
+
+<script>
+let net;
+let uploadedImage;
+
+const uploadBox = document.getElementById("uploadBox");
+const imageInput = document.getElementById("imageInput");
+const canvas = document.getElementById("outputCanvas");
+const ctx = canvas.getContext("2d");
+const loader = document.getElementById("loader");
+const controls = document.getElementById("controls");
+
+async function loadModel(){
+  loader.style.display="block";
+  net = await bodyPix.load();
+  loader.style.display="none";
+}
+
+loadModel();
+
+uploadBox.addEventListener("click", ()=>imageInput.click());
+
+uploadBox.addEventListener("dragover", e=>{
+  e.preventDefault();
+  uploadBox.classList.add("dragover");
+});
+
+uploadBox.addEventListener("dragleave", ()=>{
+  uploadBox.classList.remove("dragover");
+});
+
+uploadBox.addEventListener("drop", e=>{
+  e.preventDefault();
+  uploadBox.classList.remove("dragover");
+  handleImage(e.dataTransfer.files[0]);
+});
+
+imageInput.addEventListener("change", ()=>{
+  handleImage(imageInput.files[0]);
+});
+
+function handleImage(file){
+  const reader = new FileReader();
+  reader.onload = function(e){
+    uploadedImage = new Image();
+    uploadedImage.onload = async function(){
+      canvas.width = uploadedImage.width;
+      canvas.height = uploadedImage.height;
+
+      loader.style.display="block";
+
+      const segmentation = await net.segmentPerson(uploadedImage);
+      const mask = bodyPix.toMask(segmentation);
+
+      ctx.drawImage(uploadedImage,0,0);
+      const imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
+
+      for(let i=0;i<imgData.data.length;i+=4){
+        if(mask.data[i] === 0){
+          imgData.data[i+3] = 0;
+        }
+      }
+
+      ctx.putImageData(imgData,0,0);
+
+      loader.style.display="none";
+      controls.style.display="flex";
+    }
+    uploadedImage.src = e.target.result;
+  }
+  reader.readAsDataURL(file);
+}
+
+function downloadImage(){
+  const format = document.getElementById("formatSelect").value;
+  const link = document.createElement("a");
+  link.download = "sharmaji-tools-background-removed";
+  link.href = canvas.toDataURL(format);
+  link.click();
+}
+</script>
+
+</body>
+</html>
