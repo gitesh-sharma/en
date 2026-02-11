@@ -100,7 +100,7 @@ button:hover{opacity:.85}
   font-size:16px;
 }
 /* HISTORY */
-.history-panel{
+/*.history-panel{
   position:fixed;
   right:-300px;
   top:0;
@@ -110,15 +110,29 @@ button:hover{opacity:.85}
   padding:20px;
   transition:.3s;
   overflow:auto;
-}
-.history-panel.active{right:0}
-.history-item{
+} */
+.history-box.active{right:0}
+/*.history-item{
   margin-bottom:10px;
   font-size:14px;
   border-bottom:1px solid rgba(255,255,255,0.1);
   padding-bottom:5px;
+}*/
+.history-item{
+  margin-bottom:5px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  padding-bottom:4px;
 }
-
+/* HISTORY + EXPLANATION */
+.history-box, .explain-box{
+  margin-top:15px;
+  background:#0f172a;
+  padding:10px;
+  border-radius:8px;
+  font-size:13px;
+  display:none;
+}
+  
 @media(max-width:500px){
   .container{max-width:100%}
 }
@@ -201,7 +215,8 @@ button:hover{opacity:.85}
   <button class="equal" onclick="calculate()">=</button>
   <button class="operator" onclick="insert('+')">+</button>
 </div>
-
+<div id="explainBox" class="explain-box"></div>
+<div id="historyBox" class="history-box"></div>
 </div>
 </section>
 
@@ -231,7 +246,7 @@ function toggleScientific(){
 function toggleHistory(){
   document.getElementById("historyPanel").classList.toggle("active");
 }
-
+  
 function toggleMode(){
   angleMode=angleMode==="DEG"?"RAD":"DEG";
   document.getElementById("angleMode").innerText=angleMode;
@@ -302,11 +317,61 @@ function calculate(){
   }
 }
 
-function addHistory(text){
+/*function addHistory(text){
   let div=document.createElement("div");
   div.className="history-item";
   div.innerText=text;
   document.getElementById("historyPanel").prepend(div);
+}*/
+
+function addHistory(text){
+  const box=document.getElementById("historyBox");
+  box.style.display="block";
+  let div=document.createElement("div");
+  div.className="history-item";
+  div.innerText=text;
+  box.prepend(div);
+}
+
+function calculate(){
+  try{
+    let exp=expression;
+
+    if(angleMode==="DEG"){
+      exp=exp.replace(/sin\(([^)]+)\)/g,(_,v)=>`Math.sin(${v}*Math.PI/180)`)
+             .replace(/cos\(([^)]+)\)/g,(_,v)=>`Math.cos(${v}*Math.PI/180)`)
+             .replace(/tan\(([^)]+)\)/g,(_,v)=>`Math.tan(${v}*Math.PI/180)`);
+    }
+
+    let result=eval(exp);
+
+    document.getElementById("result").innerText=result;
+    addHistory(expression+" = "+result);
+    addExplanation(expression,result);
+
+  }catch{
+    document.getElementById("result").innerText="Error";
+  }
+}
+
+function addHistory(text){
+  const box=document.getElementById("historyBox");
+  box.style.display="block";
+  let div=document.createElement("div");
+  div.className="history-item";
+  div.innerText=text;
+  box.prepend(div);
+}
+
+function addExplanation(expr,res){
+  const box=document.getElementById("explainBox");
+  box.style.display="block";
+
+  if(expr.includes("tan(45")){
+    box.innerHTML="tan(45°) = sin(45°) / cos(45°) = 0.7071 / 0.7071 = 1";
+  }else{
+    box.innerHTML="Calculated using mathematical evaluation of: "+expr;
+  }
 }
 </script>
 
