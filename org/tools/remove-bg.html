@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Remove Image Background | Sharmaji Tools</title>
-<meta name="description" content="Free AI Background Remover Tool. Remove image background online and download in PNG, JPG, WebP format.">
+<meta name="description" content="Free client-side AI Remove Background tool. Remove background from images and download in PNG, JPG, or WEBP format.">
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.21.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
 
 <style>
 :root{
@@ -12,112 +15,88 @@
   --card:#1e293b;
   --primary:#22c55e;
 }
-
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
   font-family:Arial, sans-serif;
 }
-
 body{
   background:var(--dark);
   color:#fff;
 }
-
 header{
   background:#111827;
-  padding:15px;
-  text-align:center;
-  border-bottom:1px solid rgba(255,255,255,0.1);
+  padding:15px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-
+header h2{
+  font-size:18px;
+}
 .tool-section{
-  padding:40px 15px;
+  padding:50px 20px;
 }
-
 .tool-container{
-  max-width:900px;
+  max-width:850px;
   margin:auto;
   background:var(--card);
-  padding:30px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,0.08);
-}
-
-h1{
+  padding:25px;
+  border-radius:12px;
   text-align:center;
-  margin-bottom:25px;
 }
-
-/* Upload */
 .upload-box{
   border:2px dashed rgba(255,255,255,0.2);
-  padding:40px;
-  text-align:center;
+  padding:40px 20px;
   border-radius:12px;
   cursor:pointer;
   transition:.3s;
 }
-
 .upload-box:hover{
   border-color:var(--primary);
-  background:rgba(34,197,94,0.05);
 }
-
-.upload-box.dragover{
-  border-color:var(--primary);
-  box-shadow:0 0 15px rgba(34,197,94,0.5);
+.upload-box input{
+  display:none;
 }
-
-/* Preview */
-.preview-area{
-  margin-top:25px;
-  text-align:center;
-}
-
 canvas{
   max-width:100%;
-  border-radius:10px;
-  background:#000;
-}
-
-/* Controls */
-.controls{
   margin-top:20px;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+  background:#fff;
+  border-radius:12px;
 }
-
+.controls{
+  margin-top:15px;
+  display:none;
+  flex-direction:column;
+  gap:10px;
+}
 select, button{
-  flex:1;
-  padding:12px;
+  padding:10px;
   border:none;
   border-radius:8px;
   font-size:14px;
 }
-
-select{
-  background:#0f172a;
-  color:#fff;
-  border:1px solid rgba(255,255,255,0.1);
-}
-
 button{
   background:var(--primary);
   color:#fff;
   cursor:pointer;
 }
-
-button:hover{
-  opacity:.85;
-}
-
 .loader{
-  margin-top:20px;
-  text-align:center;
+  margin-top:15px;
   display:none;
+}
+footer{
+  margin-top:40px;
+  text-align:center;
+  padding:20px;
+  font-size:14px;
+  background:#111827;
+}
+@media(max-width:768px){
+  .tool-container{
+    padding:15px;
+  }
 }
 </style>
 </head>
@@ -130,112 +109,108 @@ button:hover{
 
 <section class="tool-section">
   <div class="tool-container">
-    <h1>AI Background Remover</h1>
 
-    <div class="upload-box" id="uploadBox">
-      <p>Drag & Drop Image Here</p>
-      <small>or Click to Upload</small>
-      <input type="file" id="imageInput" accept="image/*" hidden>
-    </div>
+    <h1>Remove Image Background</h1>
+    <p style="margin-bottom:20px;font-size:14px;opacity:.8;">Works best for human images</p>
 
-    <div class="loader" id="loader">Processing AI Model... Please wait ⏳</div>
+    <label class="upload-box">
+      Click to Upload Image
+      <input type="file" id="imageUpload" accept="image/*">
+    </label>
 
-    <div class="preview-area">
-      <canvas id="outputCanvas"></canvas>
-    </div>
+    <div class="loader" id="loader">Processing... Please wait</div>
 
-    <div class="controls" id="controls" style="display:none;">
+    <canvas id="canvas"></canvas>
+
+    <div class="controls" id="controls">
       <select id="formatSelect">
         <option value="image/png">PNG (Transparent)</option>
         <option value="image/jpeg">JPG</option>
-        <option value="image/webp">WebP</option>
+        <option value="image/webp">WEBP</option>
       </select>
-      <button onclick="downloadImage()">Download</button>
+      <button onclick="downloadImage()">Download Image</button>
     </div>
 
   </div>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0"></script>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.2.0"></script>
+<footer>
+  © 2026 Sharmaji Technology Media
+</footer>
 
 <script>
 let net;
-let uploadedImage;
-
-const uploadBox = document.getElementById("uploadBox");
-const imageInput = document.getElementById("imageInput");
-const canvas = document.getElementById("outputCanvas");
+const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const loader = document.getElementById("loader");
 const controls = document.getElementById("controls");
+const upload = document.getElementById("imageUpload");
 
 async function loadModel(){
-  loader.style.display="block";
-  net = await bodyPix.load();
-  loader.style.display="none";
+  net = await bodyPix.load({
+    architecture: 'MobileNetV1',
+    outputStride: 16,
+    multiplier: 0.75,
+    quantBytes: 2
+  });
 }
-
 loadModel();
 
-uploadBox.addEventListener("click", ()=>imageInput.click());
-
-uploadBox.addEventListener("dragover", e=>{
-  e.preventDefault();
-  uploadBox.classList.add("dragover");
+upload.addEventListener("change", function(e){
+  const file = e.target.files[0];
+  if(file) handleImage(file);
 });
 
-uploadBox.addEventListener("dragleave", ()=>{
-  uploadBox.classList.remove("dragover");
-});
+async function handleImage(file){
 
-uploadBox.addEventListener("drop", e=>{
-  e.preventDefault();
-  uploadBox.classList.remove("dragover");
-  handleImage(e.dataTransfer.files[0]);
-});
-
-imageInput.addEventListener("change", ()=>{
-  handleImage(imageInput.files[0]);
-});
-
-function handleImage(file){
   const reader = new FileReader();
-  reader.onload = function(e){
-    uploadedImage = new Image();
-    uploadedImage.onload = async function(){
-      canvas.width = uploadedImage.width;
-      canvas.height = uploadedImage.height;
+
+  reader.onload = async function(e){
+
+    const img = new Image();
+    img.onload = async function(){
+
+      canvas.width = img.width;
+      canvas.height = img.height;
 
       loader.style.display="block";
+      controls.style.display="none";
 
-      const segmentation = await net.segmentPerson(uploadedImage);
-      const mask = bodyPix.toMask(segmentation);
+      ctx.drawImage(img,0,0);
 
-      ctx.drawImage(uploadedImage,0,0);
-      const imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
+      const segmentation = await net.segmentPerson(img,{
+        internalResolution: "medium",
+        segmentationThreshold: 0.7
+      });
 
-      for(let i=0;i<imgData.data.length;i+=4){
-        if(mask.data[i] === 0){
-          imgData.data[i+3] = 0;
+      const imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+      const data = imageData.data;
+      const mask = segmentation.data;
+
+      for(let i=0;i<mask.length;i++){
+        if(mask[i] === 0){
+          data[i*4 + 3] = 0;
         }
       }
 
-      ctx.putImageData(imgData,0,0);
+      ctx.putImageData(imageData,0,0);
 
       loader.style.display="none";
       controls.style.display="flex";
     }
-    uploadedImage.src = e.target.result;
+
+    img.src = e.target.result;
   }
+
   reader.readAsDataURL(file);
 }
 
 function downloadImage(){
   const format = document.getElementById("formatSelect").value;
-  const link = document.createElement("a");
-  link.download = "sharmaji-tools-background-removed";
-  link.href = canvas.toDataURL(format);
+
+  let link = document.createElement("a");
+  link.download = "sharmaji-bg-removed";
+  link.href = canvas.toDataURL(format,0.9);
   link.click();
 }
 </script>
