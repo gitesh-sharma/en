@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scientific Calculator – Sharmaji Tools</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Orbitron',sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,#0f172a,#111827);
+  display:flex;
+  min-height:100vh;
+  color:#fff;
+}
+
+/* Sidebar */
+
+.sidebar{
+  width:220px;
+  background:#0b1220;
+  padding:25px 15px;
+  border-right:1px solid rgba(0,255,255,.1);
+}
+
+.sidebar h2{
+  color:#00f0ff;
+  margin-bottom:30px;
+  font-size:18px;
+}
+
+.sidebar a{
+  display:block;
+  padding:12px;
+  margin-bottom:10px;
+  color:#aaa;
+  text-decoration:none;
+  border-radius:8px;
+  transition:.3s;
+}
+
+.sidebar a:hover{
+  background:rgba(0,255,255,.1);
+  color:#00f0ff;
+}
+
+/* Main Panel */
+
+.main{
+  flex:1;
+  padding:30px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+}
+
+.glass{
+  width:100%;
+  max-width:500px;
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(12px);
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 0 25px rgba(0,255,255,.15);
+}
+
+/* Display */
+
+.display{
+  background:#e2e8f0;
+  color:#111;
+  padding:15px;
+  border-radius:12px;
+  font-size:22px;
+  min-height:60px;
+  text-align:right;
+  margin-bottom:20px;
+  overflow-x:auto;
+}
+
+/* Buttons Grid */
+
+.buttons{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+button{
+  padding:15px;
+  border:none;
+  border-radius:12px;
+  font-size:16px;
+  cursor:pointer;
+  background:#1f2937;
+  color:#fff;
+  transition:.2s;
+}
+
+button:hover{
+  background:#00f0ff;
+  color:#000;
+}
+
+.operator{
+  background:#374151;
+}
+
+.equal{
+  background:#00f0ff;
+  color:#000;
+}
+
+/* Expandable Cards */
+
+.card{
+  margin-top:25px;
+  background:rgba(255,255,255,.03);
+  border-radius:12px;
+  padding:15px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.card h3{
+  font-size:16px;
+}
+
+.card-content{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .4s ease;
+}
+
+.card.active .card-content{
+  max-height:200px;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+  }
+
+  .sidebar h2{
+    display:none;
+  }
+
+  .main{
+    padding:15px;
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>Calculator</h2>
+  <a href="#">Standard</a>
+  <a href="#">Matrix</a>
+  <a href="#">Graph</a>
+  <a href="#">History</a>
+</div>
+
+<div class="main">
+  <div class="glass">
+
+    <div class="display" id="display">0</div>
+
+    <div class="buttons">
+      <button onclick="press('7')">7</button>
+      <button onclick="press('8')">8</button>
+      <button onclick="press('9')">9</button>
+      <button class="operator" onclick="press('/')">÷</button>
+
+      <button onclick="press('4')">4</button>
+      <button onclick="press('5')">5</button>
+      <button onclick="press('6')">6</button>
+      <button class="operator" onclick="press('*')">×</button>
+
+      <button onclick="press('1')">1</button>
+      <button onclick="press('2')">2</button>
+      <button onclick="press('3')">3</button>
+      <button class="operator" onclick="press('-')">−</button>
+
+      <button onclick="press('0')">0</button>
+      <button onclick="press('.')">.</button>
+      <button onclick="clearDisplay()">AC</button>
+      <button class="operator" onclick="press('+')">+</button>
+
+      <button class="equal" style="grid-column:span 4" onclick="calculate()">=</button>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <h3>Matrix Mode</h3>
+      <div class="card-content">
+        2x2 and 3x3 matrix operations coming soon.
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <h3>Graph Plotter</h3>
+      <div class="card-content">
+        Interactive graph system will be added.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+function press(val){
+  let display = document.getElementById("display");
+  if(display.innerText === "0") display.innerText = val;
+  else display.innerText += val;
+}
+
+function clearDisplay(){
+  document.getElementById("display").innerText = "0";
+}
+
+function calculate(){
+  try{
+    let result = eval(document.getElementById("display").innerText);
+    document.getElementById("display").innerText = result;
+  }catch{
+    document.getElementById("display").innerText = "Error";
+  }
+}
+
+function toggleCard(card){
+  card.classList.toggle("active");
+}
+
+</script>
+
+</body>
+</html>
