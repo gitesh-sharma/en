@@ -22,17 +22,18 @@ body{margin:0;padding:0;font-family:Segoe UI,Arial,sans-serif;background:#0f172a
 .tab.active{background:#334155;border-bottom-color:#2563eb}
 textarea{flex:1;background:#020617;color:#e2e8f0;border:none;outline:none;padding:14px;font-family:Consolas,monospace;font-size:14px;resize:none;min-height:0}
 textarea:focus{background:#0f172a}
-.right{overflow:hidden;min-height:0}
+.right{overflow:hidden;min-height:0;position:relative}
 iframe{width:100%;height:100%;border:none;background:white;display:block}
 .footer{padding:8px 18px;background:#111827;border-top:1px solid #334155;text-align:center;font-size:13px;color:#9ca3af;flex-shrink:0}
+
 #closeFullscreenBtn{
 position:fixed;top:15px;right:15px;width:48px;height:48px;border:none;
 border-radius:50%;background:#ef4444;color:#fff;font-size:22px;font-weight:bold;
 cursor:pointer;z-index:999999;box-shadow:0 4px 15px rgba(0,0,0,.35);
 transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);
-opacity:0;visibility:hidden;pointer-events:none;
+display:none;padding:0;line-height:1;
 }
-#closeFullscreenBtn.visible{opacity:1;visibility:visible;pointer-events:auto}
+#closeFullscreenBtn.show{display:block;opacity:1}
 #closeFullscreenBtn:hover{background:#dc2626;transform:scale(1.15);box-shadow:0 6px 20px rgba(239,68,68,0.6)}
 #closeFullscreenBtn:active{transform:scale(0.95)}
 
@@ -63,7 +64,7 @@ textarea{padding:8px;font-size:11px}
 .tab{padding:5px 6px;font-size:10px}
 textarea{padding:6px;font-size:10px}
 .footer{font-size:10px}
-#closeFullscreenBtn{width:40px;height:40px;font-size:16px}
+#closeFullscreenBtn{width:40px;height:40px;font-size:16px;top:8px;right:8px}
 }
 </style>
 </head>
@@ -142,31 +143,67 @@ a.click();
 
 function togglePreview(){
 if(!document.fullscreenElement){
-preview.requestFullscreen().catch(err=>{
-console.log('Fullscreen request failed:',err.message);
-});
+const elem=preview;
+if(elem.requestFullscreen){
+elem.requestFullscreen().catch(e=>console.log('Error:',e));
+}else if(elem.webkitRequestFullscreen){
+elem.webkitRequestFullscreen();
+}else if(elem.mozRequestFullScreen){
+elem.mozRequestFullScreen();
+}else if(elem.msRequestFullscreen){
+elem.msRequestFullscreen();
+}
 }
 }
 
 function closePreviewFullscreen(){
 if(document.fullscreenElement){
-document.exitFullscreen().catch(err=>{
-console.log('Exit fullscreen failed:',err.message);
-});
+if(document.exitFullscreen){
+document.exitFullscreen().catch(e=>console.log('Error:',e));
+}else if(document.webkitExitFullscreen){
+document.webkitExitFullscreen();
+}else if(document.mozCancelFullScreen){
+document.mozCancelFullScreen();
+}else if(document.msExitFullscreen){
+document.msExitFullscreen();
+}
 }
 }
 
 document.addEventListener('fullscreenchange',()=>{
 if(document.fullscreenElement){
-closeBtn.classList.add('visible');
+closeBtn.classList.add('show');
 }else{
-closeBtn.classList.remove('visible');
+closeBtn.classList.remove('show');
+}
+});
+
+document.addEventListener('webkitfullscreenchange',()=>{
+if(document.webkitFullscreenElement){
+closeBtn.classList.add('show');
+}else{
+closeBtn.classList.remove('show');
+}
+});
+
+document.addEventListener('mozfullscreenchange',()=>{
+if(document.mozFullScreenElement){
+closeBtn.classList.add('show');
+}else{
+closeBtn.classList.remove('show');
+}
+});
+
+document.addEventListener('msfullscreenchange',()=>{
+if(document.msFullscreenElement){
+closeBtn.classList.add('show');
+}else{
+closeBtn.classList.remove('show');
 }
 });
 
 document.addEventListener('keydown',(e)=>{
-if(e.key==='Escape'&&document.fullscreenElement){
-e.preventDefault();
+if(e.key==='Escape'&&(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement)){
 closePreviewFullscreen();
 }
 });
