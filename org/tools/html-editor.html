@@ -5,23 +5,55 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sharmaji Tools HTML Live Editor</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#0f172a;color:#e5e7eb}
-.header{padding:12px 18px;background:#111827;border-bottom:1px solid #334155;display:flex;justify-content:space-between;align-items:center}
-.brand{font-weight:700}
-.btn{padding:8px 12px;border:none;border-radius:8px;background:#2563eb;color:#fff;cursor:pointer;margin-left:6px}
-.wrap{display:grid;grid-template-columns:1fr 1fr;height:calc(100vh - 58px)}
-.left{display:flex;flex-direction:column;border-right:1px solid #334155}
-.tabs{display:flex;background:#1e293b}
-.tab{padding:10px 14px;cursor:pointer}
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#0f172a;color:#e5e7eb;display:flex;flex-direction:column;height:100vh}
+.header{padding:12px 18px;background:#111827;border-bottom:1px solid #334155;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.brand{font-weight:700;flex:1;min-width:150px}
+.header-buttons{display:flex;gap:6px;flex-wrap:wrap}
+.btn{padding:8px 12px;border:none;border-radius:8px;background:#2563eb;color:#fff;cursor:pointer;font-size:14px;white-space:nowrap;transition:background 0.3s}
+.btn:hover{background:#1d4ed8}
+.btn:active{background:#1e40af}
+.wrap{display:grid;grid-template-columns:1fr 1fr;height:1fr;flex:1;overflow:hidden}
+.left{display:flex;flex-direction:column;border-right:1px solid #334155;overflow:hidden}
+.tabs{display:flex;background:#1e293b;flex-wrap:wrap}
+.tab{padding:10px 14px;cursor:pointer;font-size:14px;transition:background 0.3s}
+.tab:hover{background:#334155}
 .active{background:#334155}
-textarea{flex:1;background:#020617;color:#e2e8f0;border:none;outline:none;padding:14px;font-family:Consolas,monospace;font-size:14px}
+textarea{flex:1;background:#020617;color:#e2e8f0;border:none;outline:none;padding:14px;font-family:Consolas,monospace;font-size:14px;resize:none}
 iframe{width:100%;height:100%;border:none;background:white}
+.footer{padding:8px 18px;background:#111827;border-top:1px solid #334155;text-align:center;font-size:13px;color:#9ca3af}
 #closeFullscreenBtn{
 position:fixed;top:15px;right:15px;width:48px;height:48px;border:none;
 border-radius:50%;background:#ef4444;color:#fff;font-size:22px;
 cursor:pointer;display:none;z-index:999999;box-shadow:0 4px 15px rgba(0,0,0,.35);
+transition:all 0.3s;
 }
-@media(max-width:768px){.wrap{grid-template-columns:1fr;grid-template-rows:50% 50%}}
+#closeFullscreenBtn:hover{background:#dc2626;transform:scale(1.1)}
+@media(max-width:768px){
+body{height:100vh}
+.wrap{grid-template-columns:1fr;grid-template-rows:1fr 1fr;height:calc(100% - 120px)}
+.header{flex-direction:column;align-items:stretch;padding:10px;gap:8px}
+.brand{text-align:center;margin:0}
+.header-buttons{justify-content:center;width:100%;gap:8px}
+.btn{flex:1;min-width:80px;padding:10px 8px;font-size:12px}
+.tabs{font-size:12px;flex-wrap:nowrap;overflow-x:auto}
+.tab{padding:8px 10px;white-space:nowrap}
+textarea{padding:10px;font-size:12px}
+.footer{padding:6px 10px;font-size:12px}
+}
+@media(max-width:480px){
+.header{padding:8px}
+.btn{min-width:70px;padding:8px 6px;font-size:11px}
+.tab{padding:6px 8px;font-size:11px}
+textarea{padding:8px;font-size:11px}
+.footer{padding:6px 8px;font-size:11px}
+#closeFullscreenBtn{width:44px;height:44px;font-size:18px;top:10px;right:10px}
+}
+@media(max-width:320px){
+.btn{min-width:60px;padding:6px 4px;font-size:10px}
+.tab{padding:5px 6px;font-size:10px}
+textarea{padding:6px;font-size:10px}
+.footer{font-size:10px}
+}
 </style>
 </head>
 <body>
@@ -29,7 +61,7 @@ cursor:pointer;display:none;z-index:999999;box-shadow:0 4px 15px rgba(0,0,0,.35)
 
 <div class="header">
 <div class="brand">Sharmaji Tools HTML Editor</div>
-<div>
+<div class="header-buttons">
 <button class="btn" onclick="downloadHTML()">Download</button>
 <button class="btn" onclick="togglePreview()">Fullscreen Preview</button>
 </div>
@@ -49,6 +81,8 @@ cursor:pointer;display:none;z-index:999999;box-shadow:0 4px 15px rgba(0,0,0,.35)
 </div>
 <div><iframe id="preview"></iframe></div>
 </div>
+
+<div class="footer">© Sharmaji Technology Media. All rights reserved.</div>
 
 <script>
 const editors={html:htmlEditor,css:cssEditor,js:jsEditor};
