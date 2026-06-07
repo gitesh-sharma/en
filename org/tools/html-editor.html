@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Premium Sharmaji Tools HTML Editor</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#0f172a;color:#e5e7eb}
+.header{padding:12px 18px;background:#111827;border-bottom:1px solid #334155;display:flex;justify-content:space-between;align-items:center}
+.brand{font-weight:700}
+.btn{padding:8px 12px;border:none;border-radius:8px;background:#2563eb;color:#fff;cursor:pointer;margin-left:6px}
+.wrap{display:grid;grid-template-columns:1fr 1fr;height:calc(100vh - 58px)}
+.left{display:flex;flex-direction:column;border-right:1px solid #334155}
+.tabs{display:flex;background:#1e293b}
+.tab{padding:10px 14px;cursor:pointer}
+.active{background:#334155}
+textarea{flex:1;background:#020617;color:#e2e8f0;border:none;outline:none;padding:14px;font-family:Consolas,monospace;font-size:14px}
+iframe{width:100%;height:100%;border:none;background:white}
+@media(max-width:768px){.wrap{grid-template-columns:1fr;grid-template-rows:50% 50%}}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="brand">⚡ Premium Sharmaji Tools HTML Editor</div>
+<div>
+<button class="btn" onclick="downloadHTML()">Download</button>
+<button class="btn" onclick="togglePreview()">Fullscreen Preview</button>
+</div>
+</div>
+
+<div class="wrap">
+<div class="left">
+<div class="tabs">
+<div class="tab active" onclick="showTab('html',this)">HTML</div>
+<div class="tab" onclick="showTab('css',this)">CSS</div>
+<div class="tab" onclick="showTab('js',this)">JS</div>
+</div>
+
+<textarea id="htmlEditor"><h1>Hello Sharmaji Tools 🚀</h1><p>Start coding...</p></textarea>
+<textarea id="cssEditor" style="display:none">body{font-family:Arial;padding:20px}h1{color:#2563eb}</textarea>
+<textarea id="jsEditor" style="display:none">console.log("Ready");</textarea>
+</div>
+
+<div><iframe id="preview"></iframe></div>
+</div>
+
+<script>
+const editors={html:htmlEditor,css:cssEditor,js:jsEditor};
+
+function showTab(name,el){
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+el.classList.add('active');
+for(let k in editors)editors[k].style.display='none';
+editors[name].style.display='block';
+}
+
+function updatePreview(){
+const html=htmlEditor.value;
+const css=cssEditor.value;
+const js=jsEditor.value;
+
+localStorage.setItem("st_html",html);
+localStorage.setItem("st_css",css);
+localStorage.setItem("st_js",js);
+
+const doc=preview.contentDocument;
+doc.open();
+doc.write(`<!DOCTYPE html><html><head><style>${css}</style></head><body>${html}<script>${js}<\/script></body></html>`);
+doc.close();
+}
+
+function loadSaved(){
+htmlEditor.value=localStorage.getItem("st_html")||htmlEditor.value;
+cssEditor.value=localStorage.getItem("st_css")||cssEditor.value;
+jsEditor.value=localStorage.getItem("st_js")||jsEditor.value;
+updatePreview();
+}
+
+document.querySelectorAll('textarea').forEach(t=>t.addEventListener('input',updatePreview));
+
+function downloadHTML(){
+const content=`<!DOCTYPE html><html><head><style>${cssEditor.value}</style></head><body>${htmlEditor.value}<script>${jsEditor.value}<\/script></body></html>`;
+const a=document.createElement('a');
+a.href=URL.createObjectURL(new Blob([content],{type:'text/html'}));
+a.download='sharmaji-tools-project.html';
+a.click();
+}
+
+function togglePreview(){
+if(preview.requestFullscreen) preview.requestFullscreen();
+}
+
+loadSaved();
+</script>
+</body>
+</html>
