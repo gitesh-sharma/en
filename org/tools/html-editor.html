@@ -5,58 +5,70 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sharmaji Tools HTML Live Editor</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#0f172a;color:#e5e7eb;display:flex;flex-direction:column;height:100vh}
-.header{padding:12px 18px;background:#111827;border-bottom:1px solid #334155;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+*{box-sizing:border-box}
+body{margin:0;padding:0;font-family:Segoe UI,Arial,sans-serif;background:#0f172a;color:#e5e7eb;overflow:hidden}
+.container{display:flex;flex-direction:column;width:100%;height:100vh}
+.header{padding:12px 18px;background:#111827;border-bottom:1px solid #334155;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;flex-shrink:0}
 .brand{font-weight:700;flex:1;min-width:150px}
 .header-buttons{display:flex;gap:6px;flex-wrap:wrap}
-.btn{padding:8px 12px;border:none;border-radius:8px;background:#2563eb;color:#fff;cursor:pointer;font-size:14px;white-space:nowrap;transition:background 0.3s}
-.btn:hover{background:#1d4ed8}
+.btn{padding:8px 12px;border:none;border-radius:8px;background:#2563eb;color:#fff;cursor:pointer;font-size:14px;white-space:nowrap;transition:all 0.3s ease}
+.btn:hover{background:#1d4ed8;box-shadow:0 4px 12px rgba(0,0,0,0.4)}
 .btn:active{background:#1e40af}
-.wrap{display:grid;grid-template-columns:1fr 1fr;height:1fr;flex:1;overflow:hidden}
+.wrap{display:grid;grid-template-columns:1fr 1fr;flex:1;overflow:hidden;min-height:0}
 .left{display:flex;flex-direction:column;border-right:1px solid #334155;overflow:hidden}
-.tabs{display:flex;background:#1e293b;flex-wrap:wrap}
-.tab{padding:10px 14px;cursor:pointer;font-size:14px;transition:background 0.3s}
+.tabs{display:flex;background:#1e293b;flex-shrink:0;flex-wrap:wrap}
+.tab{padding:10px 14px;cursor:pointer;font-size:14px;transition:all 0.3s ease;border-bottom:2px solid transparent}
 .tab:hover{background:#334155}
-.active{background:#334155}
-textarea{flex:1;background:#020617;color:#e2e8f0;border:none;outline:none;padding:14px;font-family:Consolas,monospace;font-size:14px;resize:none}
-iframe{width:100%;height:100%;border:none;background:white}
-.footer{padding:8px 18px;background:#111827;border-top:1px solid #334155;text-align:center;font-size:13px;color:#9ca3af}
+.tab.active{background:#334155;border-bottom-color:#2563eb}
+textarea{flex:1;background:#020617;color:#e2e8f0;border:none;outline:none;padding:14px;font-family:Consolas,monospace;font-size:14px;resize:none;min-height:0}
+textarea:focus{background:#0f172a}
+.right{overflow:hidden;min-height:0}
+iframe{width:100%;height:100%;border:none;background:white;display:block}
+.footer{padding:8px 18px;background:#111827;border-top:1px solid #334155;text-align:center;font-size:13px;color:#9ca3af;flex-shrink:0}
 #closeFullscreenBtn{
 position:fixed;top:15px;right:15px;width:48px;height:48px;border:none;
-border-radius:50%;background:#ef4444;color:#fff;font-size:22px;
-cursor:pointer;display:none;z-index:999999;box-shadow:0 4px 15px rgba(0,0,0,.35);
-transition:all 0.3s;
+border-radius:50%;background:#ef4444;color:#fff;font-size:22px;font-weight:bold;
+cursor:pointer;z-index:999999;box-shadow:0 4px 15px rgba(0,0,0,.35);
+transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+opacity:0;visibility:hidden;pointer-events:none;
 }
-#closeFullscreenBtn:hover{background:#dc2626;transform:scale(1.1)}
+#closeFullscreenBtn.visible{opacity:1;visibility:visible;pointer-events:auto}
+#closeFullscreenBtn:hover{background:#dc2626;transform:scale(1.15);box-shadow:0 6px 20px rgba(239,68,68,0.6)}
+#closeFullscreenBtn:active{transform:scale(0.95)}
+
 @media(max-width:768px){
-body{height:100vh}
-.wrap{grid-template-columns:1fr;grid-template-rows:1fr 1fr;height:calc(100% - 120px)}
+.wrap{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
 .header{flex-direction:column;align-items:stretch;padding:10px;gap:8px}
 .brand{text-align:center;margin:0}
 .header-buttons{justify-content:center;width:100%;gap:8px}
-.btn{flex:1;min-width:80px;padding:10px 8px;font-size:12px}
+.btn{flex:1;min-width:100px;padding:10px 8px;font-size:12px}
 .tabs{font-size:12px;flex-wrap:nowrap;overflow-x:auto}
 .tab{padding:8px 10px;white-space:nowrap}
 textarea{padding:10px;font-size:12px}
 .footer{padding:6px 10px;font-size:12px}
 }
 @media(max-width:480px){
-.header{padding:8px}
-.btn{min-width:70px;padding:8px 6px;font-size:11px}
+.header{padding:8px;gap:6px}
+.brand{font-size:14px}
+.btn{min-width:80px;padding:8px 6px;font-size:11px}
 .tab{padding:6px 8px;font-size:11px}
 textarea{padding:8px;font-size:11px}
 .footer{padding:6px 8px;font-size:11px}
 #closeFullscreenBtn{width:44px;height:44px;font-size:18px;top:10px;right:10px}
 }
 @media(max-width:320px){
-.btn{min-width:60px;padding:6px 4px;font-size:10px}
+.header{padding:6px}
+.brand{font-size:12px}
+.btn{min-width:70px;padding:6px 4px;font-size:10px}
 .tab{padding:5px 6px;font-size:10px}
 textarea{padding:6px;font-size:10px}
 .footer{font-size:10px}
+#closeFullscreenBtn{width:40px;height:40px;font-size:16px}
 }
 </style>
 </head>
 <body>
+<div class="container">
 <button id="closeFullscreenBtn" onclick="closePreviewFullscreen()">✕</button>
 
 <div class="header">
@@ -79,13 +91,15 @@ textarea{padding:6px;font-size:10px}
 <textarea id="cssEditor" style="display:none">body{font-family:Arial;padding:20px}</textarea>
 <textarea id="jsEditor" style="display:none">console.log('Ready');</textarea>
 </div>
-<div><iframe id="preview"></iframe></div>
+<div class="right"><iframe id="preview"></iframe></div>
 </div>
 
 <div class="footer">© Sharmaji Technology Media. All rights reserved.</div>
+</div>
 
 <script>
 const editors={html:htmlEditor,css:cssEditor,js:jsEditor};
+const closeBtn=document.getElementById('closeFullscreenBtn');
 
 function showTab(name,el){
 document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -95,10 +109,14 @@ editors[name].style.display='block';
 }
 
 function updatePreview(){
+try{
 const doc=preview.contentDocument;
+if(doc){
 doc.open();
 doc.write(`<!DOCTYPE html><html><head><style>${cssEditor.value}</style></head><body>${htmlEditor.value}<script>${jsEditor.value}<\/script></body></html>`);
 doc.close();
+}
+}catch(e){console.log('Preview update error:',e)}
 
 localStorage.setItem("st_html",htmlEditor.value);
 localStorage.setItem("st_css",cssEditor.value);
@@ -123,15 +141,34 @@ a.click();
 }
 
 function togglePreview(){
-preview.requestFullscreen();
+if(!document.fullscreenElement){
+preview.requestFullscreen().catch(err=>{
+console.log('Fullscreen request failed:',err.message);
+});
+}
 }
 
 function closePreviewFullscreen(){
-if(document.fullscreenElement){document.exitFullscreen();}
+if(document.fullscreenElement){
+document.exitFullscreen().catch(err=>{
+console.log('Exit fullscreen failed:',err.message);
+});
+}
 }
 
 document.addEventListener('fullscreenchange',()=>{
-closeFullscreenBtn.style.display=document.fullscreenElement?'block':'none';
+if(document.fullscreenElement){
+closeBtn.classList.add('visible');
+}else{
+closeBtn.classList.remove('visible');
+}
+});
+
+document.addEventListener('keydown',(e)=>{
+if(e.key==='Escape'&&document.fullscreenElement){
+e.preventDefault();
+closePreviewFullscreen();
+}
 });
 
 loadSaved();
