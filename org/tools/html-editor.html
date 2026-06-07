@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HTML Live Editor - Sharmaji Tools</title>
+<title>HTML Live Editor</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;padding:0;font-family:Segoe UI,Arial,sans-serif;background:#0f172a;color:#e5e7eb;overflow:hidden}
 .container{display:flex;flex-direction:column;width:100%;height:100vh}
 .header{padding:12px 18px;background:#111827;border-bottom:1px solid #334155;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;flex-shrink:0}
 .brand{font-weight:700;flex:1;min-width:150px}
+.brand-subtitle{font-size:12px;font-weight:400;color:#9ca3af;margin-top:4px}
 .header-buttons{display:flex;gap:6px;flex-wrap:wrap}
 .btn{padding:8px 12px;border:none;border-radius:8px;background:#2563eb;color:#fff;cursor:pointer;font-size:14px;white-space:nowrap;transition:all 0.3s ease}
 .btn:hover{background:#1d4ed8;box-shadow:0 4px 12px rgba(0,0,0,0.4)}
@@ -41,6 +42,7 @@ display:none;padding:0;line-height:1;
 .wrap{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
 .header{flex-direction:column;align-items:stretch;padding:10px;gap:8px}
 .brand{text-align:center;margin:0}
+.brand-subtitle{text-align:center;margin-top:4px}
 .header-buttons{justify-content:center;width:100%;gap:8px}
 .btn{flex:1;min-width:100px;padding:10px 8px;font-size:12px}
 .tabs{font-size:12px;flex-wrap:nowrap;overflow-x:auto}
@@ -51,6 +53,7 @@ textarea{padding:10px;font-size:12px}
 @media(max-width:480px){
 .header{padding:8px;gap:6px}
 .brand{font-size:14px}
+.brand-subtitle{font-size:11px}
 .btn{min-width:80px;padding:8px 6px;font-size:11px}
 .tab{padding:6px 8px;font-size:11px}
 textarea{padding:8px;font-size:11px}
@@ -60,6 +63,7 @@ textarea{padding:8px;font-size:11px}
 @media(max-width:320px){
 .header{padding:6px}
 .brand{font-size:12px}
+.brand-subtitle{font-size:10px}
 .btn{min-width:70px;padding:6px 4px;font-size:10px}
 .tab{padding:5px 6px;font-size:10px}
 textarea{padding:6px;font-size:10px}
@@ -73,7 +77,9 @@ textarea{padding:6px;font-size:10px}
 <button id="closeFullscreenBtn" onclick="closePreviewFullscreen()">✕</button>
 
 <div class="header">
-<div class="brand">Sharmaji Tools HTML Editor</div>
+<div class="brand">HTML Live Editor
+<div class="brand-subtitle">Powered by Sharmaji Tools</div>
+</div>
 <div class="header-buttons">
 <button class="btn" onclick="downloadHTML()">Download</button>
 <button class="btn" onclick="togglePreview()">Fullscreen Preview</button>
