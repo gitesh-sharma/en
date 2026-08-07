@@ -6,17 +6,21 @@ const { PDFDocument } = window.PDFLib;
 /* ---------- tab switching ---------- */
 const tabImgBtn = document.getElementById('tabImgBtn');
 const tabPdfBtn = document.getElementById('tabPdfBtn');
+const tabWordBtn = document.getElementById('tabWordBtn');
 const imgPanel = document.getElementById('imgPanel');
 const pdfPanel = document.getElementById('pdfPanel');
+const wordPanel = document.getElementById('wordPanel');
 
-tabImgBtn.addEventListener('click', () => {
-  tabImgBtn.classList.add('active'); tabPdfBtn.classList.remove('active');
-  imgPanel.style.display = ''; pdfPanel.style.display = 'none';
-});
-tabPdfBtn.addEventListener('click', () => {
-  tabPdfBtn.classList.add('active'); tabImgBtn.classList.remove('active');
-  pdfPanel.style.display = ''; imgPanel.style.display = 'none';
-});
+function showConvertTab(which) {
+  [tabImgBtn, tabPdfBtn, tabWordBtn].forEach(b => b.classList.remove('active'));
+  [imgPanel, pdfPanel, wordPanel].forEach(p => p.style.display = 'none');
+  if (which === 'img') { tabImgBtn.classList.add('active'); imgPanel.style.display = ''; }
+  if (which === 'pdf') { tabPdfBtn.classList.add('active'); pdfPanel.style.display = ''; }
+  if (which === 'word') { tabWordBtn.classList.add('active'); wordPanel.style.display = ''; }
+}
+tabImgBtn.addEventListener('click', () => showConvertTab('img'));
+tabPdfBtn.addEventListener('click', () => showConvertTab('pdf'));
+tabWordBtn.addEventListener('click', () => showConvertTab('word'));
 
 /* =========================================================
    IMAGES -> PDF
