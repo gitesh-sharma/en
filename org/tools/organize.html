@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organize PDF Pages — Sharmaji Tools</title>
+<meta name="description" content="Reorder, rotate, delete or resize the pages in a PDF by dragging thumbnails into place.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Sharmaji Tools logo">
+      <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰ Menu</button>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="tools.html" class="current">Tools</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero ledger-margin" style="padding-bottom:16px;">
+    <div class="wrap">
+      <span class="file-no">ENTRY 02 — ORGANIZE PAGES</span>
+      <h1>Organize Pages</h1>
+      <p class="lede">Drag pages into a new order, rotate the ones sitting sideways, drop the ones you don't need, and resize the rest.</p>
+    </div>
+  </section>
+
+  <hr class="ledger-rule strong">
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="workspace" id="uploadWorkspace">
+        <div class="dropzone" id="orgDrop">
+          <div class="dz-title">Drop one PDF here, or click to choose</div>
+          <div class="dz-sub" id="orgSub">Thumbnails will appear below once it's loaded — this can take a moment for long files.</div>
+          <input type="file" id="orgInput" accept="application/pdf">
+        </div>
+        <div id="orgStatus" class="status-msg" style="display:none;"></div>
+      </div>
+
+      <div id="orgWorkspace" style="display:none; margin-top:26px;">
+
+        <div class="workspace" style="margin-bottom:22px;">
+          <label style="font-family: var(--font-mono); font-size:0.8rem; letter-spacing:0.04em; color: var(--ink-soft); display:block; margin-bottom:10px;">Resize pages</label>
+          <div class="radio-row">
+            <label class="radio-pill active" data-resize="original"><input type="radio" name="resize"> Keep original size</label>
+            <label class="radio-pill" data-resize="a4"><input type="radio" name="resize"> Fit within A4</label>
+            <label class="radio-pill" data-resize="letter"><input type="radio" name="resize"> Fit within US Letter</label>
+            <label class="radio-pill" data-resize="0.5"><input type="radio" name="resize"> Scale 50%</label>
+            <label class="radio-pill" data-resize="0.75"><input type="radio" name="resize"> Scale 75%</label>
+            <label class="radio-pill" data-resize="1.25"><input type="radio" name="resize"> Scale 125%</label>
+          </div>
+        </div>
+
+        <p style="font-family:var(--font-mono); font-size:0.82rem; color:var(--ink-soft);">Drag a page to reorder it. Use the buttons on each thumbnail to rotate or remove a page.</p>
+
+        <div class="thumb-grid" id="thumbGrid"></div>
+
+        <div id="orgStatus2" class="status-msg" style="display:none;"></div>
+        <div class="progress-track" id="orgProgressTrack" style="display:none;"><div class="progress-fill" id="orgProgress"></div></div>
+
+        <div style="display:flex; gap:14px; flex-wrap:wrap;">
+          <button class="btn btn-primary" id="orgSaveBtn">Save Reorganized PDF →</button>
+          <button class="btn btn-secondary" id="orgResetBtn">Start Over</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Sharmaji Tools logo">
+        <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+      </a>
+      <p class="footer-note">Files are processed on your own device — nothing is uploaded to a server.</p>
+    </div>
+    <div class="footer-links">
+      <a href="merge-split.html">Merge &amp; Split</a>
+      <a href="organize.html">Organize Pages</a>
+      <a href="compress.html">Compress</a>
+      <a href="convert.html">Convert</a>
+      <a href="protect.html">Password Protect</a>
+      <a href="annotate.html">Annotate</a>
+      <a href="legal.html">Legal</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="js/app.js"></script>
+<script type="module" src="js/organize.js"></script>
+</body>
+</html>

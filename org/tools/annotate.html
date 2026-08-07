@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Annotate PDF — Sharmaji Tools</title>
+<meta name="description" content="Highlight, underline, draw and drop text notes onto a PDF. Runs entirely in your browser.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Sharmaji Tools logo">
+      <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰ Menu</button>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="tools.html" class="current">Tools</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero ledger-margin" style="padding-bottom:16px;">
+    <div class="wrap">
+      <span class="file-no">ENTRY 05 — ANNOTATE</span>
+      <h1>Annotate</h1>
+      <p class="lede">Highlight, underline, draw and drop text notes directly onto a page.</p>
+    </div>
+  </section>
+
+  <hr class="ledger-rule strong">
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="workspace" id="uploadWorkspace">
+        <div class="dropzone" id="aDrop">
+          <div class="dz-title">Drop one PDF here, or click to choose</div>
+          <div class="dz-sub" id="aSub">Pages will appear below once it's loaded.</div>
+          <input type="file" id="aInput" accept="application/pdf">
+        </div>
+        <div id="aStatus" class="status-msg" style="display:none;"></div>
+      </div>
+
+      <div class="workspace" id="annoToolbar" style="display:none; margin-bottom:22px; margin-top:22px;">
+        <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center;">
+          <div class="radio-row" id="toolRow">
+            <label class="radio-pill active" data-tool="highlight"><input type="radio" name="tool"> Highlight</label>
+            <label class="radio-pill" data-tool="underline"><input type="radio" name="tool"> Underline</label>
+            <label class="radio-pill" data-tool="draw"><input type="radio" name="tool"> Draw</label>
+            <label class="radio-pill" data-tool="rect"><input type="radio" name="tool"> Box</label>
+            <label class="radio-pill" data-tool="text"><input type="radio" name="tool"> Text</label>
+          </div>
+          <label style="display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-soft);">
+            Color <input type="color" id="annoColor" value="#f5c518">
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-soft);">
+            Thickness <input type="range" id="annoWidth" min="1" max="10" value="3" style="width:90px;">
+          </label>
+          <button class="btn btn-secondary" id="annoUndo">Undo</button>
+          <button class="btn btn-secondary" id="annoClear">Clear Page</button>
+        </div>
+      </div>
+
+      <div id="annoCanvasWrap" style="display:none;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+          <button class="btn btn-secondary" id="annoPrev">← Prev</button>
+          <span id="annoPageInfo" style="font-family:var(--font-mono); font-size:0.85rem;"></span>
+          <button class="btn btn-secondary" id="annoNext">Next →</button>
+        </div>
+
+        <div id="annoCanvasBox" style="position:relative; border:1px solid var(--card-edge); background:#fff; box-shadow:var(--shadow); display:inline-block; max-width:100%;">
+          <canvas id="annoCanvas" style="max-width:100%; height:auto; display:block; cursor:crosshair;"></canvas>
+        </div>
+
+        <div id="annoStatus" class="status-msg" style="display:none; margin-top:18px;"></div>
+        <div class="progress-track" id="annoProgressTrack" style="display:none;"><div class="progress-fill" id="annoProgress"></div></div>
+
+        <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:18px;">
+          <button class="btn btn-primary" id="annoSaveBtn">Save Annotated PDF →</button>
+          <button class="btn btn-secondary" id="annoResetBtn">Start Over</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Sharmaji Tools logo">
+        <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+      </a>
+      <p class="footer-note">Files are processed on your own device — nothing is uploaded to a server.</p>
+    </div>
+    <div class="footer-links">
+      <a href="merge-split.html">Merge &amp; Split</a>
+      <a href="organize.html">Organize Pages</a>
+      <a href="compress.html">Compress</a>
+      <a href="convert.html">Convert</a>
+      <a href="protect.html">Password Protect</a>
+      <a href="annotate.html">Annotate</a>
+      <a href="legal.html">Legal</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="js/app.js"></script>
+<script type="module" src="js/annotate.js"></script>
+</body>
+</html>

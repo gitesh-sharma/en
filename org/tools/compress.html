@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compress PDF — Sharmaji Tools</title>
+<meta name="description" content="Shrink a bulky PDF for email or upload limits, with a quality dial you control. Runs entirely in your browser.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Sharmaji Tools logo">
+      <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰ Menu</button>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="tools.html" class="current">Tools</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero ledger-margin" style="padding-bottom:16px;">
+    <div class="wrap">
+      <span class="file-no">ENTRY 03 — COMPRESS</span>
+      <h1>Compress PDF</h1>
+      <p class="lede">Bring a file down to a size your email or an upload form will actually accept.</p>
+    </div>
+  </section>
+
+  <hr class="ledger-rule strong">
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="notice-block" style="margin-bottom:22px;">
+        <strong style="font-family: var(--font-mono); font-size:0.85rem;">How this works</strong>
+        <p style="margin: 8px 0 0;">Each page is redrawn as a compressed image at the quality you pick, then rebuilt into a new PDF. That's what gets the size down — it works especially well on scanned pages and image-heavy files. The trade-off: text in the output is no longer selectable or searchable. If you need to keep selectable text, this isn't the right tool for that file.</p>
+      </div>
+
+      <div class="workspace" id="uploadWorkspace">
+        <div class="dropzone" id="cDrop">
+          <div class="dz-title">Drop one PDF here, or click to choose</div>
+          <div class="dz-sub" id="cSub">We'll show the original size once it's loaded.</div>
+          <input type="file" id="cInput" accept="application/pdf">
+        </div>
+        <div id="cStatus" class="status-msg" style="display:none;"></div>
+      </div>
+
+      <div id="cWorkspace" style="display:none; margin-top:22px;">
+        <div class="workspace">
+          <div class="file-row" style="margin-bottom:22px;">
+            <span class="name" id="cFileName"></span>
+            <span class="size" id="cFileSize"></span>
+          </div>
+
+          <label style="font-family: var(--font-mono); font-size:0.8rem; letter-spacing:0.04em; color: var(--ink-soft); display:block; margin-bottom:10px;">Compression level</label>
+          <div class="radio-row" style="margin-bottom:22px;">
+            <label class="radio-pill" data-level="high"><input type="radio" name="level"> High quality</label>
+            <label class="radio-pill active" data-level="balanced"><input type="radio" name="level"> Balanced</label>
+            <label class="radio-pill" data-level="max"><input type="radio" name="level"> Maximum compression</label>
+          </div>
+
+          <div id="cStatus2" class="status-msg" style="display:none;"></div>
+          <div class="progress-track" id="cProgressTrack" style="display:none;"><div class="progress-fill" id="cProgress"></div></div>
+
+          <div style="display:flex; gap:14px; flex-wrap:wrap;">
+            <button class="btn btn-primary" id="cBtn">Compress PDF →</button>
+            <button class="btn btn-secondary" id="cResetBtn">Start Over</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Sharmaji Tools logo">
+        <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+      </a>
+      <p class="footer-note">Files are processed on your own device — nothing is uploaded to a server.</p>
+    </div>
+    <div class="footer-links">
+      <a href="merge-split.html">Merge &amp; Split</a>
+      <a href="organize.html">Organize Pages</a>
+      <a href="compress.html">Compress</a>
+      <a href="convert.html">Convert</a>
+      <a href="protect.html">Password Protect</a>
+      <a href="annotate.html">Annotate</a>
+      <a href="legal.html">Legal</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="js/app.js"></script>
+<script type="module" src="js/compress.js"></script>
+</body>
+</html>

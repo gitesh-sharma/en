@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convert PDF — Sharmaji Tools</title>
+<meta name="description" content="Turn images into a PDF, or pull PDF pages back out as images. Runs entirely in your browser.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Sharmaji Tools logo">
+      <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰ Menu</button>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="tools.html" class="current">Tools</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero ledger-margin" style="padding-bottom:16px;">
+    <div class="wrap">
+      <span class="file-no">ENTRY 04 — CONVERT</span>
+      <h1>Convert</h1>
+      <p class="lede">Images into a PDF, or PDF pages back out as images.</p>
+    </div>
+  </section>
+
+  <hr class="ledger-rule strong">
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="radio-row" style="margin-bottom:26px;">
+        <label class="radio-pill active" id="tabImgBtn"><input type="radio" name="cmode" checked> Images → PDF</label>
+        <label class="radio-pill" id="tabPdfBtn"><input type="radio" name="cmode"> PDF → Images</label>
+      </div>
+
+      <!-- ============ IMAGES -> PDF ============ -->
+      <div class="workspace" id="imgPanel">
+        <div class="dropzone" id="imgDrop">
+          <div class="dz-title">Drop images here, or click to choose</div>
+          <div class="dz-sub">JPG or PNG, one or many — reorder them below before converting.</div>
+          <input type="file" id="imgInput" accept="image/png,image/jpeg" multiple>
+        </div>
+
+        <ul class="file-list" id="imgList"></ul>
+
+        <div style="margin: 18px 0;">
+          <label style="font-family: var(--font-mono); font-size:0.8rem; letter-spacing:0.04em; color: var(--ink-soft); display:block; margin-bottom:10px;">Page size</label>
+          <div class="radio-row">
+            <label class="radio-pill active" data-pagesize="fit"><input type="radio" name="pagesize"> Fit to each image</label>
+            <label class="radio-pill" data-pagesize="a4"><input type="radio" name="pagesize"> A4</label>
+            <label class="radio-pill" data-pagesize="letter"><input type="radio" name="pagesize"> US Letter</label>
+          </div>
+        </div>
+
+        <div id="imgStatus" class="status-msg" style="display:none;"></div>
+        <div class="progress-track" id="imgProgressTrack" style="display:none;"><div class="progress-fill" id="imgProgress"></div></div>
+
+        <button class="btn btn-primary" id="imgBtn" disabled>Convert to PDF →</button>
+      </div>
+
+      <!-- ============ PDF -> IMAGES ============ -->
+      <div class="workspace" id="pdfPanel" style="display:none;">
+        <div class="dropzone" id="pdfDrop">
+          <div class="dz-title">Drop one PDF here, or click to choose</div>
+          <div class="dz-sub" id="pdfSub">We'll show the page count once it's loaded.</div>
+          <input type="file" id="pdfInput" accept="application/pdf">
+        </div>
+
+        <div id="pdfOptions" style="display:none; margin-top:22px;">
+          <label style="font-family: var(--font-mono); font-size:0.8rem; letter-spacing:0.04em; color: var(--ink-soft); display:block; margin-bottom:10px;">Image format</label>
+          <div class="radio-row" style="margin-bottom:18px;">
+            <label class="radio-pill active" data-fmt="jpeg"><input type="radio" name="fmt"> JPEG</label>
+            <label class="radio-pill" data-fmt="png"><input type="radio" name="fmt"> PNG</label>
+          </div>
+          <label style="font-family: var(--font-mono); font-size:0.8rem; letter-spacing:0.04em; color: var(--ink-soft); display:block; margin-bottom:10px;">Resolution</label>
+          <div class="radio-row" style="margin-bottom:18px;">
+            <label class="radio-pill" data-dpi="96"><input type="radio" name="dpi"> Screen (96 DPI)</label>
+            <label class="radio-pill active" data-dpi="150"><input type="radio" name="dpi"> Standard (150 DPI)</label>
+            <label class="radio-pill" data-dpi="300"><input type="radio" name="dpi"> Print (300 DPI)</label>
+          </div>
+          <div id="pdfStatus" class="status-msg" style="display:none;"></div>
+          <div class="progress-track" id="pdfProgressTrack" style="display:none;"><div class="progress-fill" id="pdfProgress"></div></div>
+          <button class="btn btn-primary" id="pdfBtn">Convert to Images →</button>
+        </div>
+      </div>
+
+      <div class="notice-block" style="margin-top:28px;">
+        <span class="stamp small brass">Coming Soon</span>
+        <p style="margin: 12px 0 0;">Word ↔ PDF conversion is next in the register. Getting formatting right in both directions takes real work, so it's being built properly rather than bolted on.</p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Sharmaji Tools logo">
+        <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+      </a>
+      <p class="footer-note">Files are processed on your own device — nothing is uploaded to a server.</p>
+    </div>
+    <div class="footer-links">
+      <a href="merge-split.html">Merge &amp; Split</a>
+      <a href="organize.html">Organize Pages</a>
+      <a href="compress.html">Compress</a>
+      <a href="convert.html">Convert</a>
+      <a href="protect.html">Password Protect</a>
+      <a href="annotate.html">Annotate</a>
+      <a href="legal.html">Legal</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="js/app.js"></script>
+<script type="module" src="js/convert.js"></script>
+</body>
+</html>
