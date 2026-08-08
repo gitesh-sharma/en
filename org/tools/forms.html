@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Forms — Sharmaji Tools</title>
+<meta name="description" content="Fill in an existing PDF form, or add fillable text fields, checkboxes, radio buttons and dropdowns to a PDF. Runs entirely in your browser.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .form-field-row{ margin-bottom:16px; }
+  .form-field-row label{ display:block; font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-soft); margin-bottom:6px; }
+  .form-field-row input[type=text], .form-field-row textarea, .form-field-row select{
+    width:100%; padding:10px 12px; border:1px solid var(--line-strong); border-radius:var(--radius); background:#fff; font-family:var(--font-body); font-size:0.95rem;
+  }
+  .radio-opt-row{ display:flex; align-items:center; gap:8px; margin-bottom:6px; font-family:var(--font-body); font-size:0.92rem; }
+  .placed-field{ position:absolute; border:1.5px dashed var(--stamp); background:rgba(181,52,42,0.08); font-family:var(--font-mono); font-size:0.65rem; color:var(--stamp-dark); display:flex; align-items:center; justify-content:center; overflow:hidden; padding:2px; text-align:center; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Sharmaji Tools logo">
+      <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰ Menu</button>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html" class="current">Dashboard</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero ledger-margin" style="padding-bottom:16px;">
+    <div class="wrap">
+      <span class="file-no">ENTRY 11 — PDF FORMS</span>
+      <h1>PDF Forms</h1>
+      <p class="lede">Fill in a form that already has fields, or add fields to a PDF that doesn't.</p>
+    </div>
+  </section>
+
+  <hr class="ledger-rule strong">
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="radio-row" style="margin-bottom:26px;">
+        <label class="radio-pill active" id="tabFillBtn"><input type="radio" name="formmode" checked> Fill a Form</label>
+        <label class="radio-pill" id="tabCreateBtn"><input type="radio" name="formmode"> Create a Fillable PDF</label>
+      </div>
+
+      <!-- ============ FILL A FORM ============ -->
+      <div id="fillPanel">
+        <div class="workspace" id="fillUploadWorkspace">
+          <div class="dropzone" id="fillDrop">
+            <div class="dz-title">Drop one PDF here, or click to choose</div>
+            <div class="dz-sub" id="fillSub">It needs to already have fillable fields — this reads them automatically.</div>
+            <input type="file" id="fillInput" accept="application/pdf">
+          </div>
+          <div id="fillStatus" class="status-msg" style="display:none;"></div>
+        </div>
+
+        <div class="workspace" id="fillFieldsWorkspace" style="display:none; margin-top:22px;">
+          <div id="fillFieldsList"></div>
+          <label style="display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.82rem; color:var(--ink-soft); margin:20px 0;">
+            <input type="checkbox" id="flattenCheck"> Flatten the form (bakes in your answers, fields become non-editable)
+          </label>
+          <div id="fillStatus2" class="status-msg" style="display:none;"></div>
+          <div class="progress-track" id="fillProgressTrack" style="display:none;"><div class="progress-fill" id="fillProgress"></div></div>
+          <div style="display:flex; gap:14px; flex-wrap:wrap;">
+            <button class="btn btn-primary" id="fillSaveBtn">Fill &amp; Download →</button>
+            <button class="btn btn-secondary" id="fillResetBtn">Start Over</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ CREATE A FILLABLE PDF ============ -->
+      <div id="createPanel" style="display:none;">
+        <div class="workspace" id="createUploadWorkspace">
+          <div class="dropzone" id="createDrop">
+            <div class="dz-title">Drop one PDF here, or click to choose</div>
+            <div class="dz-sub" id="createSub">You'll draw fields onto the page next.</div>
+            <input type="file" id="createInput" accept="application/pdf">
+          </div>
+          <div id="createStatus" class="status-msg" style="display:none;"></div>
+        </div>
+
+        <div class="workspace" id="fieldToolbar" style="display:none; margin-top:22px; margin-bottom:22px;">
+          <div style="display:flex; flex-wrap:wrap; gap:18px; align-items:flex-end;">
+            <div>
+              <label style="display:block; font-family:var(--font-mono); font-size:0.75rem; color:var(--ink-soft); margin-bottom:8px;">Field type</label>
+              <div class="radio-row">
+                <label class="radio-pill active" data-ftype="text"><input type="radio" name="ftype"> Text</label>
+                <label class="radio-pill" data-ftype="checkbox"><input type="radio" name="ftype"> Checkbox</label>
+                <label class="radio-pill" data-ftype="radio"><input type="radio" name="ftype"> Radio</label>
+                <label class="radio-pill" data-ftype="dropdown"><input type="radio" name="ftype"> Dropdown</label>
+              </div>
+            </div>
+            <div style="min-width:180px;">
+              <label style="display:block; font-family:var(--font-mono); font-size:0.75rem; color:var(--ink-soft); margin-bottom:8px;" id="fieldNameLabel">Field name</label>
+              <input type="text" id="fieldName" style="padding:9px 10px; border:1px solid var(--line-strong); border-radius:var(--radius); font-family:var(--font-mono); font-size:0.85rem;">
+            </div>
+            <div style="min-width:200px;" id="fieldOptionValueWrap">
+              <label style="display:block; font-family:var(--font-mono); font-size:0.75rem; color:var(--ink-soft); margin-bottom:8px;">Option value (this button's own value)</label>
+              <input type="text" id="fieldOptionValue" style="padding:9px 10px; border:1px solid var(--line-strong); border-radius:var(--radius); font-family:var(--font-mono); font-size:0.85rem;">
+            </div>
+            <div style="min-width:220px;" id="fieldOptionsWrap">
+              <label style="display:block; font-family:var(--font-mono); font-size:0.75rem; color:var(--ink-soft); margin-bottom:8px;">Options (comma-separated)</label>
+              <input type="text" id="fieldOptions" placeholder="Yes, No, Maybe" style="padding:9px 10px; border:1px solid var(--line-strong); border-radius:var(--radius); font-family:var(--font-mono); font-size:0.85rem;">
+            </div>
+          </div>
+          <p style="font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-soft); margin-top:16px;">Click and drag on the page below to place a field of this type.</p>
+        </div>
+
+        <div id="createCanvasWrap" style="display:none;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+            <button class="btn btn-secondary" id="cPrev">← Prev</button>
+            <span id="cPageInfo" style="font-family:var(--font-mono); font-size:0.85rem;"></span>
+            <button class="btn btn-secondary" id="cNext">Next →</button>
+          </div>
+          <div id="cCanvasBox" style="position:relative; border:1px solid var(--card-edge); background:#fff; box-shadow:var(--shadow); display:inline-block; max-width:100%;">
+            <canvas id="cCanvas" style="max-width:100%; height:auto; display:block; cursor:crosshair;"></canvas>
+          </div>
+
+          <div id="placedFieldsList" style="margin-top:18px;"></div>
+
+          <div id="createStatus2" class="status-msg" style="display:none; margin-top:16px;"></div>
+          <div class="progress-track" id="createProgressTrack" style="display:none;"><div class="progress-fill" id="createProgress"></div></div>
+
+          <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:18px;">
+            <button class="btn btn-primary" id="createSaveBtn">Save Fillable PDF →</button>
+            <button class="btn btn-secondary" id="createResetBtn">Start Over</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Sharmaji Tools logo">
+        <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+      </a>
+      <p class="footer-note">Files are processed on your own device — nothing is uploaded to a server.</p>
+    </div>
+    <div class="footer-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="about.html">About</a>
+      <a href="legal.html">Legal</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="js/app.js"></script>
+<script type="module" src="js/forms.js"></script>
+</body>
+</html>

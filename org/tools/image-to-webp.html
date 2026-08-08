@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image to WebP Converter — Sharmaji Tools</title>
+<meta name="description" content="Convert JPG or PNG images to WebP for smaller file sizes. Runs entirely in your browser.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Sharmaji Tools logo">
+      <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰ Menu</button>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html" class="current">Dashboard</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero ledger-margin" style="padding-bottom:16px;">
+    <div class="wrap">
+      <span class="file-no">UTILITY 04 — IMAGE TO WEBP</span>
+      <h1>Image to WebP</h1>
+      <p class="lede">Convert JPG or PNG images to WebP — usually a fair bit smaller at the same quality.</p>
+    </div>
+  </section>
+
+  <hr class="ledger-rule strong">
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="workspace">
+        <div class="dropzone" id="wDrop">
+          <div class="dz-title">Drop images here, or click to choose</div>
+          <div class="dz-sub">JPG or PNG, one or many.</div>
+          <input type="file" id="wInput" accept="image/png,image/jpeg" multiple>
+        </div>
+
+        <ul class="file-list" id="wList"></ul>
+
+        <div style="margin:18px 0;">
+          <label style="font-family: var(--font-mono); font-size:0.8rem; letter-spacing:0.04em; color: var(--ink-soft); display:block; margin-bottom:10px;">Quality: <span id="qualityVal">80</span>%</label>
+          <input type="range" id="wQuality" min="10" max="100" value="80" style="width:100%; max-width:320px;">
+        </div>
+
+        <div id="wStatus" class="status-msg" style="display:none;"></div>
+        <div class="progress-track" id="wProgressTrack" style="display:none;"><div class="progress-fill" id="wProgress"></div></div>
+
+        <button class="btn btn-primary" id="wBtn" disabled>Convert to WebP →</button>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Sharmaji Tools logo">
+        <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+      </a>
+      <p class="footer-note">Files are processed on your own device — nothing is uploaded to a server.</p>
+    </div>
+    <div class="footer-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="about.html">About</a>
+      <a href="legal.html">Legal</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/image-to-webp.js"></script>
+</body>
+</html>
