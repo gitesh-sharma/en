@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remove Background — Sharmaji Tools</title>
+<meta name="description" content="Remove the background from a photo automatically, right in your browser.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .checker-bg{
+    background-image:
+      linear-gradient(45deg, #ccc 25%, transparent 25%),
+      linear-gradient(-45deg, #ccc 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #ccc 75%),
+      linear-gradient(-45deg, transparent 75%, #ccc 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    background-color: #fff;
+  }
+  .rb-compare{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:700px){ .rb-compare{ grid-template-columns:1fr; } }
+  .rb-pane{ text-align:center; }
+  .rb-pane .cap{ font-family:var(--font-mono); font-size:0.78rem; color:var(--ink-soft); margin-bottom:8px; }
+  .rb-pane img{ max-width:100%; border:1px solid var(--card-edge); border-radius:var(--radius); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Sharmaji Tools logo">
+      <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰ Menu</button>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html" class="current">Dashboard</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero ledger-margin" style="padding-bottom:16px;">
+    <div class="wrap">
+      <span class="file-no">UTILITY 08 — REMOVE BG</span>
+      <h1>Remove Background</h1>
+      <p class="lede">Drop a photo, get it back with a clean, transparent background.</p>
+    </div>
+  </section>
+
+  <hr class="ledger-rule strong">
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="notice-block" style="margin-bottom:22px;">
+        <strong style="font-family: var(--font-mono); font-size:0.85rem;">How this works</strong>
+        <p style="margin: 8px 0 0;">This uses an on-device AI model to work out what's foreground and what's background — your photo never leaves your device. The first time you use it, your browser downloads that model (a fair few MB), which can take a moment; after that it's cached and starts instantly.</p>
+      </div>
+
+      <div class="workspace" id="uploadWorkspace">
+        <div class="dropzone" id="rbDrop">
+          <div class="dz-title">Drop a photo here, or click to choose</div>
+          <div class="dz-sub" id="rbSub">JPG, PNG or WebP — works best with a clear subject.</div>
+          <input type="file" id="rbInput" accept="image/png,image/jpeg,image/webp">
+        </div>
+        <div id="rbStatus" class="status-msg" style="display:none;"></div>
+      </div>
+
+      <div id="rbWorkspace" style="display:none; margin-top:22px;">
+        <div class="workspace">
+          <div class="rb-compare" style="margin-bottom:20px;">
+            <div class="rb-pane">
+              <div class="cap">Original</div>
+              <img id="rbOriginalImg" alt="Original photo">
+            </div>
+            <div class="rb-pane">
+              <div class="cap">Background removed</div>
+              <div class="checker-bg" style="border:1px solid var(--card-edge); border-radius:var(--radius); display:inline-block; min-height:80px; width:100%;">
+                <img id="rbResultImg" alt="Photo with background removed" style="display:none; width:100%;">
+              </div>
+            </div>
+          </div>
+
+          <div id="rbStatus2" class="status-msg" style="display:none;"></div>
+          <div class="progress-track" id="rbProgressTrack" style="display:none;"><div class="progress-fill" id="rbProgress" style="width:35%;"></div></div>
+
+          <div style="display:flex; gap:14px; flex-wrap:wrap;">
+            <button class="btn btn-primary" id="rbRunBtn">Remove Background →</button>
+            <button class="btn btn-secondary" id="rbDownloadBtn" style="display:none;">Download PNG</button>
+            <button class="btn btn-secondary" id="rbResetBtn">Start Over</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Sharmaji Tools logo">
+        <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+      </a>
+      <p class="footer-note">Files are processed on your own device — nothing is uploaded to a server.</p>
+    </div>
+    <div class="footer-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="about.html">About</a>
+      <a href="legal.html">Legal</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+<script type="module" src="js/remove-bg.js"></script>
+</body>
+</html>
