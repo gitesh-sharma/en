@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age Calculator — Sharmaji Tools</title>
+<meta name="description" content="Work out someone's exact age in years, months and days.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Sharmaji Tools logo">
+      <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰ Menu</button>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html" class="current">Dashboard</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero ledger-margin" style="padding-bottom:16px;">
+    <div class="wrap">
+      <span class="file-no">UTILITY 03 — AGE CALCULATOR</span>
+      <h1>Age Calculator</h1>
+      <p class="lede">Exact age in years, months and days, as of any date you choose.</p>
+    </div>
+  </section>
+
+  <hr class="ledger-rule strong">
+
+  <section class="section">
+    <div class="wrap" style="max-width:520px;">
+      <div class="workspace">
+        <div class="field">
+          <label>Date of birth</label>
+          <input type="date" id="dob">
+        </div>
+        <div class="field">
+          <label>Calculate age as of</label>
+          <input type="date" id="asOf">
+        </div>
+        <button class="btn btn-primary btn-block" id="calcAgeBtn">Calculate →</button>
+
+        <div id="ageResult" style="display:none; margin-top:26px;">
+          <div class="tools-grid" style="grid-template-columns:repeat(3,1fr); gap:12px;">
+            <div class="info-card" style="text-align:center;">
+              <div class="v" id="ageYears">0</div>
+              <div class="k">Years</div>
+            </div>
+            <div class="info-card" style="text-align:center;">
+              <div class="v" id="ageMonths">0</div>
+              <div class="k">Months</div>
+            </div>
+            <div class="info-card" style="text-align:center;">
+              <div class="v" id="ageDays">0</div>
+              <div class="k">Days</div>
+            </div>
+          </div>
+          <p id="ageExtra" style="margin-top:18px; font-family:var(--font-mono); font-size:0.85rem; color:var(--ink-soft);"></p>
+        </div>
+        <div id="ageStatus" class="status-msg error" style="display:none; margin-top:16px;"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Sharmaji Tools logo">
+        <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+      </a>
+      <p class="footer-note">Files are processed on your own device — nothing is uploaded to a server.</p>
+    </div>
+    <div class="footer-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="about.html">About</a>
+      <a href="legal.html">Legal</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+<script src="js/age-calculator.js"></script>
+</body>
+</html>
