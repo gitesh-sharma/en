@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unlock Protected PDF — Sharmaji Tools</title>
+<meta name="description" content="Remove password protection from a PDF you have the right to open. Runs entirely in your browser using QPDF compiled to WebAssembly.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Sharmaji Tools logo">
+      <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰ Menu</button>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html" class="current">Dashboard</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero ledger-margin" style="padding-bottom:16px;">
+    <div class="wrap">
+      <span class="file-no">ENTRY 09 — UNLOCK</span>
+      <h1>Unlock Protected PDF</h1>
+      <p class="lede">Remove password protection from a PDF, once you've confirmed you have the right to.</p>
+    </div>
+  </section>
+
+  <hr class="ledger-rule strong">
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="notice-block" style="margin-bottom:22px;">
+        <strong style="font-family: var(--font-mono); font-size:0.85rem;">This is for files you're allowed to unlock</strong>
+        <p style="margin: 8px 0 0;">Use this for your own password-protected PDFs, or ones you have permission to modify — recovering access, or dropping print/copy restrictions on a document you own. If you know the password that opens the file, enter it below. Some PDFs only restrict permissions (printing, copying) without an open password — for those, you can try leaving the password blank.</p>
+      </div>
+
+      <div class="workspace" id="uploadWorkspace">
+        <div class="dropzone" id="uDrop">
+          <div class="dz-title">Drop one PDF here, or click to choose</div>
+          <div class="dz-sub" id="uSub">The file and password stay on your device the whole time.</div>
+          <input type="file" id="uInput" accept="application/pdf">
+        </div>
+        <div id="uStatus" class="status-msg" style="display:none;"></div>
+      </div>
+
+      <div id="uWorkspace" style="display:none; margin-top:22px;">
+        <div class="workspace">
+          <div class="file-row" style="margin-bottom:22px;">
+            <span class="name" id="uFileName"></span>
+            <span class="size" id="uFileSize"></span>
+          </div>
+
+          <div class="field">
+            <label>Password (leave blank to try without one)</label>
+            <input type="password" id="uPass" autocomplete="off">
+          </div>
+
+          <div id="uStatus2" class="status-msg" style="display:none;"></div>
+          <div class="progress-track" id="uProgressTrack" style="display:none;"><div class="progress-fill" id="uProgress"></div></div>
+
+          <div style="display:flex; gap:14px; flex-wrap:wrap;">
+            <button class="btn btn-primary" id="uBtn">Unlock PDF →</button>
+            <button class="btn btn-secondary" id="uResetBtn">Start Over</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Sharmaji Tools logo">
+        <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+      </a>
+      <p class="footer-note">Files are processed on your own device — nothing is uploaded to a server.</p>
+    </div>
+    <div class="footer-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="about.html">About</a>
+      <a href="legal.html">Legal</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+<script type="module" src="js/unlock.js"></script>
+</body>
+</html>

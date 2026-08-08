@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Code Generator — Sharmaji Tools</title>
+<meta name="description" content="Turn a link or any text into a downloadable QR code. Runs entirely in your browser.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Sharmaji Tools logo">
+      <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰ Menu</button>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html" class="current">Dashboard</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero ledger-margin" style="padding-bottom:16px;">
+    <div class="wrap">
+      <span class="file-no">UTILITY 05 — QR CODE</span>
+      <h1>QR Code Generator</h1>
+      <p class="lede">Turn a link, phone number or any text into a QR code you can download.</p>
+    </div>
+  </section>
+
+  <hr class="ledger-rule strong">
+
+  <section class="section">
+    <div class="wrap" style="max-width:560px;">
+      <div class="workspace">
+        <div class="field">
+          <label>Text or link</label>
+          <input type="text" id="qrText" placeholder="https://example.com" value="https://example.com">
+        </div>
+        <div style="display:flex; gap:24px; flex-wrap:wrap; margin-bottom:18px;">
+          <label style="display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-soft);">
+            Foreground <input type="color" id="qrFg" value="#16223b">
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-soft);">
+            Background <input type="color" id="qrBg" value="#ffffff">
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-soft);">
+            Size <input type="range" id="qrSize" min="150" max="600" value="300" style="width:120px;">
+          </label>
+        </div>
+
+        <div id="qrStatus" class="status-msg" style="display:none;"></div>
+
+        <div style="text-align:center; background:#fff; padding:20px; border:1px solid var(--card-edge); border-radius:var(--radius); margin-bottom:18px;">
+          <canvas id="qrCanvas"></canvas>
+        </div>
+
+        <div style="display:flex; gap:14px; flex-wrap:wrap;">
+          <button class="btn btn-primary" id="qrGenBtn">Generate →</button>
+          <button class="btn btn-secondary" id="qrDownloadBtn">Download PNG</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Sharmaji Tools logo">
+        <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+      </a>
+      <p class="footer-note">Files are processed on your own device — nothing is uploaded to a server.</p>
+    </div>
+    <div class="footer-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="about.html">About</a>
+      <a href="legal.html">Legal</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/qr-code-generator.js"></script>
+</body>
+</html>

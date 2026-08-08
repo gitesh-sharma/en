@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watermark PDF — Sharmaji Tools</title>
+<meta name="description" content="Add a text watermark to a PDF, or mask an existing one out. Runs entirely in your browser.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Sharmaji Tools logo">
+      <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰ Menu</button>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html" class="current">Dashboard</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero ledger-margin" style="padding-bottom:16px;">
+    <div class="wrap">
+      <span class="file-no">ENTRY 07 — WATERMARK</span>
+      <h1>Watermark</h1>
+      <p class="lede">Stamp a text watermark across every page, or mask an existing one out.</p>
+    </div>
+  </section>
+
+  <hr class="ledger-rule strong">
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="radio-row" style="margin-bottom:26px;">
+        <label class="radio-pill active" id="tabAddBtn"><input type="radio" name="wmmode" checked> Add Watermark</label>
+        <label class="radio-pill" id="tabRemoveBtn"><input type="radio" name="wmmode"> Remove Watermark</label>
+      </div>
+
+      <!-- ============ ADD ============ -->
+      <div class="workspace" id="addPanel">
+        <div class="dropzone" id="addDrop">
+          <div class="dz-title">Drop one PDF here, or click to choose</div>
+          <div class="dz-sub" id="addSub">Set the text and style below, then apply.</div>
+          <input type="file" id="addInput" accept="application/pdf">
+        </div>
+
+        <div id="addOptions" style="display:none; margin-top:22px;">
+          <div class="field">
+            <label>Watermark text</label>
+            <input type="text" id="wmText" placeholder="e.g. CONFIDENTIAL, DRAFT, your company name" value="CONFIDENTIAL">
+          </div>
+          <div style="display:flex; gap:24px; flex-wrap:wrap; margin-bottom:18px;">
+            <label style="display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-soft);">
+              Color <input type="color" id="wmColor" value="#b5342a">
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-soft);">
+              Opacity <input type="range" id="wmOpacity" min="5" max="80" value="18" style="width:110px;">
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-soft);">
+              Size <input type="range" id="wmSize" min="16" max="72" value="36" style="width:110px;">
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-soft);">
+              Angle <input type="range" id="wmAngle" min="0" max="90" value="45" style="width:110px;">
+            </label>
+          </div>
+          <div class="radio-row" style="margin-bottom:18px;">
+            <label class="radio-pill active" data-layout="tiled"><input type="radio" name="wmlayout"> Repeated across the page</label>
+            <label class="radio-pill" data-layout="single"><input type="radio" name="wmlayout"> Once, centered</label>
+          </div>
+          <div id="addStatus" class="status-msg" style="display:none;"></div>
+          <div class="progress-track" id="addProgressTrack" style="display:none;"><div class="progress-fill" id="addProgress"></div></div>
+          <button class="btn btn-primary" id="addBtn">Apply Watermark →</button>
+        </div>
+      </div>
+
+      <!-- ============ REMOVE ============ -->
+      <div class="workspace" id="removePanel" style="display:none;">
+        <div class="notice-block" style="margin-bottom:22px;">
+          <strong style="font-family: var(--font-mono); font-size:0.85rem;">How this works, honestly</strong>
+          <p style="margin: 8px 0 0;">This finds every occurrence of the exact text you enter and covers it with a solid rectangle matching your chosen colour, at the same size and angle it was found. It works well for repeated text watermarks. It cannot remove image-based watermarks or logos, and it won't perfectly match a textured or photo background.</p>
+        </div>
+        <div class="dropzone" id="removeDrop">
+          <div class="dz-title">Drop one PDF here, or click to choose</div>
+          <div class="dz-sub" id="removeSub">We'll scan the text on every page once it's loaded.</div>
+          <input type="file" id="removeInput" accept="application/pdf">
+        </div>
+
+        <div id="removeOptions" style="display:none; margin-top:22px;">
+          <div class="field">
+            <label>Exact watermark text to remove</label>
+            <input type="text" id="rmText" placeholder="e.g. CONFIDENTIAL">
+          </div>
+          <label style="display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-soft); margin-bottom:18px;">
+            Cover colour (match your page background) <input type="color" id="rmColor" value="#ffffff">
+          </label>
+          <div id="removeStatus" class="status-msg" style="display:none;"></div>
+          <div class="progress-track" id="removeProgressTrack" style="display:none;"><div class="progress-fill" id="removeProgress"></div></div>
+          <button class="btn btn-primary" id="removeBtn">Remove Watermark →</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Sharmaji Tools logo">
+        <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+      </a>
+      <p class="footer-note">Files are processed on your own device — nothing is uploaded to a server.</p>
+    </div>
+    <div class="footer-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="about.html">About</a>
+      <a href="legal.html">Legal</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="js/app.js"></script>
+<script type="module" src="js/watermark.js"></script>
+</body>
+</html>
