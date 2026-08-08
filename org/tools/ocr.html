@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make PDF Searchable (OCR) — Sharmaji Tools</title>
+<meta name="description" content="Turn a scanned, non-selectable PDF into one with selectable, searchable text. Runs entirely in your browser.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Sharmaji Tools logo">
+      <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰ Menu</button>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html" class="current">Dashboard</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero ledger-margin" style="padding-bottom:16px;">
+    <div class="wrap">
+      <span class="file-no">ENTRY 10 — MAKE SEARCHABLE</span>
+      <h1>Make PDF Searchable</h1>
+      <p class="lede">Run OCR on a scanned PDF so the text underneath becomes selectable and searchable.</p>
+    </div>
+  </section>
+
+  <hr class="ledger-rule strong">
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="notice-block" style="margin-bottom:22px;">
+        <strong style="font-family: var(--font-mono); font-size:0.85rem;">How this works, honestly</strong>
+        <p style="margin: 8px 0 0;">Each page is read with an OCR engine running in your browser, and the recognised words are placed invisibly on top of the page in the exact spots they were found — so the page still looks identical, but you can now select, copy and search the text. Accuracy depends on scan quality: clean, straight, well-lit scans do best. Right now this supports English text — more languages are planned next.</p>
+      </div>
+
+      <div class="workspace" id="uploadWorkspace">
+        <div class="dropzone" id="oDrop">
+          <div class="dz-title">Drop one PDF here, or click to choose</div>
+          <div class="dz-sub" id="oSub">Works best on scanned documents and photographed pages.</div>
+          <input type="file" id="oInput" accept="application/pdf">
+        </div>
+        <div id="oStatus" class="status-msg" style="display:none;"></div>
+      </div>
+
+      <div id="oWorkspace" style="display:none; margin-top:22px;">
+        <div class="workspace">
+          <div class="file-row" style="margin-bottom:22px;">
+            <span class="name" id="oFileName"></span>
+            <span class="size" id="oFileSize"></span>
+          </div>
+
+          <label style="font-family: var(--font-mono); font-size:0.8rem; letter-spacing:0.04em; color: var(--ink-soft); display:block; margin-bottom:10px;">Speed vs. accuracy</label>
+          <div class="radio-row" style="margin-bottom:22px;">
+            <label class="radio-pill" data-dpi="150"><input type="radio" name="ocrdpi"> Faster</label>
+            <label class="radio-pill active" data-dpi="200"><input type="radio" name="ocrdpi"> Balanced</label>
+            <label class="radio-pill" data-dpi="300"><input type="radio" name="ocrdpi"> Most accurate</label>
+          </div>
+
+          <div id="oStatus2" class="status-msg" style="display:none;"></div>
+          <div class="progress-track" id="oProgressTrack" style="display:none;"><div class="progress-fill" id="oProgress"></div></div>
+          <div id="oProgressLabel" style="display:none; font-family:var(--font-mono); font-size:0.78rem; color:var(--ink-soft); margin:-8px 0 14px;"></div>
+
+          <div style="display:flex; gap:14px; flex-wrap:wrap;">
+            <button class="btn btn-primary" id="oBtn">Make Searchable →</button>
+            <button class="btn btn-secondary" id="oResetBtn">Start Over</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Sharmaji Tools logo">
+        <span class="brand-name">Sharmaji Tools<small>Your PDF Workshop</small></span>
+      </a>
+      <p class="footer-note">Files are processed on your own device — nothing is uploaded to a server.</p>
+    </div>
+    <div class="footer-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="about.html">About</a>
+      <a href="legal.html">Legal</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="js/app.js"></script>
+<script type="module" src="js/ocr.js"></script>
+</body>
+</html>
