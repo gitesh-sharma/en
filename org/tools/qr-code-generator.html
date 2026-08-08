@@ -38,11 +38,43 @@
   <section class="section">
     <div class="wrap" style="max-width:560px;">
       <div class="workspace">
-        <div class="field">
-          <label>Text or link</label>
-          <input type="text" id="qrText" placeholder="https://example.com" value="https://example.com">
+        <div class="radio-row" style="margin-bottom:20px;">
+          <label class="radio-pill active" id="modeLinkBtn"><input type="radio" name="qrmode" checked> Link / Text</label>
+          <label class="radio-pill" id="modeWifiBtn"><input type="radio" name="qrmode"> WiFi QR</label>
         </div>
-        <div style="display:flex; gap:24px; flex-wrap:wrap; margin-bottom:18px;">
+
+        <div id="linkPanel">
+          <div class="field">
+            <label>Text or link</label>
+            <input type="text" id="qrText" placeholder="https://example.com" value="https://example.com">
+          </div>
+        </div>
+
+        <div id="wifiPanel" style="display:none;">
+          <div class="field">
+            <label>Network name (SSID)</label>
+            <input type="text" id="wifiSsid" placeholder="MyHomeWiFi">
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input type="text" id="wifiPass" placeholder="Leave blank for an open network">
+          </div>
+          <div class="field">
+            <label>Security</label>
+            <select id="wifiSecurity" style="width:100%; padding:11px 12px; border:1px solid var(--line-strong); border-radius:var(--radius); background:#fff; font-family:var(--font-body); font-size:0.95rem;">
+              <option value="WPA">WPA / WPA2</option>
+              <option value="WEP">WEP</option>
+              <option value="nopass">None (open network)</option>
+            </select>
+          </div>
+          <label style="display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.82rem; color:var(--ink-soft); margin-bottom:4px;">
+            <input type="checkbox" id="wifiHidden"> This is a hidden network
+          </label>
+        </div>
+
+        <hr class="ledger-rule" style="margin:22px 0;">
+
+        <div style="display:flex; gap:24px; flex-wrap:wrap; margin-bottom:18px; align-items:center;">
           <label style="display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-soft);">
             Foreground <input type="color" id="qrFg" value="#16223b">
           </label>
@@ -52,6 +84,14 @@
           <label style="display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-soft);">
             Size <input type="range" id="qrSize" min="150" max="600" value="300" style="width:120px;">
           </label>
+        </div>
+        <div id="qrLogoUploadWrap" class="field">
+          <label>Upload your own logo</label>
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <input type="file" id="qrLogoUpload" accept="image/png,image/jpeg,image/svg+xml,image/webp" style="max-width:220px;">
+            <span id="qrLogoFileName" style="font-family:var(--font-mono); font-size:0.78rem; color:var(--ink-soft);">Using: Sharmaji Tools logo</span>
+            <button type="button" class="btn btn-secondary" id="qrLogoResetBtn" style="display:none; padding:6px 12px; font-size:0.78rem;">Use default logo</button>
+          </div>
         </div>
 
         <div id="qrStatus" class="status-msg" style="display:none;"></div>
