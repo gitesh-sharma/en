@@ -1,4 +1,4 @@
-// SHARMAJI MUSICS — shared behaviour
+// SHARMAJI MUSICS
 
 document.addEventListener('DOMContentLoaded', () => {
 
