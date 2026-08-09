@@ -161,12 +161,14 @@
           </div>
         </fieldset>
 
-        <div class="checkline" style="margin-bottom: 28px;">
+        <div class="checkline" style="margin-bottom: 22px;">
           <input type="checkbox" id="rights" name="rights" required>
           <label for="rights">I confirm this is my original work and I hold all rights needed to distribute it.</label>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block">Get Your Release Ticket</button>
+        <p id="upload-error" style="display:none; color: var(--stamp); font-family: var(--font-mono); font-size: 0.85rem; margin-bottom: 18px;"></p>
+
+        <button type="submit" id="upload-submit-btn" class="btn btn-primary btn-block">Get Your Release Ticket</button>
       </form>
       </div>
 
@@ -200,6 +202,7 @@
   </div>
 </footer>
 
+<script src="js/config.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>
