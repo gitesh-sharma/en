@@ -1,5 +1,14 @@
 import imglyRemoveBackground from "https://cdn.jsdelivr.net/npm/@imgly/[email protected]/+esm";
 
+// Pinning this explicitly (matching imgly's own documented default) rather
+// than relying on the library to work it out on its own — when the main
+// module is loaded through a CDN's ESM-conversion step like this, the
+// library's internal auto-detection of where its own asset files live can
+// get confused, causing the model/WASM files to fail to load.
+const REMOVE_BG_CONFIG = {
+  publicPath: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',
+};
+
 const rbDrop = document.getElementById('rbDrop');
 const rbInput = document.getElementById('rbInput');
 const rbSub = document.getElementById('rbSub');
@@ -52,7 +61,7 @@ rbRunBtn.addEventListener('click', async () => {
   rbStatus2.style.display = 'block';
 
   try {
-    const blob = await imglyRemoveBackground(currentFile);
+    const blob = await imglyRemoveBackground(currentFile, REMOVE_BG_CONFIG);
     resultBlob = blob;
     rbResultImg.src = URL.createObjectURL(blob);
     rbResultImg.style.display = 'block';
@@ -61,7 +70,8 @@ rbRunBtn.addEventListener('click', async () => {
     rbStatus2.style.display = 'block';
   } catch (err) {
     console.error(err);
-    showStatus(rbStatus2, "Couldn't process that photo — please try again, or try a different image.", 'error');
+    const detail = (err && (err.message || err.toString())) || 'Unknown error';
+    showStatus(rbStatus2, `Couldn't process that photo — ${detail}`, 'error');
     rbStatus2.style.display = 'block';
   } finally {
     rbRunBtn.disabled = false;
