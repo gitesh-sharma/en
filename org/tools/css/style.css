@@ -451,9 +451,9 @@ p{ margin: 0 0 1em; color: var(--ink-soft); }
 .footer-links a:hover{ color: var(--stamp); }
 .footer-note{ font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-soft); margin-top: 18px; }
 .footer-bottom{
-  border-top: 0.5px solid var(--line);
-  margin-top: 18px;
-  padding-top: 10px;
+  border-top: 0.3px solid var(--line);
+  margin-top: 15px;
+  padding-top: 9px;
   text-align: center;
 }
 .footer-bottom p{
