@@ -452,13 +452,13 @@ p{ margin: 0 0 1em; color: var(--ink-soft); }
 .footer-note{ font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-soft); margin-top: 18px; }
 .footer-bottom{
   border-top: 0.5px solid var(--line);
-  margin-top: 22px;
-  padding-top: 12px;
+  margin-top: 18px;
+  padding-top: 10px;
   text-align: center;
 }
 .footer-bottom p{
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   color: var(--ink-soft);
   margin: 0;
 }
