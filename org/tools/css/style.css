@@ -462,7 +462,8 @@ p{ margin: 0 0 1em; color: var(--ink-soft); }
   color: var(--ink-soft);
   margin: 0;
 }
- 
+.footer-bottom a{ font-family: var(--font-mono); font-size: 0.65rem; text-decoration: none; color: var(--ink-soft); }
+.footer-bottom a:hover{ color: var(--stamp); }
 
 /* ===================== ABOUT PAGE ===================== */
 .about-grid{
