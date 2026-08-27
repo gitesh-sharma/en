@@ -639,3 +639,8 @@ legend{
   flex-shrink: 0;
 }
 
+/* ---------- clickable badge card (song page "Available On") ---------- */
+a.badge-card{ display:block; transition: transform .15s ease; }
+a.badge-card:hover{ transform: translateY(-3px); }
+a.badge-card:hover .badge{ border-color: var(--gold); }
+a.badge-card:hover .badge-name{ color: var(--gold); }
