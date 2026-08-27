@@ -510,3 +510,132 @@ legend{
 @media (prefers-reduced-motion: reduce){
   *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
 }
+
+/* ---------- artist & song profile media ---------- */
+.photo-frame{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.photo-frame img{ width: 100%; height: 100%; object-fit: cover; }
+.photo-fallback{
+  display: none;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 2.6rem;
+  color: var(--ink);
+}
+
+.poster-frame{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--ink-soft);
+  border: 1px solid var(--ink-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.poster-frame img{ width: 100%; height: 100%; object-fit: cover; }
+.poster-fallback{
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.poster-fallback span{
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.45;
+  text-align: center;
+  padding: 0 8px;
+}
+
+/* ---------- artist card ---------- */
+.artist-card{
+  display: block;
+  text-align: center;
+  padding: 26px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--ink-line);
+  transition: border-color .2s ease, transform .15s ease;
+}
+.artist-card:hover{ border-color: var(--gold); transform: translateY(-3px); }
+.artist-card .photo-frame{ width: 128px; margin-inline: auto; }
+.artist-card h3{
+  font-size: 1.3rem;
+  text-transform: none;
+  margin-top: 18px;
+}
+.artist-card .artist-tagline{
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-top: 6px;
+}
+.artist-card .btn{ margin-top: 18px; pointer-events: none; }
+
+/* ---------- ghost / coming soon card ---------- */
+.ghost-card{
+  border: 1px dashed var(--ink-line);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 26px 20px;
+  min-height: 100%;
+}
+.ghost-card span{
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.5;
+}
+
+/* ---------- song row (songs index) ---------- */
+.song-row{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 4px;
+  border-bottom: 1px solid var(--ink-line);
+  transition: opacity .15s ease;
+}
+.song-row:hover{ opacity: 0.8; }
+.song-row .poster-frame{ width: 76px; border-radius: var(--radius-sm); }
+.song-row-title{ font-size: 1.1rem; font-weight: 800; }
+.song-row-artist{
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--teal);
+  margin-top: 4px;
+}
+.genre-tag{
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--ink-line);
+  border-radius: 999px;
+  padding: 5px 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
