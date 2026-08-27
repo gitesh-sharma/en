@@ -644,3 +644,34 @@ a.badge-card{ display:block; transition: transform .15s ease; }
 a.badge-card:hover{ transform: translateY(-3px); }
 a.badge-card:hover .badge{ border-color: var(--gold); }
 a.badge-card:hover .badge-name{ color: var(--gold); }
+
+/* ---------- responsive hero grids (fixes mobile overflow) ---------- */
+.hero-split{
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+}
+@media (max-width: 860px){
+  .hero-split{ grid-template-columns: 1fr; }
+}
+
+.profile-hero{
+  display: grid;
+  grid-template-columns: var(--profile-media-w, 220px) 1fr;
+  gap: 36px;
+  align-items: center;
+  margin-top: 22px;
+}
+@media (max-width: 640px){
+  .profile-hero{
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+  .profile-hero .photo-frame,
+  .profile-hero .poster-frame{
+    width: 200px;
+    max-width: 60vw;
+  }
+}
