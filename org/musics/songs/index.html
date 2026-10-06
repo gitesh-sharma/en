@@ -3,63 +3,251 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Songs — Sharmaji Musics</title>
-<meta name="description" content="Every song released and distributed through Sharmaji Musics — browse by artist and genre.">
+<title>All Songs — Sharmaji Musics Catalogue</title>
+<meta name="description" content="Browse every original song released through Sharmaji Musics — streaming on Spotify, JioSaavn, YouTube Music, Apple Music and more.">
 <link rel="icon" type="image/png" href="../assets/logo/logo.png">
 <link rel="stylesheet" href="../css/style.css">
+
+<!-- JSON-LD: Song catalogue -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicPlaylist",
+  "name": "Sharmaji Musics — Full Catalogue",
+  "track": [
+    { "@type": "MusicRecording", "name": "Song Title One", "byArtist": "Artist One", "url": "../songs/song-title-one.html" },
+    { "@type": "MusicRecording", "name": "Song Title Two", "byArtist": "Artist Two", "url": "../songs/song-title-two.html" },
+    { "@type": "MusicRecording", "name": "Song Title Three", "byArtist": "Artist Three", "url": "../songs/song-title-three.html" },
+    { "@type": "MusicRecording", "name": "Song Title Four", "byArtist": "Artist Four", "url": "../songs/song-title-four.html" }
+  ]
+}
+</script>
+
+<style>
+  /* ---- page-specific additions, same convention as artists page ---- */
+  .filter-tag{
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid var(--ink-line);
+    border-radius: 999px;
+    padding: 8px 18px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: var(--cream);
+    opacity: 0.75;
+    transition: all .2s ease;
+  }
+  .filter-tag:hover{ opacity: 1; border-color: var(--gold); }
+  .filter-tag.active{
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--gold-ink);
+    opacity: 1;
+  }
+  .search-wrap{ position: relative; max-width: 380px; }
+  .search-wrap svg{ position: absolute; left: 14px; top: 50%; transform: translateY(-50%); opacity: 0.5; }
+  .search-wrap input{ padding-left: 42px; }
+  .stat-num{
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 2.6rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label{
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-top: 6px;
+    display: block;
+  }
+  .song-row{ cursor: pointer; }
+  .song-row-play{
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--ink-line);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold);
+    transition: all .2s ease;
+  }
+  .song-row:hover .song-row-play{ background: var(--gold); color: var(--gold-ink); border-color: var(--gold); }
+  #noResults{
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.85rem;
+    opacity: 0.5;
+    text-align: center;
+    padding: 40px 0;
+    display: none;
+  }
+</style>
 </head>
 <body>
 
 <header class="site-header">
   <div class="container">
     <a href="../index.html" class="brand">
-      <img src="../assets/logo/logo.png" alt="Sharmaji Musics" class="brand-mark">
-      <span class="brand-word">Sharmaji<br>Musics<small>Independent Distribution</small></span>
+      <img class="brand-mark" src="../assets/logo/logo.png" alt="Sharmaji Musics logo">
+      <span class="brand-word">Sharmaji Musics<small>Independent Distribution</small></span>
     </a>
     <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <nav class="nav-links">
       <a href="../index.html">Home</a>
-      <a href="../artists/index.html">Artists</a>
       <a href="index.html" aria-current="page">Songs</a>
+      <a href="../artists/index.html">Artists</a>
       <a href="../partners.html">Partners</a>
       <a href="../upload.html">Upload</a>
-      <a href="../support.html">Support</a>
     </nav>
   </div>
 </header>
 
 <main>
 
-  <section style="padding-bottom: 10px;">
+  <!-- HERO -->
+  <section style="padding-top: clamp(48px,8vw,88px); border-bottom: 1px solid var(--ink-line);">
     <div class="container">
-      <span class="eyebrow">Releases</span>
-      <h1 style="font-size: clamp(2.2rem, 5vw, 3.6rem); margin-top: 16px; max-width: 18ch;">Every song we've sent into the world.</h1>
-      <p style="max-width: 56ch; opacity: 0.8; font-size: 1.05rem; margin-top: 18px;">
-        Original music from independent artists, distributed everywhere listeners already are.
+      <span class="eyebrow">The Catalogue</span>
+      <h1 style="font-size: clamp(2.4rem, 5.6vw, 4rem); margin-top: 18px; max-width: 18ch;">Every track we've sent to the world.</h1>
+      <p style="max-width: 52ch; font-size: 1.1rem; opacity: 0.85; margin-top: 22px;">
+        Original songs, released independently, streaming worldwide — all distributed through Sharmaji Musics. Press play on anything below.
       </p>
+      <div class="waveform" style="margin-top: 36px; color: var(--teal);">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
     </div>
   </section>
 
-  <section style="padding-top: 12px;">
-    <div class="container" style="max-width: 860px;">
+  <!-- STATS -->
+  <section style="padding-block: clamp(40px,6vw,64px); border-bottom: 1px solid var(--ink-line);">
+    <div class="container">
+      <div class="grid grid-4">
+        <div><span class="stat-num">500+</span><span class="stat-label">Songs Released</span></div>
+        <div><span class="stat-num">20+</span><span class="stat-label">Artists</span></div>
+        <div><span class="stat-num">10M+</span><span class="stat-label">Total Streams</span></div>
+        <div><span class="stat-num">150+</span><span class="stat-label">Platforms</span></div>
+      </div>
+    </div>
+  </section>
 
-      <a href="kahawa-ke-piyar-mati.html" class="song-row">
-        <div class="poster-frame">
-          <img src="../assets/songs/kahawa-ke-piyar-mati.jpg" alt="Kahawa Ke Piyar Mati poster" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <span class="poster-fallback">
-            <svg width="22" height="22" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" style="fill:none; stroke:var(--ink-line);"/><circle cx="20" cy="20" r="9" style="fill:var(--teal);"/><circle cx="20" cy="20" r="2" style="fill:var(--ink);"/></svg>
-          </span>
-        </div>
-        <div style="flex:1;">
-          <div class="song-row-title">Kahawa Ke Piyar Mati</div>
-          <div class="song-row-artist">Yadav</div>
-        </div>
-        <span class="genre-tag">Folk</span>
-      </a>
+  <!-- SEARCH + FILTER -->
+  <section style="padding-block: clamp(32px,5vw,48px); border-bottom: 1px solid var(--ink-line);">
+    <div class="container" style="display:flex; flex-wrap:wrap; gap:24px; align-items:center; justify-content:space-between;">
+      <div class="search-wrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="songSearch" placeholder="Search song or artist..." style="width:100%; padding:13px 14px 13px 42px; background:var(--ink); border:1px solid var(--ink-line); border-radius:var(--radius-sm); color:var(--cream);">
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:10px;">
+        <span class="filter-tag active" data-filter="all">All</span>
+        <span class="filter-tag" data-filter="pop">Pop</span>
+        <span class="filter-tag" data-filter="indie">Indie</span>
+        <span class="filter-tag" data-filter="hiphop">Hip-Hop</span>
+        <span class="filter-tag" data-filter="playback">Playback</span>
+      </div>
+    </div>
+  </section>
 
-      <p style="text-align:center; opacity:0.5; font-family: var(--font-mono); font-size:0.85rem; margin-top: 26px;">More releases coming soon.</p>
+  <!-- SONG LIST -->
+  <section>
+    <div class="container">
+      <div id="songList">
+
+        <!-- Song 1 -->
+        <a href="song-title-one.html" class="song-row song-item" data-genre="pop" data-name="song title one artist one">
+          <div class="poster-frame" style="width:76px; border-radius:var(--radius-sm);">
+            <img src="../assets/songs/song-one.jpg" alt="Song Title One cover art" loading="lazy">
+            <div class="poster-fallback"><span>Song Title One</span></div>
+          </div>
+          <div style="flex-grow:1;">
+            <div class="song-row-title">Song Title One</div>
+            <div class="song-row-artist">Artist One</div>
+          </div>
+          <span class="genre-tag">Pop</span>
+          <div class="song-row-play">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </a>
+
+        <!-- Song 2 -->
+        <a href="song-title-two.html" class="song-row song-item" data-genre="indie" data-name="song title two artist two">
+          <div class="poster-frame" style="width:76px; border-radius:var(--radius-sm);">
+            <img src="../assets/songs/song-two.jpg" alt="Song Title Two cover art" loading="lazy">
+            <div class="poster-fallback"><span>Song Title Two</span></div>
+          </div>
+          <div style="flex-grow:1;">
+            <div class="song-row-title">Song Title Two</div>
+            <div class="song-row-artist">Artist Two</div>
+          </div>
+          <span class="genre-tag">Indie</span>
+          <div class="song-row-play">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </a>
+
+        <!-- Song 3 -->
+        <a href="song-title-three.html" class="song-row song-item" data-genre="hiphop" data-name="song title three artist four">
+          <div class="poster-frame" style="width:76px; border-radius:var(--radius-sm);">
+            <img src="../assets/songs/song-three.jpg" alt="Song Title Three cover art" loading="lazy">
+            <div class="poster-fallback"><span>Song Title Three</span></div>
+          </div>
+          <div style="flex-grow:1;">
+            <div class="song-row-title">Song Title Three</div>
+            <div class="song-row-artist">Artist Four</div>
+          </div>
+          <span class="genre-tag">Hip-Hop</span>
+          <div class="song-row-play">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </a>
+
+        <!-- Song 4 -->
+        <a href="song-title-four.html" class="song-row song-item" data-genre="playback" data-name="song title four artist three">
+          <div class="poster-frame" style="width:76px; border-radius:var(--radius-sm);">
+            <img src="../assets/songs/song-four.jpg" alt="Song Title Four cover art" loading="lazy">
+            <div class="poster-fallback"><span>Song Title Four</span></div>
+          </div>
+          <div style="flex-grow:1;">
+            <div class="song-row-title">Song Title Four</div>
+            <div class="song-row-artist">Artist Three</div>
+          </div>
+          <span class="genre-tag">Playback</span>
+          <div class="song-row-play">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </a>
+
+        <!-- Add more song rows here following same structure -->
+
+      </div>
+
+      <p id="noResults">No songs found matching your search.</p>
+    </div>
+  </section>
+
+  <!-- FINAL CTA — ticket -->
+  <section style="border-top: 1px solid var(--ink-line);">
+    <div class="container">
+      <div class="ticket">
+        <div class="ticket-main">
+          <span class="eyebrow" style="color: var(--stamp);">Got A Track Ready?</span>
+          <h2 style="font-size: clamp(1.8rem, 3.6vw, 2.6rem); margin-top:14px; color: var(--ink); -webkit-text-stroke: 0;">Your song could be on this list next.</h2>
+          <p style="margin-top:14px; opacity:0.75; max-width:48ch;">Upload your original song and get distributed to every major platform — free, and you keep earning.</p>
+        </div>
+        <div class="ticket-stub">
+          <span class="ticket-code">ADMIT ONE ARTIST</span>
+          <a href="../upload.html" class="btn btn-primary">Upload Song</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -74,11 +262,46 @@
       <li><a href="../partners.html">Partners</a></li>
       <li><a href="../upload.html">Upload</a></li>
       <li><a href="../support.html">Support</a></li>
+      <li><a href="/en/org/legal.html">Legal</a></li>
+      <li><a href="/en/org/sitemap.html">Sitemap</a></li>
     </ul>
     <span class="footer-copy">© 2026 Sharmaji Technology Media</span>
   </div>
 </footer>
 
 <script src="../js/script.js"></script>
+<script>
+  // Search + filter logic (page-specific)
+  const searchInput = document.getElementById('songSearch');
+  const items = document.querySelectorAll('.song-item');
+  const noResults = document.getElementById('noResults');
+  const tags = document.querySelectorAll('.filter-tag');
+  let activeFilter = 'all';
+
+  function applyFilters(){
+    const q = searchInput.value.toLowerCase().trim();
+    let visible = 0;
+    items.forEach(item=>{
+      const name = item.getAttribute('data-name');
+      const genre = item.getAttribute('data-genre');
+      const matchesSearch = name.includes(q);
+      const matchesFilter = activeFilter === 'all' || genre === activeFilter;
+      const show = matchesSearch && matchesFilter;
+      item.style.display = show ? '' : 'none';
+      if(show) visible++;
+    });
+    noResults.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+  tags.forEach(tag=>{
+    tag.addEventListener('click', ()=>{
+      tags.forEach(t=>t.classList.remove('active'));
+      tag.classList.add('active');
+      activeFilter = tag.getAttribute('data-filter');
+      applyFilters();
+    });
+  });
+</script>
 </body>
 </html>
