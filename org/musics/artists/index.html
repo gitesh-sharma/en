@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Artists — Sharmaji Musics Roster</title>
-<meta name="description" content="Meet the artists distributed by Sharmaji Musics — independent singers, composers and rappers releasing original music on Spotify, JioSaavn, Apple Music and more.">
+<meta name="description" content="Meet the artists distributed by Sharmaji Musics — Mittu Yadav and Hazel Pandey, singers behind Pardesiya Ke Patiya and Ankhiya Me Basal Baada.">
 <link rel="icon" type="image/png" href="../assets/logo/logo.png">
 <link rel="stylesheet" href="../css/style.css">
 
@@ -15,16 +15,13 @@
   "@type": "ItemList",
   "name": "Sharmaji Musics Artist Roster",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "item": { "@type": "MusicGroup", "name": "Artist One", "url": "artist-one.html" } },
-    { "@type": "ListItem", "position": 2, "item": { "@type": "MusicGroup", "name": "Artist Two", "url": "artist-two.html" } },
-    { "@type": "ListItem", "position": 3, "item": { "@type": "MusicGroup", "name": "Artist Three", "url": "artist-three.html" } },
-    { "@type": "ListItem", "position": 4, "item": { "@type": "MusicGroup", "name": "Artist Four", "url": "artist-four.html" } }
+    { "@type": "ListItem", "position": 1, "item": { "@type": "Person", "name": "Mittu Yadav", "url": "https://gitesh-sharma.github.io/en/org/musics/artists/mittu-yadav.html" } },
+    { "@type": "ListItem", "position": 2, "item": { "@type": "Person", "name": "Hazel Pandey", "url": "https://gitesh-sharma.github.io/en/org/musics/artists/hazel-pandey.html" } }
   ]
 }
 </script>
 
 <style>
-  /* ---- page-specific additions, following site's inline-style convention ---- */
   .filter-tag{
     font-family: var(--font-mono);
     font-size: 0.72rem;
@@ -49,15 +46,8 @@
     color: var(--gold-ink);
     opacity: 1;
   }
-  .search-wrap{
-    position: relative;
-    max-width: 380px;
-  }
-  .search-wrap svg{
-    position: absolute;
-    left: 14px; top: 50%; transform: translateY(-50%);
-    opacity: 0.5;
-  }
+  .search-wrap{ position: relative; max-width: 380px; }
+  .search-wrap svg{ position: absolute; left: 14px; top: 50%; transform: translateY(-50%); opacity: 0.5; }
   .search-wrap input{ padding-left: 42px; }
   .stat-num{
     font-family: var(--font-display);
@@ -116,7 +106,7 @@
       <span class="eyebrow">The Roster</span>
       <h1 style="font-size: clamp(2.4rem, 5.6vw, 4rem); margin-top: 18px; max-width: 18ch;">Every voice we've put on the record.</h1>
       <p style="max-width: 52ch; font-size: 1.1rem; opacity: 0.85; margin-top: 22px;">
-        Independent singers, composers and rappers — all distributed worldwide through Sharmaji Musics. Browse the roster, press play, and find your next favourite.
+        Independent singers distributed worldwide through Sharmaji Musics. Browse the roster, press play, and find your next favourite.
       </p>
       <div class="waveform" style="margin-top: 36px; color: var(--teal);">
         <span></span><span></span><span></span><span></span><span></span><span></span>
@@ -128,10 +118,10 @@
   <section style="padding-block: clamp(40px,6vw,64px); border-bottom: 1px solid var(--ink-line);">
     <div class="container">
       <div class="grid grid-4">
-        <div><span class="stat-num">20+</span><span class="stat-label">Artists Onboard</span></div>
-        <div><span class="stat-num">500+</span><span class="stat-label">Songs Released</span></div>
-        <div><span class="stat-num">10M+</span><span class="stat-label">Total Streams</span></div>
-        <div><span class="stat-num">150+</span><span class="stat-label">Platforms</span></div>
+        <div><span class="stat-num">2</span><span class="stat-label">Artists Onboard</span></div>
+        <div><span class="stat-num">2</span><span class="stat-label">Songs Released</span></div>
+        <div><span class="stat-num">2026</span><span class="stat-label">First Releases</span></div>
+        <div><span class="stat-num">5+</span><span class="stat-label">Platforms</span></div>
       </div>
     </div>
   </section>
@@ -145,10 +135,7 @@
       </div>
       <div style="display:flex; flex-wrap:wrap; gap:10px;">
         <span class="filter-tag active" data-filter="all">All</span>
-        <span class="filter-tag" data-filter="playback">Playback</span>
-        <span class="filter-tag" data-filter="independent">Independent</span>
-        <span class="filter-tag" data-filter="composer">Composer</span>
-        <span class="filter-tag" data-filter="rapper">Rapper</span>
+        <span class="filter-tag" data-filter="bhojpuri">Bhojpuri</span>
       </div>
     </div>
   </section>
@@ -158,47 +145,25 @@
     <div class="container">
       <div class="grid grid-4" id="artistGrid">
 
-        <!-- Artist 1 -->
-        <a href="artist-one.html" class="artist-card artist-item" data-category="playback" data-name="artist one">
+        <!-- Mittu Yadav -->
+        <a href="mittu-yadav.html" class="artist-card artist-item" data-category="bhojpuri" data-name="mittu yadav">
           <div class="photo-frame">
-            <img src="../assets/artists/artist-one.jpg" alt="Artist One photo" loading="lazy">
-            <span class="photo-fallback">A1</span>
+            <img src="../assets/artists/mittu-yadav.jpg" alt="Mittu Yadav photo" loading="lazy">
+            <span class="photo-fallback">MY</span>
           </div>
-          <h3>Artist One</h3>
-          <span class="artist-tagline">Playback Singer</span>
+          <h3>Mittu Yadav</h3>
+          <span class="artist-tagline">Singer • Producer • Composer</span>
           <span class="btn btn-outline" style="margin-top:18px;">View Profile</span>
         </a>
 
-        <!-- Artist 2 -->
-        <a href="artist-two.html" class="artist-card artist-item" data-category="independent" data-name="artist two">
+        <!-- Hazel Pandey -->
+        <a href="hazel-pandey.html" class="artist-card artist-item" data-category="bhojpuri" data-name="hazel pandey">
           <div class="photo-frame">
-            <img src="../assets/artists/artist-two.jpg" alt="Artist Two photo" loading="lazy">
-            <span class="photo-fallback">A2</span>
+            <img src="../assets/artists/hazel-pandey.jpg" alt="Hazel Pandey photo" loading="lazy">
+            <span class="photo-fallback">HP</span>
           </div>
-          <h3>Artist Two</h3>
-          <span class="artist-tagline">Indie Pop Artist</span>
-          <span class="btn btn-outline" style="margin-top:18px;">View Profile</span>
-        </a>
-
-        <!-- Artist 3 -->
-        <a href="artist-three.html" class="artist-card artist-item" data-category="composer" data-name="artist three">
-          <div class="photo-frame">
-            <img src="../assets/artists/artist-three.jpg" alt="Artist Three photo" loading="lazy">
-            <span class="photo-fallback">A3</span>
-          </div>
-          <h3>Artist Three</h3>
-          <span class="artist-tagline">Music Composer</span>
-          <span class="btn btn-outline" style="margin-top:18px;">View Profile</span>
-        </a>
-
-        <!-- Artist 4 -->
-        <a href="artist-four.html" class="artist-card artist-item" data-category="rapper" data-name="artist four">
-          <div class="photo-frame">
-            <img src="../assets/artists/artist-four.jpg" alt="Artist Four photo" loading="lazy">
-            <span class="photo-fallback">A4</span>
-          </div>
-          <h3>Artist Four</h3>
-          <span class="artist-tagline">Hip-Hop / Rap</span>
+          <h3>Hazel Pandey</h3>
+          <span class="artist-tagline">Singer</span>
           <span class="btn btn-outline" style="margin-top:18px;">View Profile</span>
         </a>
 
@@ -250,7 +215,6 @@
 
 <script src="../js/script.js"></script>
 <script>
-  // Search + filter logic (page-specific, doesn't touch shared script.js)
   const searchInput = document.getElementById('artistSearch');
   const items = document.querySelectorAll('.artist-item');
   const noResults = document.getElementById('noResults');
