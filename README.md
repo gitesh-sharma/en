@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🌐 Gitesh Sharma: Official Website
+# 🌐 Welcome!!
 
 **A personal website hosting free online tools and a music platform, deployed with GitHub Pages.**
 
@@ -208,7 +208,7 @@ Contributions, issues and feature requests are welcome.
 
 ## 📜 License
 
-© Gitesh Sharma. All rights reserved.
+© Sharmaji Technology Media. All rights reserved.
 See the [Legal page](https://gitesh-sharma.github.io/en/org/legal.html) for terms of use.
 
 ---
@@ -227,6 +227,6 @@ See the [Legal page](https://gitesh-sharma.github.io/en/org/legal.html) for term
 
 ⭐ **If you find this project useful, please give it a star!** ⭐
 
-Made with ❤️ by **Gitesh Sharma**
+Made with ❤️ by **Gitesh Sharma** 
 
 </div>
