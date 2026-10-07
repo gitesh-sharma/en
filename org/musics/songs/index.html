@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>All Songs — Sharmaji Musics Catalogue</title>
-<meta name="description" content="Browse every original song released through Sharmaji Musics — streaming on Spotify, JioSaavn, YouTube Music, Apple Music and more.">
+<meta name="description" content="Browse every original song released through Sharmaji Musics — Pardesiya Ke Patiya and Ankhiya Me Basal Baada by Mittu Yadav & Hazel Pandey, streaming on YouTube, Spotify, JioSaavn and more.">
 <link rel="icon" type="image/png" href="../assets/logo/logo.png">
 <link rel="stylesheet" href="../css/style.css">
 
@@ -15,16 +15,13 @@
   "@type": "MusicPlaylist",
   "name": "Sharmaji Musics — Full Catalogue",
   "track": [
-    { "@type": "MusicRecording", "name": "Song Title One", "byArtist": "Artist One", "url": "../songs/song-title-one.html" },
-    { "@type": "MusicRecording", "name": "Song Title Two", "byArtist": "Artist Two", "url": "../songs/song-title-two.html" },
-    { "@type": "MusicRecording", "name": "Song Title Three", "byArtist": "Artist Three", "url": "../songs/song-title-three.html" },
-    { "@type": "MusicRecording", "name": "Song Title Four", "byArtist": "Artist Four", "url": "../songs/song-title-four.html" }
+    { "@type": "MusicRecording", "name": "परदेसिया के पतिया", "byArtist": ["Mittu Yadav", "Hazel Pandey"], "datePublished": "2026-08-26", "url": "https://gitesh-sharma.github.io/en/org/musics/songs/pardesiya-ke-patiya.html" },
+    { "@type": "MusicRecording", "name": "अँखिया में बसल बाड़ऽ", "byArtist": ["Mittu Yadav", "Hazel Pandey"], "datePublished": "2026-08-09", "url": "https://gitesh-sharma.github.io/en/org/musics/songs/ankhiya-me-basal-baada.html" }
   ]
 }
 </script>
 
 <style>
-  /* ---- page-specific additions, same convention as artists page ---- */
   .filter-tag{
     font-family: var(--font-mono);
     font-size: 0.72rem;
@@ -132,10 +129,10 @@
   <section style="padding-block: clamp(40px,6vw,64px); border-bottom: 1px solid var(--ink-line);">
     <div class="container">
       <div class="grid grid-4">
-        <div><span class="stat-num">500+</span><span class="stat-label">Songs Released</span></div>
-        <div><span class="stat-num">20+</span><span class="stat-label">Artists</span></div>
-        <div><span class="stat-num">10M+</span><span class="stat-label">Total Streams</span></div>
-        <div><span class="stat-num">150+</span><span class="stat-label">Platforms</span></div>
+        <div><span class="stat-num">2</span><span class="stat-label">Songs Released</span></div>
+        <div><span class="stat-num">2</span><span class="stat-label">Artists</span></div>
+        <div><span class="stat-num">2026</span><span class="stat-label">Latest Release Year</span></div>
+        <div><span class="stat-num">5+</span><span class="stat-label">Platforms</span></div>
       </div>
     </div>
   </section>
@@ -149,10 +146,7 @@
       </div>
       <div style="display:flex; flex-wrap:wrap; gap:10px;">
         <span class="filter-tag active" data-filter="all">All</span>
-        <span class="filter-tag" data-filter="pop">Pop</span>
-        <span class="filter-tag" data-filter="indie">Indie</span>
-        <span class="filter-tag" data-filter="hiphop">Hip-Hop</span>
-        <span class="filter-tag" data-filter="playback">Playback</span>
+        <span class="filter-tag" data-filter="bhojpuri">Bhojpuri</span>
       </div>
     </div>
   </section>
@@ -162,71 +156,37 @@
     <div class="container">
       <div id="songList">
 
-        <!-- Song 1 -->
-        <a href="song-title-one.html" class="song-row song-item" data-genre="pop" data-name="song title one artist one">
+        <!-- Song 1: Pardesiya Ke Patiya (newest first) -->
+        <a href="pardesiya-ke-patiya.html" class="song-row song-item" data-genre="bhojpuri" data-name="pardesiya ke patiya mittu yadav hazel pandey">
           <div class="poster-frame" style="width:76px; border-radius:var(--radius-sm);">
-            <img src="../assets/songs/song-one.jpg" alt="Song Title One cover art" loading="lazy">
-            <div class="poster-fallback"><span>Song Title One</span></div>
+            <img src="../assets/songs/pardesiya-ke-patiya.jpg" alt="Pardesiya Ke Patiya cover art" loading="lazy">
+            <div class="poster-fallback"><span>परदेसिया के पतिया</span></div>
           </div>
           <div style="flex-grow:1;">
-            <div class="song-row-title">Song Title One</div>
-            <div class="song-row-artist">Artist One</div>
+            <div class="song-row-title">परदेसिया के पतिया</div>
+            <div class="song-row-artist">Mittu Yadav &amp; Hazel Pandey</div>
           </div>
-          <span class="genre-tag">Pop</span>
+          <span class="genre-tag">26 Aug 2026</span>
           <div class="song-row-play">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           </div>
         </a>
 
-        <!-- Song 2 -->
-        <a href="song-title-two.html" class="song-row song-item" data-genre="indie" data-name="song title two artist two">
+        <!-- Song 2: Ankhiya Me Basal Baada -->
+        <a href="ankhiya-me-basal-baada.html" class="song-row song-item" data-genre="bhojpuri" data-name="ankhiya me basal baada mittu yadav hazel pandey">
           <div class="poster-frame" style="width:76px; border-radius:var(--radius-sm);">
-            <img src="../assets/songs/song-two.jpg" alt="Song Title Two cover art" loading="lazy">
-            <div class="poster-fallback"><span>Song Title Two</span></div>
+            <img src="../assets/songs/ankhiya-me-basal-baada.jpg" alt="Ankhiya Me Basal Baada cover art" loading="lazy">
+            <div class="poster-fallback"><span>अँखिया में बसल बाड़ऽ</span></div>
           </div>
           <div style="flex-grow:1;">
-            <div class="song-row-title">Song Title Two</div>
-            <div class="song-row-artist">Artist Two</div>
+            <div class="song-row-title">अँखिया में बसल बाड़ऽ</div>
+            <div class="song-row-artist">Mittu Yadav &amp; Hazel Pandey</div>
           </div>
-          <span class="genre-tag">Indie</span>
+          <span class="genre-tag">09 Aug 2026</span>
           <div class="song-row-play">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           </div>
         </a>
-
-        <!-- Song 3 -->
-        <a href="song-title-three.html" class="song-row song-item" data-genre="hiphop" data-name="song title three artist four">
-          <div class="poster-frame" style="width:76px; border-radius:var(--radius-sm);">
-            <img src="../assets/songs/song-three.jpg" alt="Song Title Three cover art" loading="lazy">
-            <div class="poster-fallback"><span>Song Title Three</span></div>
-          </div>
-          <div style="flex-grow:1;">
-            <div class="song-row-title">Song Title Three</div>
-            <div class="song-row-artist">Artist Four</div>
-          </div>
-          <span class="genre-tag">Hip-Hop</span>
-          <div class="song-row-play">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </a>
-
-        <!-- Song 4 -->
-        <a href="song-title-four.html" class="song-row song-item" data-genre="playback" data-name="song title four artist three">
-          <div class="poster-frame" style="width:76px; border-radius:var(--radius-sm);">
-            <img src="../assets/songs/song-four.jpg" alt="Song Title Four cover art" loading="lazy">
-            <div class="poster-fallback"><span>Song Title Four</span></div>
-          </div>
-          <div style="flex-grow:1;">
-            <div class="song-row-title">Song Title Four</div>
-            <div class="song-row-artist">Artist Three</div>
-          </div>
-          <span class="genre-tag">Playback</span>
-          <div class="song-row-play">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </a>
-
-        <!-- Add more song rows here following same structure -->
 
       </div>
 
@@ -271,7 +231,6 @@
 
 <script src="../js/script.js"></script>
 <script>
-  // Search + filter logic (page-specific)
   const searchInput = document.getElementById('songSearch');
   const items = document.querySelectorAll('.song-item');
   const noResults = document.getElementById('noResults');
