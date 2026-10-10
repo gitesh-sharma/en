@@ -384,6 +384,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .ledger-row .tag.music{ color: var(--music); }
 .ledger-row h3{ font-size: 22px; margin-bottom: 10px; color: var(--paper); }
 .ledger-row p{ color: var(--slate); font-size: 15px; max-width: 640px; }
+.ledger-row a:hover{color:var(--paper); }
 @media (max-width: 620px){ .ledger-row{ grid-template-columns: 1fr; gap: 8px; } }
 
 .values-grid{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 12px; }
