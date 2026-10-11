@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3D Rotating Crystal</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #0a0a12; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Setup Scene, Camera, Renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Add 3D Geometric Shape
+        const geometry = new THREE.IcosahedronGeometry(2, 1);
+        const material = new THREE.MeshStandardMaterial({
+            color: 0x00ffff,
+            wireframe: true,
+            roughness: 0.1,
+            metalness: 0.9
+        });
+        const crystal = new THREE.Mesh(geometry, material);
+        scene.add(crystal);
+
+        // Add Inner Glowing Core
+        const innerGeo = new THREE.SphereGeometry(1, 16, 16);
+        const innerMat = new THREE.MeshBasicMaterial({ color: 0xff007f });
+        const core = new THREE.Mesh(innerGeo, innerMat);
+        scene.add(core);
+
+        // Lighting
+        const pointLight = new THREE.PointLight(0xffffff, 2, 50);
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
+
+        const ambientLight = new THREE.AmbientLight(0x404040, 2);
+        scene.add(ambientLight);
+
+        camera.position.z = 5;
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            crystal.rotation.x += 0.008;
+            crystal.rotation.y += 0.012;
+
+            core.rotation.x -= 0.01;
+            core.rotation.y -= 0.01;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Responsive Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
