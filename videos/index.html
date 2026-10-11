@@ -2,69 +2,906 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>3D Rotating Crystal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Map - Merahi, Siwan, Bihar (841240)</title>
     <style>
-        body { margin: 0; overflow: hidden; background: #0a0a12; }
-        canvas { display: block; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
+        
+        /* Main Map Container */
+        #map { width: 100vw; height: 100vh; }
+        
+        /* Title Overlay */
+        .title-overlay {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.9));
+            backdrop-filter: blur(20px);
+            padding: 18px 35px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(59, 130, 246, 0.2);
+            text-align: center;
+            animation: slideDown 1s ease-out;
+        }
+        .title-overlay h1 {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(59, 130, 246, 0.5);
+        }
+        .title-overlay .subtitle {
+            color: #93c5fd;
+            font-size: 13px;
+            margin-top: 5px;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+        .title-overlay .pin-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            margin-top: 8px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        /* Info Panel */
+        .info-panel {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            z-index: 10;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.85));
+            backdrop-filter: blur(20px);
+            padding: 20px 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            color: white;
+            min-width: 260px;
+            animation: slideUp 1.2s ease-out;
+        }
+        .info-panel h3 {
+            font-size: 14px;
+            color: #93c5fd;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 13px;
+        }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { color: #94a3b8; }
+        .info-value { color: #e2e8f0; font-weight: 600; }
+        
+        /* Controls Panel */
+        .controls-panel {
+            position: absolute;
+            bottom: 30px;
+            right: 20px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            animation: slideUp 1.4s ease-out;
+        }
+        .ctrl-btn {
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.85));
+            backdrop-filter: blur(20px);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        .ctrl-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+            border-color: #3b82f6;
+        }
+        
+        /* Style Switcher */
+        .style-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            display: flex;
+            gap: 8px;
+            animation: slideDown 1.2s ease-out;
+        }
+        .style-btn {
+            padding: 10px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            color: #94a3b8;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .style-btn.active, .style-btn:hover {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Landmark Markers */
+        .custom-marker {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 20px rgba(59, 130, 246, 0.3);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .custom-marker:hover { transform: scale(1.3); }
+        .custom-marker::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid white;
+        }
+        
+        .marker-village { background: linear-gradient(135deg, #10b981, #059669); }
+        .marker-school { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .marker-temple { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .marker-water { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+        .marker-road { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .marker-center { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        
+        /* Popup Styling */
+        .mapboxgl-popup-content, .maplibregl-popup-content {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 58, 138, 0.95)) !important;
+            color: white !important;
+            border-radius: 14px !important;
+            padding: 15px 20px !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+            min-width: 200px;
+        }
+        .mapboxgl-popup-tip, .maplibregl-popup-tip {
+            border-top-color: rgba(15, 23, 42, 0.98) !important;
+        }
+        .popup-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        .popup-desc {
+            font-size: 12px;
+            color: #93c5fd;
+            line-height: 1.5;
+        }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        .loading-text {
+            color: #93c5fd;
+            margin-top: 20px;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        /* Compass */
+        .compass {
+            position: absolute;
+            top: 120px;
+            right: 25px;
+            z-index: 10;
+            width: 60px;
+            height: 60px;
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            animation: slideDown 1.4s ease-out;
+        }
+        .compass-arrow {
+            font-size: 28px;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Coordinates Display */
+        .coords-display {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 12px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            animation: slideDown 1s ease-out;
+        }
+        .coords-display span { color: #3b82f6; font-weight: 700; }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-30px) translateX(-50%); opacity: 0; }
+            to { transform: translateY(0) translateX(-50%); opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+            50% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+        }
+        .pulse-marker { animation: pulse 2s infinite; }
+
+        @media (max-width: 768px) {
+            .title-overlay { padding: 12px 20px; }
+            .title-overlay h1 { font-size: 16px; }
+            .info-panel { display: none; }
+            .style-panel { top: auto; bottom: 90px; right: 10px; flex-direction: column; }
+            .coords-display { display: none; }
+        }
     </style>
+    
+    <!-- MapLibre GL JS (100% Open Source, no API key needed) -->
+    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
 </head>
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading Merahi, Siwan...</div>
+    </div>
+
+    <!-- Title -->
+    <div class="title-overlay">
+        <h1>📍 Merahi, Siwan, Bihar</h1>
+        <div class="subtitle">INTERACTIVE 3D MAP</div>
+        <div class="pin-badge">📮 PIN CODE: 841240</div>
+    </div>
+
+    <!-- Coordinates Display -->
+    <div class="coords-display" id="coordsDisplay">
+        LAT: <span id="latDisplay">26.1200</span> &nbsp; LNG: <span id="lngDisplay">84.3500</span>
+    </div>
+
+    <!-- Map Style Switcher -->
+    <div class="style-panel">
+        <button class="style-btn active" onclick="switchStyle('3d')">🏔️ 3D Terrain</button>
+        <button class="style-btn" onclick="switchStyle('satellite')">🛰️ Satellite</button>
+        <button class="style-btn" onclick="switchStyle('street')">🗺️ Street</button>
+        <button class="style-btn" onclick="switchStyle('dark')">🌙 Dark</button>
+    </div>
+
+    <!-- Compass -->
+    <div class="compass" id="compass">
+        <div class="compass-arrow" id="compassArrow">🧭</div>
+    </div>
+
+    <!-- Info Panel -->
+    <div class="info-panel">
+        <h3>📋 Location Details</h3>
+        <div class="info-row">
+            <span class="info-label">Village</span>
+            <span class="info-value">Merahi</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Block</span>
+            <span class="info-value">Siwan Sadar / Guthni</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">District</span>
+            <span class="info-value">Siwan</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">State</span>
+            <span class="info-value">Bihar, India</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Pin Code</span>
+            <span class="info-value" style="color: #3b82f6;">841240</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Coordinates</span>
+            <span class="info-value">26.12°N, 84.35°E</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Elevation</span>
+            <span class="info-value">~65m ASL</span>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls-panel">
+        <button class="ctrl-btn" onclick="zoomIn()" title="Zoom In">+</button>
+        <button class="ctrl-btn" onclick="zoomOut()" title="Zoom Out">−</button>
+        <button class="ctrl-btn" onclick="resetView()" title="Reset View">⌂</button>
+        <button class="ctrl-btn" onclick="toggleRotation()" title="Auto Rotate" id="rotateBtn">↻</button>
+        <button class="ctrl-btn" onclick="flyAround()" title="Fly Around">✈</button>
+        <button class="ctrl-btn" onclick="togglePitch()" title="Toggle 3D/2D">◆</button>
+    </div>
+
+    <!-- Map Container -->
+    <div id="map"></div>
+
     <script>
-        // Setup Scene, Camera, Renderer
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+        // ============================================
+        // Merahi, Siwan, Bihar - Coordinates
+        // ============================================
+        const MERAHI_CENTER = [84.355, 26.122]; // [lng, lat]
+        const SIWAN_CENTER = [84.357, 26.223];
 
-        // Add 3D Geometric Shape
-        const geometry = new THREE.IcosahedronGeometry(2, 1);
-        const material = new THREE.MeshStandardMaterial({
-            color: 0x00ffff,
-            wireframe: true,
-            roughness: 0.1,
-            metalness: 0.9
-        });
-        const crystal = new THREE.Mesh(geometry, material);
-        scene.add(crystal);
+        let map;
+        let isRotating = false;
+        let rotationInterval;
+        let is3D = true;
 
-        // Add Inner Glowing Core
-        const innerGeo = new THREE.SphereGeometry(1, 16, 16);
-        const innerMat = new THREE.MeshBasicMaterial({ color: 0xff007f });
-        const core = new THREE.Mesh(innerGeo, innerMat);
-        scene.add(core);
+        // ============================================
+        // OpenFreeMap / OpenStreetMap Tile Sources (No API Key!)
+        // ============================================
+        const styles = {
+            '3d': {
+                version: 8,
+                name: 'Merahi 3D Terrain',
+                sources: {
+                    'osm-tiles': {
+                        type: 'raster',
+                        tiles: [
+                            'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+                        ],
+                        tileSize: 256,
+                        attribution: '© OpenStreetMap contributors'
+                    },
+                    'terrain-tiles': {
+                        type: 'raster',
+                        tiles: [
+                            'https://tile.opentopomap.org/{z}/{x}/{y}.png'
+                        ],
+                        tileSize: 256,
+                        attribution: '© OpenTopoMap'
+                    }
+                },
+                layers: [
+                    {
+                        id: 'osm-layer',
+                        type: 'raster',
+                        source: 'osm-tiles',
+                        minzoom: 0,
+                        maxzoom: 19
+                    }
+                ],
+                glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf'
+            },
+            'satellite': {
+                version: 8,
+                name: 'Satellite View',
+                sources: {
+                    'satellite-tiles': {
+                        type: 'raster',
+                        tiles: [
+                            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+                        ],
+                        tileSize: 256,
+                        attribution: '© Esri, Maxar, Earthstar Geographics'
+                    }
+                },
+                layers: [
+                    {
+                        id: 'satellite-layer',
+                        type: 'raster',
+                        source: 'satellite-tiles',
+                        minzoom: 0,
+                        maxzoom: 19
+                    }
+                ],
+                glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf'
+            },
+            'street': {
+                version: 8,
+                name: 'Street Map',
+                sources: {
+                    'carto-tiles': {
+                        type: 'raster',
+                        tiles: [
+                            'https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png'
+                        ],
+                        tileSize: 256,
+                        attribution: '© CartoDB © OpenStreetMap'
+                    }
+                },
+                layers: [
+                    {
+                        id: 'carto-layer',
+                        type: 'raster',
+                        source: 'carto-tiles',
+                        minzoom: 0,
+                        maxzoom: 19
+                    }
+                ],
+                glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf'
+            },
+            'dark': {
+                version: 8,
+                name: 'Dark Mode',
+                sources: {
+                    'dark-tiles': {
+                        type: 'raster',
+                        tiles: [
+                            'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png'
+                        ],
+                        tileSize: 256,
+                        attribution: '© CartoDB © OpenStreetMap'
+                    }
+                },
+                layers: [
+                    {
+                        id: 'dark-layer',
+                        type: 'raster',
+                        source: 'dark-tiles',
+                        minzoom: 0,
+                        maxzoom: 19
+                    }
+                ],
+                glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf'
+            }
+        };
 
-        // Lighting
-        const pointLight = new THREE.PointLight(0xffffff, 2, 50);
-        pointLight.position.set(5, 5, 5);
-        scene.add(pointLight);
+        // ============================================
+        // Landmarks / Points of Interest near Merahi
+        // ============================================
+        const landmarks = [
+            {
+                name: "📍 Merahi Village Center",
+                desc: "Heart of Merahi village, Pin: 841240",
+                coords: [84.355, 26.122],
+                type: "center"
+            },
+            {
+                name: "🛕 Local Temple",
+                desc: "Village temple & community gathering place",
+                coords: [84.357, 26.123],
+                type: "temple"
+            },
+            {
+                name: "🏫 Primary School",
+                desc: "Government Primary School, Merahi",
+                coords: [84.353, 26.121],
+                type: "school"
+            },
+            {
+                name: "💧 Village Pond",
+                desc: "Traditional water body used for irrigation",
+                coords: [84.356, 26.120],
+                type: "water"
+            },
+            {
+                name: "🛣️ Main Road Crossing",
+                desc: "Connection road to Siwan town",
+                coords: [84.352, 26.124],
+                type: "road"
+            },
+            {
+                name: "🏘️ Residential Area",
+                desc: "Main residential cluster of Merahi",
+                coords: [84.358, 26.121],
+                type: "village"
+            },
+            {
+                name: "🌾 Agricultural Fields",
+                desc: "Paddy and wheat cultivation area",
+                coords: [84.360, 26.119],
+                type: "village"
+            },
+            {
+                name: "🏥 Health Sub-Center",
+                desc: "Primary healthcare facility nearby",
+                coords: [84.351, 26.125],
+                type: "school"
+            }
+        ];
 
-        const ambientLight = new THREE.AmbientLight(0x404040, 2);
-        scene.add(ambientLight);
+        // ============================================
+        // Initialize Map
+        // ============================================
+        function initMap() {
+            map = new maplibregl.Map({
+                container: 'map',
+                style: styles['3d'],
+                center: MERAHI_CENTER,
+                zoom: 14,
+                pitch: 60,        // 3D tilt
+                bearing: -30,     // Rotation angle
+                antialias: true,
+                maxZoom: 18,
+                minZoom: 5
+            });
 
-        camera.position.z = 5;
+            // Navigation Controls
+            map.addControl(new maplibregl.NavigationControl({
+                visualizePitch: true,
+                showCompass: true
+            }), 'top-left');
 
-        // Animation Loop
-        function animate() {
-            requestAnimationFrame(animate);
+            // Scale
+            map.addControl(new maplibregl.ScaleControl({
+                maxWidth: 150,
+                unit: 'metric'
+            }), 'bottom-right');
 
-            crystal.rotation.x += 0.008;
-            crystal.rotation.y += 0.012;
+            // Fullscreen
+            map.addControl(new maplibregl.FullscreenControl(), 'top-left');
 
-            core.rotation.x -= 0.01;
-            core.rotation.y -= 0.01;
+            // On Load
+            map.on('load', () => {
+                // Hide loading screen
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').classList.add('hidden');
+                }, 1500);
 
-            renderer.render(scene, camera);
+                // Add landmarks
+                addLandmarks();
+
+                // Add boundary circle around Merahi
+                addBoundaryCircle();
+
+                // Add village label
+                addVillageLabel();
+
+                // Animated entrance
+                map.flyTo({
+                    center: MERAHI_CENTER,
+                    zoom: 15,
+                    pitch: 65,
+                    bearing: 20,
+                    duration: 3000,
+                    essential: true
+                });
+            });
+
+            // Update coordinates on move
+            map.on('mousemove', (e) => {
+                document.getElementById('latDisplay').textContent = e.lngLat.lat.toFixed(4);
+                document.getElementById('lngDisplay').textContent = e.lngLat.lng.toFixed(4);
+            });
+
+            // Update compass on rotate
+            map.on('rotate', () => {
+                const bearing = map.getBearing();
+                document.getElementById('compassArrow').style.transform = `rotate(${-bearing}deg)`;
+            });
         }
-        animate();
 
-        // Responsive Resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
+        // ============================================
+        // Add Landmark Markers
+        // ============================================
+        function addLandmarks() {
+            landmarks.forEach((landmark, index) => {
+                // Create marker element
+                const el = document.createElement('div');
+                el.className = `custom-marker marker-${landmark.type}`;
+                if (landmark.type === 'center') {
+                    el.classList.add('pulse-marker');
+                }
+
+                // Create popup
+                const popup = new maplibregl.Popup({
+                    offset: 25,
+                    closeButton: true,
+                    closeOnClick: false,
+                    maxWidth: '280px'
+                }).setHTML(`
+                    <div class="popup-title">${landmark.name}</div>
+                    <div class="popup-desc">${landmark.desc}</div>
+                    <div class="popup-desc" style="margin-top: 8px; color: #60a5fa;">
+                        📌 ${landmark.coords[1].toFixed(4)}°N, ${landmark.coords[0].toFixed(4)}°E
+                    </div>
+                `);
+
+                // Add marker to map
+                new maplibregl.Marker({
+                    element: el,
+                    anchor: 'bottom'
+                })
+                .setLngLat(landmark.coords)
+                .setPopup(popup)
+                .addTo(map);
+            });
+        }
+
+        // ============================================
+        // Add Circular Boundary around Merahi
+        // ============================================
+        function addBoundaryCircle() {
+            const center = MERAHI_CENTER;
+            const radiusKm = 1.2;
+            const points = 64;
+            const coords = [];
+
+            for (let i = 0; i <= points; i++) {
+                const angle = (i / points) * 2 * Math.PI;
+                const dx = radiusKm * Math.cos(angle);
+                const dy = radiusKm * Math.sin(angle);
+                const lat = center[1] + (dy / 110.574);
+                const lng = center[0] + (dx / (111.320 * Math.cos(center[1] * Math.PI / 180)));
+                coords.push([lng, lat]);
+            }
+
+            // Boundary fill
+            map.addSource('merahi-boundary', {
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Polygon',
+                        coordinates: [coords]
+                    }
+                }
+            });
+
+            map.addLayer({
+                id: 'merahi-boundary-fill',
+                type: 'fill',
+                source: 'merahi-boundary',
+                paint: {
+                    'fill-color': '#3b82f6',
+                    'fill-opacity': 0.08
+                }
+            });
+
+            map.addLayer({
+                id: 'merahi-boundary-line',
+                type: 'line',
+                source: 'merahi-boundary',
+                paint: {
+                    'line-color': '#3b82f6',
+                    'line-width': 2.5,
+                    'line-dasharray': [3, 2],
+                    'line-opacity': 0.7
+                }
+            });
+
+            // Outer glow ring
+            const outerCoords = [];
+            const outerRadiusKm = 2;
+            for (let i = 0; i <= points; i++) {
+                const angle = (i / points) * 2 * Math.PI;
+                const dx = outerRadiusKm * Math.cos(angle);
+                const dy = outerRadiusKm * Math.sin(angle);
+                const lat = center[1] + (dy / 110.574);
+                const lng = center[0] + (dx / (111.320 * Math.cos(center[1] * Math.PI / 180)));
+                outerCoords.push([lng, lat]);
+            }
+
+            map.addSource('merahi-outer', {
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Polygon',
+                        coordinates: [outerCoords]
+                    }
+                }
+            });
+
+            map.addLayer({
+                id: 'merahi-outer-line',
+                type: 'line',
+                source: 'merahi-outer',
+                paint: {
+                    'line-color': '#8b5cf6',
+                    'line-width': 1.5,
+                    'line-dasharray': [5, 4],
+                    'line-opacity': 0.4
+                }
+            });
+        }
+
+        // ============================================
+        // Add Village Name Label on Map
+        // ============================================
+        function addVillageLabel() {
+            map.addSource('village-label', {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: [
+                        {
+                            type: 'Feature',
+                            geometry: { type: 'Point', coordinates: MERAHI_CENTER },
+                            properties: { name: 'MERAHI' }
+                        }
+                    ]
+                }
+            });
+
+            map.addLayer({
+                id: 'village-label-text',
+                type: 'symbol',
+                source: 'village-label',
+                layout: {
+                    'text-field': ['get', 'name'],
+                    'text-size': 18,
+                    'text-font': ['Open Sans Bold'],
+                    'text-offset': [0, -3],
+                    'text-anchor': 'center',
+                    'text-letter-spacing': 0.3
+                },
+                paint: {
+                    'text-color': '#ffffff',
+                    'text-halo-color': 'rgba(15, 23, 42, 0.9)',
+                    'text-halo-width': 3
+                }
+            });
+        }
+
+        // ============================================
+        // Map Controls
+        // ============================================
+        function switchStyle(styleName) {
+            // Update button states
+            document.querySelectorAll('.style-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const currentCenter = map.getCenter();
+            const currentZoom = map.getZoom();
+            const currentPitch = map.getPitch();
+            const currentBearing = map.getBearing();
+
+            map.setStyle(styles[styleName]);
+
+            map.once('styledata', () => {
+                map.jumpTo({
+                    center: currentCenter,
+                    zoom: currentZoom,
+                    pitch: currentPitch,
+                    bearing: currentBearing
+                });
+                
+                // Re-add layers after style change
+                setTimeout(() => {
+                    try {
+                        addBoundaryCircle();
+                        addVillageLabel();
+                    } catch(e) {}
+                }, 500);
+            });
+        }
+
+        function zoomIn() {
+            map.zoomIn({ duration: 500 });
+        }
+
+        function zoomOut() {
+            map.zoomOut({ duration: 500 });
+        }
+
+        function resetView() {
+            map.flyTo({
+                center: MERAHI_CENTER,
+                zoom: 15,
+                pitch: 65,
+                bearing: 20,
+                duration: 2000
+            });
+        }
+
+        function toggleRotation() {
+            isRotating = !isRotating;
+            const btn = document.getElementById('rotateBtn');
+            
+            if (isRotating) {
+                btn.style.color = '#3b82f6';
+                btn.style.borderColor = '#3b82f6';
+                rotationInterval = setInterval(() => {
+                    const bearing = map.getBearing() + 0.3;
+                    map.setBearing(bearing);
+                }, 16);
+            } else {
+                btn.style.color = 'white';
+                btn.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                clearInterval(rotationInterval);
+            }
+        }
+
+        function flyAround() {
+            const points = [
+                { center: MERAHI_CENTER, zoom: 16, pitch: 70, bearing: 0 },
+                { center: [84.358, 26.124], zoom: 15.5, pitch: 65, bearing: 90 },
+                { center: [84.352, 26.120], zoom: 15.5, pitch: 60, bearing: 180 },
+                { center: [84.356, 26.118], zoom: 15.5, pitch: 70, bearing: 270 },
+                { center: MERAHI_CENTER, zoom: 15, pitch: 65, bearing: 360 }
+            ];
+
+            let i = 0;
+            function flyNext() {
+                if (i >= points.length) return;
+                map.flyTo({
+                    ...points[i],
+                    duration: 3000,
+                    essential: true
+                });
+                i++;
+                setTimeout(flyNext, 3200);
+            }
+            flyNext();
+        }
+
+        function togglePitch() {
+            is3D = !is3D;
+            map.easeTo({
+                pitch: is3D ? 65 : 0,
+                duration: 1000
+            });
+        }
+
+        // ============================================
+        // Initialize
+        // ============================================
+        initMap();
     </script>
 </body>
 </html>
