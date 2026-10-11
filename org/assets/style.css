@@ -475,12 +475,13 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .split-note.blog{ background: var(--brass-dim); color: var(--brass-light); }
 
 /* ---------- sitemap ---------- */
-.board{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-@media (max-width: 900px){ .board{ grid-template-columns: 1fr; } }
+.board{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 35px; }
+@media (max-width: 875px){ .board{ grid-template-columns: 1fr; } }
 .board-col-head{ display: flex; align-items: center; gap: 10px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
 .board-col-head .dot{ width: 9px; height: 9px; border-radius: 50%; background: var(--brass); flex-shrink: 0; }
 .board-col-head.tools .dot{ background: var(--tools); }
 .board-col-head.music .dot{ background: var(--music); }
+.board-col-head.bios .dot{ background: var(--bios); }
 .board-col-head h3{ font-size: 17px; margin: 0; color: var(--paper); }
 .board-list{ list-style: none; margin: 0; padding: 0; }
 .board-list li a{
