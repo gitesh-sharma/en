@@ -732,3 +732,4 @@ a.badge-card:hover .badge-name{ color: var(--gold); }
 }
 .play-option:hover{ border-color: var(--gold); color: var(--gold); transform: translateX(3px); }
 .play-note{ margin: 16px 0 0; font-family: var(--font-mono); font-size: 0.72rem; opacity: 0.5; }
+.track-title a:hover{ color: var(--gold); }
