@@ -689,6 +689,7 @@ a.badge-card:hover .badge-name{ color: var(--gold); }
 }
 .track-row:hover{ background: rgba(243,235,218,0.04); }
 .track-title{ flex: 1; min-width: 0; font-weight: 700; overflow-wrap: anywhere; }
+.track-title a:hover{ color: var(--gold); }
 .track-more{ font-family: var(--font-mono); font-size: 0.8rem; color: var(--teal); }
 
 .play-btn{
@@ -701,7 +702,6 @@ a.badge-card:hover .badge-name{ color: var(--gold); }
 .play-btn:hover{ transform: scale(1.08); background: #FFC466; }
 .play-btn svg{ width: 18px; height: 18px; margin-left: 2px; }
 
-/* "Play on…" chooser */
 .play-dialog{
   border: 1px solid var(--ink-line);
   border-radius: var(--radius-md);
@@ -732,4 +732,3 @@ a.badge-card:hover .badge-name{ color: var(--gold); }
 }
 .play-option:hover{ border-color: var(--gold); color: var(--gold); transform: translateX(3px); }
 .play-note{ margin: 16px 0 0; font-family: var(--font-mono); font-size: 0.72rem; opacity: 0.5; }
-.track-title a:hover{ color: var(--gold); }
