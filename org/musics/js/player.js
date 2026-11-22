@@ -14,8 +14,8 @@
   var PLATFORMS = [
     { key: 'spotify',  name: 'Spotify',      search: 'https://open.spotify.com/search/' },
     { key: 'apple',    name: 'Apple Music',  search: 'https://music.apple.com/us/search?term=' },
-    { key: 'amazon',   name: 'Amazon Music', search: 'https://music.amazon.in/search/' },
-    { key: 'jiosaavn', name: 'JioSaavn',     search: 'https://www.jiosaavn.com/search/' },
+    { key: 'amazon',   name: 'Amazon Music', search: 'https://music.amazon.com/search/' },
+    { key: 'jiosaavn', name: 'JioSaavn',     search: 'https://www.jiosaavn.com/search/song/' },
     { key: 'gaana',    name: 'Gaana',        search: 'https://gaana.com/search/' }
   ];
 
@@ -52,7 +52,9 @@
 
   // a track row (or its play button)
   document.querySelectorAll('[data-track]').forEach(function (el) {
-    el.addEventListener('click', function () {
+    el.addEventListener('click', function (e) {
+      // a click on the song-page link inside the row should just navigate
+      if (e.target.closest && e.target.closest('a')) return;
       var t = cfg.tracks[parseInt(el.getAttribute('data-track'), 10)];
       if (!t) return;
       // a track without its own Apple link falls back to the album link
